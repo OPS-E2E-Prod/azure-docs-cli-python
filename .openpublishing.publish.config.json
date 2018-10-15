@@ -2,9 +2,9 @@
   "build_entry_point": "docs",
   "docsets_to_publish": [
     {
-      "docset_name": "azure-cli-docs",
+      "docset_name": "e2eprod-azure-cli-docs",
       "build_source_folder": ".",
-      "build_output_subfolder": "cli/azure",
+      "build_output_subfolder": "e2eprod-azure-cli-docs",
       "locale": "en-us",
       "open_to_public_contributors": true,
       "type_mapping": {
@@ -30,11 +30,11 @@
   ],
   "notification_subscribers": [],
   "sync_notification_subscribers": [],
-  "branches_to_filter": [],
   "git_repository_branch_open_to_public_contributors": "master",
   "skip_source_output_uploading": false,
   "need_preview_pull_request": true,
   "contribution_branch_mappings": {},
+  "branches_to_filter": ["master-sync-work","live-sync-work"],
   "dependent_repositories": [
     {
       "path_to_root": "_themes",
