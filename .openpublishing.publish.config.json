@@ -1,21 +1,11 @@
 {
   "build_entry_point": "docs",
-  "need_generate_pdf": true,
-  "need_preview_pull_request": true,
-  "need_generate_intellisense": false,
-  "branch_target_mapping": {
-    "live": [
-      "Publish",
-      "Pdf"
-    ]
-  },
   "docsets_to_publish": [
     {
       "docset_name": "e2eprod-azure-cli-docs",
       "build_source_folder": ".",
       "build_output_subfolder": "e2eprod-azure-cli-docs",
       "locale": "en-us",
-      "monikers": [],
       "open_to_public_contributors": true,
       "type_mapping": {
         "Conceptual": "Content",
@@ -27,8 +17,9 @@
       },
       "build_entry_point": "docs",
       "template_folder": "_themes",
+      "version": 0,
       "customized_template_paths": [
-         "_dependentPackages/uref/content"
+        "_dependentPackages/uref/content"
       ],
       "customized_tasks": {
         "docset_prebuild": [
@@ -38,21 +29,39 @@
     }
   ],
   "notification_subscribers": [],
-  "branches_to_filter": [
-    "master-sync-work",
-    "live-sync-work"
-  ],
+  "sync_notification_subscribers": [],
+  "git_repository_branch_open_to_public_contributors": "master",
   "skip_source_output_uploading": false,
-  "git_repository_branch_open_to_public_contributors": "staging",
+  "need_preview_pull_request": true,
+  "contribution_branch_mappings": {},
+  "branches_to_filter": ["master-sync-work","live-sync-work"],
   "dependent_repositories": [
     {
       "path_to_root": "_themes",
       "url": "https://github.com/Microsoft/templates.docs.msft",
       "branch": "master",
       "branch_mapping": {}
+    },
+    {
+      "path_to_root": "_themes.pdf",
+      "url": "https://github.com/Microsoft/templates.docs.msft.pdf",
+      "branch": "master",
+      "branch_mapping": {}
     }
   ],
+  "branch_target_mapping": {
+    "live": [
+      "Publish",
+      "Pdf"
+    ]
+  },
   "need_generate_pdf_url_template": true,
+  "targets": {
+    "pdf": {
+      "template_folder": "_themes.pdf"
+    }
+  },
+  "need_generate_intellisense": false,
   "dependent_packages": [
     {
       "id": "opbuild.templates.uref",
@@ -81,6 +90,12 @@
       "ConceptualTOC": "docs-ref-conceptual/toc.yml",
       "ReferenceTOCUrl": "/cli/azure/command/toc.json?view=azure-cli-2017-03-09-profile",
       "ConceptualTOCUrl": "/cli/azure/toc.json?view=azure-cli-2017-03-09-profile"
+    },
+    {
+      "TopLevelTOC": "2018-03-01-hybrid/docs-ref-autogen/toc.yml",
+      "ConceptualTOC": "docs-ref-conceptual/toc.yml",
+      "ReferenceTOCUrl": "/cli/azure/command/toc.json?view=azure-cli-2018-03-01-hybrid",
+      "ConceptualTOCUrl": "/cli/azure/toc.json?view=azure-cli-2018-03-01-hybrid"
     }
   ]
 }
