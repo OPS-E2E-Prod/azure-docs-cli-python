@@ -14,7 +14,7 @@ ms.devlang: azurecli
 # Azure CLI configuration
 
 The Azure CLI allows for user configuration for settings such as logging, data collection, and default argument values.
-The CLI offers a convenience command for managing some defaults, `az configure`. Other values can be set in a
+The CLI offers a convenience command for managingd some defaults, `az configure`. Other values can be set in a
 configuration file or with environment variables.
 
 Configuration values used by the CLI are evaluated in the following precedence, with items higher on the list taking priority.
