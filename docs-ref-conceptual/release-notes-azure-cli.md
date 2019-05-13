@@ -4,7 +4,7 @@ description: Learn about the latest updates to Azure CLI
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 04/09/2019
+ms.date: 05/06/2019
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
@@ -12,6 +12,136 @@ ms.devlang: azurecli
 ---
 
 # Azure CLI release notes
+
+## May 6, 2019
+
+Version 2.0.64
+
+### ACS
+* [BREAKING CHANGE] Removed `--fqdn` flag on `openshift` commands
+* Changed to use Azure Red Hat Openshift GA API Version
+* Added `customer-admin-group-id` flag to `openshift create`
+* [GA] Removed `(PREVIEW)` from `aks create` option `--network-policy`
+
+### Appservice
+* [DEPRECATED] Deprecated `functionapp devops-build` command
+  * Renamed to `functionapp devops-pipeline`
+* Fixed getting the correct username for cloudshell which was causing `webapp up` to fail
+* Updated `appservice plan --sku` documentation updated to reflect the supported appserviceplans
+* Added optional arguments for resource group and plan to `webapp up`
+* Added support to `webapp ssh` to respect `AZURE_CLI_DISABLE_CONNECTION_VERIFICATION` environment variable
+* Added `appserviceplan create` support for Linux Free SKU
+* Changed `webapp up` to have a 30s sleep after setting `SCM_DO_BUILD_DURING_DEPLOYMENT=true` appsetting to handle kudu cold start
+* Added support for `powershell` runtime to `functionapp create` on Windows
+* Added `create-remote-connection` command
+
+### Batch
+* Fixed bug in validator for `--application-package-references` options
+
+### Botservice
+* [BREAKING CHANGE] Changed `bot create -v v4 -k webapp` to create an empty Web App Bot by default (i.e. no bot is deployed to the App Service)
+* Added `--echo` flag to `bot create` to use the old behavior with `-v v4`
+* [BREAKING CHANGE] Changed the default value of  `--version` to `v4`
+  * __NOTE:__ `bot prepare-publish` still uses the its old default
+* [BREAKING CHANGE] Changed `--lang` to no longer default to `Csharp`. If the command requires `--lang` and it is not provided, the command will now error out
+* [BREAKING CHANGE] Changed the `--appid` and `--password` args for `bot create` to be required and can now be created via `ad app create`
+* Added `--appid` and `--password` validation
+* [BREAKING CHANGE] Changed `bot create -v v4` to not create or use a Storage Account or Application Insights
+* [BREAKING CHANGE] Changed `bot create -v v3` to require a region where Application Insights is available
+* [BREAKING CHANGE] Changed `bot update` to now affect only specific properties of a bot
+* [BREAKING CHANGE] Changed `--lang` flags to accept `Javascript` instead of `Node`
+* [BREAKING CHANGE] Removed `Node` as an allowed `--lang` value
+* [BREAKING CHANGE] Changed `bot create -v v4 -k webapp` to no longer set `SCM_DO_BUILD_DURING_DEPLOYMENT` to true. All deployments through Kudu will act according to their default behavior
+* Changed `bot download` for bots without `.bot` files to create the language-specific configuration file with values from the Application Settings for the bot
+* Added `Typescript` support to `bot prepare-deploy`
+* Added warning message to `bot prepare-deploy` for `Javascript` and `Typescript` bots for when `--code-dir` does not contain `package.json`
+* Changed `bot prepare-deploy` to return `true` if successful
+* Added verbose logging to `bot prepare-deploy`
+* Added more available Application Insights regions to `az bot create -v v3`
+
+### Configure
+* Added support for folder based argument default value configurations
+
+### Eventhubs
+* Added `namespace network-rule` commands
+* Added `--default-action` argument for network rules to `namespace [create|update]`
+
+### Network
+* [BREAKING CHANGE] Replaced `--cache` arugment with `--defer` for `vnet [create|update]` 
+
+### Policy Insights
+* Added support for `--expand PolicyEvaluationDetails` to query policy evaluation details on the resource
+
+### Role
+* [DEPRECATED] Changed `create-for-rbac` hide '--password' argument - support will be removed in May 2019
+
+### Service Bus
+* Added `namespace network-rule` commands
+* Added `--default-action` argument for network rules to `namespace [create|update]`
+* Fixed `topic [create|update]` to allow `--max-size` support for 10, 20, 40 and 80GB values with premium SKU
+
+### SQL
+* Added `sql virtual-cluster [list|show|delete]` commands
+
+### VM
+* Added `--protect-from-scale-in` and `--protect-from-scale-set-actions` to `vmss update` to enable updates to the protection policy of VMSS VM instances
+* Added `--instance-id` to `vmss update` to enable generic update of VMSS VM instances
+* Added `--instance-id` to `vmss wait`
+* Added new `ppg` command group for manging Proximity Placement Groups
+* Added `--ppg` to `[vm|vmss] create` and `vm availability-set create` for managing PPGs
+* Added `--hyper-v-generation` parameter to `image create`
+
+## April 23, 2019
+
+Version 2.0.63
+
+### ACS
+* Changed `aks get-credentials` to prompt to overwrite duplicated values
+* Removed `(PREVIEW)` from Dev Spaces commands "aks use-dev-spaces" and "aks remove-dev-spaces"
+
+### AMS
+* Fixed bug with asset and account filters update
+
+### AppService
+* Added support for ASE and timeout to `webapp ssh`
+* Added support for establishing CI CD to an Azure DevOps pipeline from a Github repository to Function apps
+* Added `--github-pat` argument to `functionapp devops-build create` to accept Github personal access token
+* Added `--github-repository` argument to `functionapp devops-build create` to accept Github repository that contains a functionapp source code
+* Fixed issue where `az webapp up --logs` was failing with a error and updating default .NETCORE version to 2.1
+* Removed unnecessary functionapp settings when creating a function app with consumption plan
+* Changed `webapp up` so the default asp string now appends number at the end to create a new ASP based on SKU options
+* Added `-b` as an option to `webapp up` to launch the app in the browser
+* Changed `webapp deployment source config zip` to handle `AZURE_CLI_DISABLE_CONNECTION_VERIFICATION` environment variable
+
+### Deployment Manager
+* [PREVIEW] Create and manage artifacts that support rollouts
+
+### Lab
+* Fixed bug which would cause an early exit
+
+### Network
+* Added auto name server delegation to `dns zone create` in parent during child zone creation
+
+### Resource
+* [DEPRECATED] Deprecated `--link-id`, `--target-id` and `--filter-string` arguments of `resource link`
+  * Use the arguments `--link`, `--target`, and `--filter` instead
+* Fixed issue where `resource link [create|update]` commands would not work
+* Fixed an issue where deleting using a resource ID could crash on error
+
+### SQL
+* Added support for custom time zone on managed instances
+* Changed to allow elastic pool name to be used with `sql db update`
+* Added `--no-wait` support to `sql server [create|update]`
+* Added command `sql server wait`
+
+### Storage
+* Fixed issue with double-encoded SAS tokens in `storage blob generate-sas`
+
+### VM
+* Added `--skip-shutdown` flag to `vm|vmss stop` to power-off VMs without shutdown
+* Added `--storage-account-type` argument to `sig image-version create` to set the publishing profile's account type
+* Added `--target-regions` argument to `sig image-version create` to allow setting region-specific storage account types
+
 ## April 9, 2019
 
 ### Core

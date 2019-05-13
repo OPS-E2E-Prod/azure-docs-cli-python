@@ -204,6 +204,39 @@ commands:
 - uid: ext_azure-devops_az_devops_project_show
   name: az devops project show
   summary: Show team project.
+- uid: ext_azure-devops_az_devops_security
+  name: az devops security
+  summary: Manage security related operations.
+- uid: ext_azure-devops_az_devops_security_group
+  name: az devops security group
+  summary: Manage security groups.
+- uid: ext_azure-devops_az_devops_security_group_create
+  name: az devops security group create
+  summary: Create a new Azure DevOps group.
+- uid: ext_azure-devops_az_devops_security_group_delete
+  name: az devops security group delete
+  summary: Delete an Azure DevOps group.
+- uid: ext_azure-devops_az_devops_security_group_list
+  name: az devops security group list
+  summary: List all the groups in a project or organization.
+- uid: ext_azure-devops_az_devops_security_group_membership
+  name: az devops security group membership
+  summary: Manage memberships for security groups.
+- uid: ext_azure-devops_az_devops_security_group_membership_add
+  name: az devops security group membership add
+  summary: Add membership.
+- uid: ext_azure-devops_az_devops_security_group_membership_list
+  name: az devops security group membership list
+  summary: List memberships for a group or user.
+- uid: ext_azure-devops_az_devops_security_group_membership_remove
+  name: az devops security group membership remove
+  summary: Remove membership.
+- uid: ext_azure-devops_az_devops_security_group_show
+  name: az devops security group show
+  summary: Show group details.
+- uid: ext_azure-devops_az_devops_security_group_update
+  name: az devops security group update
+  summary: Update name AND/OR description for an Azure DevOps group.
 - uid: ext_azure-devops_az_devops_service_endpoint
   name: az devops service-endpoint
   summary: Manage service endpoints/service connections.
@@ -255,6 +288,36 @@ commands:
 - uid: ext_azure-devops_az_devops_user_update
   name: az devops user update
   summary: Update license type for a user.
+- uid: ext_azure-devops_az_devops_wiki
+  name: az devops wiki
+  summary: Manage wikis.
+- uid: ext_azure-devops_az_devops_wiki_create
+  name: az devops wiki create
+  summary: Create a wiki.
+- uid: ext_azure-devops_az_devops_wiki_delete
+  name: az devops wiki delete
+  summary: Delete a wiki.
+- uid: ext_azure-devops_az_devops_wiki_list
+  name: az devops wiki list
+  summary: List all the wikis in a project or organization.
+- uid: ext_azure-devops_az_devops_wiki_page
+  name: az devops wiki page
+  summary: Manage wiki pages.
+- uid: ext_azure-devops_az_devops_wiki_page_create
+  name: az devops wiki page create
+  summary: Add a new page.
+- uid: ext_azure-devops_az_devops_wiki_page_delete
+  name: az devops wiki page delete
+  summary: Delete a page.
+- uid: ext_azure-devops_az_devops_wiki_page_show
+  name: az devops wiki page show
+  summary: Get the content of a page or open a page.
+- uid: ext_azure-devops_az_devops_wiki_page_update
+  name: az devops wiki page update
+  summary: Edit a page.
+- uid: ext_azure-devops_az_devops_wiki_show
+  name: az devops wiki show
+  summary: Show details of a wiki.
 globalParameters:
 - name: --debug
   summary: Increase logging verbosity to show all debug logs.
