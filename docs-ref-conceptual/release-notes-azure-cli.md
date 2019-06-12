@@ -4,7 +4,7 @@ description: Learn about the latest updates to Azure CLI
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 05/06/2019
+ms.date: 06/05/2019
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
@@ -12,6 +12,93 @@ ms.devlang: azurecli
 ---
 
 # Azure CLI release notes
+
+## June 4, 2019
+
+Version 2.0.66
+
+### Core
+* Fixed bug where commands fail if `--output yaml` is used with `--query`
+
+### ACR
+* Added 'acr pack' command group for creating quick build Tasks using Buildpacks.
+
+### ACS
+* Allow enabling/disabling AKS kube-dashboard addon
+* Print a friendly message when the subscription is not whitelisted to use Azure Red Hat OpenShift
+
+### Batch
+* Improved error handling when not logged in to an account \[[#9165](https://github.com/Azure/azure-cli/issues/9165)\]\[[#8978](https://github.com/Azure/azure-cli/issues/8978)\]
+
+### IoT
+* Added support for manual failover
+
+### Network
+* Added `network application-gateway waf-policy` commands to support custom WAF rules.
+* Added `--waf-policy` and `--max-capacity` arguments to `network application-gateway [create|update]` 
+
+### Resource
+* Improved error message from `deployment create` when there is no TTY available
+
+### Role
+* Updated help text.
+
+### Compute
+* Added support to `vm create` for VMs from a managed image with data-disk luns that do not start from 0 or that skip numbers
+
+## May 21, 2019
+
+Version 2.0.65
+
+### Core
+* Added better feedback for authentication errors
+* Fixed issue where the CLI would load extensions that were not compatible with its core version
+* Fixed issue with launching when `clouds.config` is corrupted
+
+### ACR
+* Added support for Managed Identities to Tasks
+
+### ACS
+* Fixed `openshift create` command when used with customer AAD client
+
+### AppService
+* [DEPRECATED] Deprecated `functionapp devops-build` command - will be removed in next release
+* Changed `functionapp devops-pipeline` to fetch build log from Azure DevOps in verbose mode
+* [BREAKING CHANGE] Removed `--use_local_settings` flag from `functionapp devops-pipeline` command - was a no-op
+* Changed `webapp up` to return JSON output if `--logs` is not used
+* Added support for writing default resources to local config for `webapp up`
+* Added support to `webapp up` for redeploying an app without using the `--location` argument
+* Fixed an issue where for Linux Free SKU ASP creation use Free as SKU value was not working
+
+### BotService
+* Changed to allow all casing for `--lang` parameters for commands
+* Updated description for command module
+
+### Consumption
+* Added missing required parameter when running `consumption usage list --billing-period-name`
+
+### IoT
+* Added support to list all keys
+
+### Network
+* [BREAKING CHANGE]: Removed `network interface-endpoints` command group - use `network private-endpoints` 
+* Added `--nat-gateway` argument to `network vnet subnet [create|update]` for attaching to a NAT gateway
+* Fixed issue with `dns zone import` where record names could not match a record type
+
+### RDBMS
+* Added postgres and mysql support for geo replication
+
+### RBAC
+* Added support for mangement group scope to `role assignment`
+
+### Storage
+* `storage blob sync`: add sync command for storage blob
+
+### Compute
+* Added `--computer-name` to `vm create` for setting a VM's computer name
+* Renamed `--ssh-key-value` renamed to `--ssh-key-values` for `[vm|vmss] create` - can now accept multiple ssh public key values or paths
+  * __Note__: This is **not** a breaking change - `--ssh-key-value` will be parsed correctly as it matches only `--ssh-key-values`
+* Changed the `--type` argument of `ppg create` to be optional
 
 ## May 6, 2019
 

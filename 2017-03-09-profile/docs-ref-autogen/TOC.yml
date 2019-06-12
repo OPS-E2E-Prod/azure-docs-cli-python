@@ -1610,13 +1610,6 @@
         - name: generate
           uid: az_network_vnet_gateway_vpn_client_generate
           displayName: az network vnet-gateway vpn-client generate
-    - name: interface-endpoint
-      uid: az_network_interface_endpoint
-      displayName: az network interface-endpoint
-      items:
-      - name: list
-        uid: az_network_interface_endpoint_list
-        displayName: az network interface-endpoint list
     - name: private-dns
       uid: az_network_private_dns
       displayName: az network private-dns
@@ -2243,6 +2236,9 @@
       - name: snapshot
         uid: az_storage_blob_snapshot
         displayName: az storage blob snapshot
+      - name: sync
+        uid: az_storage_blob_sync
+        displayName: az storage blob sync
       - name: update
         uid: az_storage_blob_update
         displayName: az storage blob update
@@ -3353,6 +3349,9 @@
       uid: ext_aks-preview_az_aks
       displayName: az aks
       items:
+      - name: browse
+        uid: ext_aks-preview_az_aks_browse
+        displayName: az aks browse
       - name: create
         uid: ext_aks-preview_az_aks_create
         displayName: az aks create
@@ -3362,6 +3361,9 @@
       - name: enable-addons
         uid: ext_aks-preview_az_aks_enable_addons
         displayName: az aks enable-addons
+      - name: get-credentials
+        uid: ext_aks-preview_az_aks_get_credentials
+        displayName: az aks get-credentials
       - name: get-upgrades
         uid: ext_aks-preview_az_aks_get_upgrades
         displayName: az aks get-upgrades
@@ -3591,267 +3593,6 @@
         - name: upload
           uid: ext_azure-batch-cli-extensions_az_batch_file_upload
           displayName: az batch file upload
-  - name: azure-cli-iot-ext
-    uid: ext_azure-cli-iot-ext_az
-    items:
-    - name: IoT
-      uid: ext_azure-cli-iot-ext_az_iot
-      displayName: az iot
-      items:
-      - name: Devices
-        uid: ext_azure-cli-iot-ext_az_iot_device
-        displayName: az iot device
-        items:
-        - name: send-d2c-message
-          uid: ext_azure-cli-iot-ext_az_iot_device_send_d2c_message
-          displayName: az iot device send-d2c-message
-        - name: simulate
-          uid: ext_azure-cli-iot-ext_az_iot_device_simulate
-          displayName: az iot device simulate
-        - name: upload-file
-          uid: ext_azure-cli-iot-ext_az_iot_device_upload_file
-          displayName: az iot device upload-file
-        - name: c2d-message
-          uid: ext_azure-cli-iot-ext_az_iot_device_c2d_message
-          displayName: az iot device c2d-message
-          items:
-          - name: abandon
-            uid: ext_azure-cli-iot-ext_az_iot_device_c2d_message_abandon
-            displayName: az iot device c2d-message abandon
-          - name: complete
-            uid: ext_azure-cli-iot-ext_az_iot_device_c2d_message_complete
-            displayName: az iot device c2d-message complete
-          - name: receive
-            uid: ext_azure-cli-iot-ext_az_iot_device_c2d_message_receive
-            displayName: az iot device c2d-message receive
-          - name: reject
-            uid: ext_azure-cli-iot-ext_az_iot_device_c2d_message_reject
-            displayName: az iot device c2d-message reject
-          - name: send
-            uid: ext_azure-cli-iot-ext_az_iot_device_c2d_message_send
-            displayName: az iot device c2d-message send
-      - name: Hubs
-        uid: ext_azure-cli-iot-ext_az_iot_hub
-        displayName: az iot hub
-        items:
-        - name: apply-configuration
-          uid: ext_azure-cli-iot-ext_az_iot_hub_apply_configuration
-          displayName: az iot hub apply-configuration
-        - name: generate-sas-token
-          uid: ext_azure-cli-iot-ext_az_iot_hub_generate_sas_token
-          displayName: az iot hub generate-sas-token
-        - name: invoke-device-method
-          uid: ext_azure-cli-iot-ext_az_iot_hub_invoke_device_method
-          displayName: az iot hub invoke-device-method
-        - name: invoke-module-method
-          uid: ext_azure-cli-iot-ext_az_iot_hub_invoke_module_method
-          displayName: az iot hub invoke-module-method
-        - name: monitor-events
-          uid: ext_azure-cli-iot-ext_az_iot_hub_monitor_events
-          displayName: az iot hub monitor-events
-        - name: monitor-feedback
-          uid: ext_azure-cli-iot-ext_az_iot_hub_monitor_feedback
-          displayName: az iot hub monitor-feedback
-        - name: query
-          uid: ext_azure-cli-iot-ext_az_iot_hub_query
-          displayName: az iot hub query
-        - name: configuration
-          uid: ext_azure-cli-iot-ext_az_iot_hub_configuration
-          displayName: az iot hub configuration
-          items:
-          - name: create
-            uid: ext_azure-cli-iot-ext_az_iot_hub_configuration_create
-            displayName: az iot hub configuration create
-          - name: delete
-            uid: ext_azure-cli-iot-ext_az_iot_hub_configuration_delete
-            displayName: az iot hub configuration delete
-          - name: list
-            uid: ext_azure-cli-iot-ext_az_iot_hub_configuration_list
-            displayName: az iot hub configuration list
-          - name: show
-            uid: ext_azure-cli-iot-ext_az_iot_hub_configuration_show
-            displayName: az iot hub configuration show
-          - name: show-metric
-            uid: ext_azure-cli-iot-ext_az_iot_hub_configuration_show_metric
-            displayName: az iot hub configuration show-metric
-          - name: update
-            uid: ext_azure-cli-iot-ext_az_iot_hub_configuration_update
-            displayName: az iot hub configuration update
-        - name: device-identity
-          uid: ext_azure-cli-iot-ext_az_iot_hub_device_identity
-          displayName: az iot hub device-identity
-          items:
-          - name: add-children
-            uid: ext_azure-cli-iot-ext_az_iot_hub_device_identity_add_children
-            displayName: az iot hub device-identity add-children
-          - name: create
-            uid: ext_azure-cli-iot-ext_az_iot_hub_device_identity_create
-            displayName: az iot hub device-identity create
-          - name: delete
-            uid: ext_azure-cli-iot-ext_az_iot_hub_device_identity_delete
-            displayName: az iot hub device-identity delete
-          - name: export
-            uid: ext_azure-cli-iot-ext_az_iot_hub_device_identity_export
-            displayName: az iot hub device-identity export
-          - name: get-parent
-            uid: ext_azure-cli-iot-ext_az_iot_hub_device_identity_get_parent
-            displayName: az iot hub device-identity get-parent
-          - name: import
-            uid: ext_azure-cli-iot-ext_az_iot_hub_device_identity_import
-            displayName: az iot hub device-identity import
-          - name: list
-            uid: ext_azure-cli-iot-ext_az_iot_hub_device_identity_list
-            displayName: az iot hub device-identity list
-          - name: list-children
-            uid: ext_azure-cli-iot-ext_az_iot_hub_device_identity_list_children
-            displayName: az iot hub device-identity list-children
-          - name: remove-children
-            uid: ext_azure-cli-iot-ext_az_iot_hub_device_identity_remove_children
-            displayName: az iot hub device-identity remove-children
-          - name: set-parent
-            uid: ext_azure-cli-iot-ext_az_iot_hub_device_identity_set_parent
-            displayName: az iot hub device-identity set-parent
-          - name: show
-            uid: ext_azure-cli-iot-ext_az_iot_hub_device_identity_show
-            displayName: az iot hub device-identity show
-          - name: show-connection-string
-            uid: ext_azure-cli-iot-ext_az_iot_hub_device_identity_show_connection_string
-            displayName: az iot hub device-identity show-connection-string
-          - name: update
-            uid: ext_azure-cli-iot-ext_az_iot_hub_device_identity_update
-            displayName: az iot hub device-identity update
-        - name: device-twin
-          uid: ext_azure-cli-iot-ext_az_iot_hub_device_twin
-          displayName: az iot hub device-twin
-          items:
-          - name: replace
-            uid: ext_azure-cli-iot-ext_az_iot_hub_device_twin_replace
-            displayName: az iot hub device-twin replace
-          - name: show
-            uid: ext_azure-cli-iot-ext_az_iot_hub_device_twin_show
-            displayName: az iot hub device-twin show
-          - name: update
-            uid: ext_azure-cli-iot-ext_az_iot_hub_device_twin_update
-            displayName: az iot hub device-twin update
-        - name: module-identity
-          uid: ext_azure-cli-iot-ext_az_iot_hub_module_identity
-          displayName: az iot hub module-identity
-          items:
-          - name: create
-            uid: ext_azure-cli-iot-ext_az_iot_hub_module_identity_create
-            displayName: az iot hub module-identity create
-          - name: delete
-            uid: ext_azure-cli-iot-ext_az_iot_hub_module_identity_delete
-            displayName: az iot hub module-identity delete
-          - name: list
-            uid: ext_azure-cli-iot-ext_az_iot_hub_module_identity_list
-            displayName: az iot hub module-identity list
-          - name: show
-            uid: ext_azure-cli-iot-ext_az_iot_hub_module_identity_show
-            displayName: az iot hub module-identity show
-          - name: show-connection-string
-            uid: ext_azure-cli-iot-ext_az_iot_hub_module_identity_show_connection_string
-            displayName: az iot hub module-identity show-connection-string
-          - name: update
-            uid: ext_azure-cli-iot-ext_az_iot_hub_module_identity_update
-            displayName: az iot hub module-identity update
-        - name: module-twin
-          uid: ext_azure-cli-iot-ext_az_iot_hub_module_twin
-          displayName: az iot hub module-twin
-          items:
-          - name: replace
-            uid: ext_azure-cli-iot-ext_az_iot_hub_module_twin_replace
-            displayName: az iot hub module-twin replace
-          - name: show
-            uid: ext_azure-cli-iot-ext_az_iot_hub_module_twin_show
-            displayName: az iot hub module-twin show
-          - name: update
-            uid: ext_azure-cli-iot-ext_az_iot_hub_module_twin_update
-            displayName: az iot hub module-twin update
-      - name: dps
-        uid: ext_azure-cli-iot-ext_az_iot_dps
-        displayName: az iot dps
-        items:
-        - name: enrollment
-          uid: ext_azure-cli-iot-ext_az_iot_dps_enrollment
-          displayName: az iot dps enrollment
-          items:
-          - name: create
-            uid: ext_azure-cli-iot-ext_az_iot_dps_enrollment_create
-            displayName: az iot dps enrollment create
-          - name: delete
-            uid: ext_azure-cli-iot-ext_az_iot_dps_enrollment_delete
-            displayName: az iot dps enrollment delete
-          - name: list
-            uid: ext_azure-cli-iot-ext_az_iot_dps_enrollment_list
-            displayName: az iot dps enrollment list
-          - name: show
-            uid: ext_azure-cli-iot-ext_az_iot_dps_enrollment_show
-            displayName: az iot dps enrollment show
-          - name: update
-            uid: ext_azure-cli-iot-ext_az_iot_dps_enrollment_update
-            displayName: az iot dps enrollment update
-        - name: enrollment-group
-          uid: ext_azure-cli-iot-ext_az_iot_dps_enrollment_group
-          displayName: az iot dps enrollment-group
-          items:
-          - name: create
-            uid: ext_azure-cli-iot-ext_az_iot_dps_enrollment_group_create
-            displayName: az iot dps enrollment-group create
-          - name: delete
-            uid: ext_azure-cli-iot-ext_az_iot_dps_enrollment_group_delete
-            displayName: az iot dps enrollment-group delete
-          - name: list
-            uid: ext_azure-cli-iot-ext_az_iot_dps_enrollment_group_list
-            displayName: az iot dps enrollment-group list
-          - name: show
-            uid: ext_azure-cli-iot-ext_az_iot_dps_enrollment_group_show
-            displayName: az iot dps enrollment-group show
-          - name: update
-            uid: ext_azure-cli-iot-ext_az_iot_dps_enrollment_group_update
-            displayName: az iot dps enrollment-group update
-        - name: registration
-          uid: ext_azure-cli-iot-ext_az_iot_dps_registration
-          displayName: az iot dps registration
-          items:
-          - name: delete
-            uid: ext_azure-cli-iot-ext_az_iot_dps_registration_delete
-            displayName: az iot dps registration delete
-          - name: list
-            uid: ext_azure-cli-iot-ext_az_iot_dps_registration_list
-            displayName: az iot dps registration list
-          - name: show
-            uid: ext_azure-cli-iot-ext_az_iot_dps_registration_show
-            displayName: az iot dps registration show
-      - name: edge
-        uid: ext_azure-cli-iot-ext_az_iot_edge
-        displayName: az iot edge
-        items:
-        - name: set-modules
-          uid: ext_azure-cli-iot-ext_az_iot_edge_set_modules
-          displayName: az iot edge set-modules
-        - name: deployment
-          uid: ext_azure-cli-iot-ext_az_iot_edge_deployment
-          displayName: az iot edge deployment
-          items:
-          - name: create
-            uid: ext_azure-cli-iot-ext_az_iot_edge_deployment_create
-            displayName: az iot edge deployment create
-          - name: delete
-            uid: ext_azure-cli-iot-ext_az_iot_edge_deployment_delete
-            displayName: az iot edge deployment delete
-          - name: list
-            uid: ext_azure-cli-iot-ext_az_iot_edge_deployment_list
-            displayName: az iot edge deployment list
-          - name: show
-            uid: ext_azure-cli-iot-ext_az_iot_edge_deployment_show
-            displayName: az iot edge deployment show
-          - name: show-metric
-            uid: ext_azure-cli-iot-ext_az_iot_edge_deployment_show_metric
-            displayName: az iot edge deployment show-metric
-          - name: update
-            uid: ext_azure-cli-iot-ext_az_iot_edge_deployment_update
-            displayName: az iot edge deployment update
   - name: azure-cli-ml
     uid: ext_azure-cli-ml_az
     items:
@@ -4037,6 +3778,9 @@
         - name: show
           uid: ext_azure-cli-ml_az_ml_run_show
           displayName: az ml run show
+        - name: submit-hyperdrive
+          uid: ext_azure-cli-ml_az_ml_run_submit_hyperdrive
+          displayName: az ml run submit-hyperdrive
         - name: submit-pipeline
           uid: ext_azure-cli-ml_az_ml_run_submit_pipeline
           displayName: az ml run submit-pipeline
@@ -4274,6 +4018,35 @@
             - name: remove
               uid: ext_azure-devops_az_devops_security_group_membership_remove
               displayName: az devops security group membership remove
+        - name: permission
+          uid: ext_azure-devops_az_devops_security_permission
+          displayName: az devops security permission
+          items:
+          - name: list
+            uid: ext_azure-devops_az_devops_security_permission_list
+            displayName: az devops security permission list
+          - name: reset
+            uid: ext_azure-devops_az_devops_security_permission_reset
+            displayName: az devops security permission reset
+          - name: reset-all
+            uid: ext_azure-devops_az_devops_security_permission_reset_all
+            displayName: az devops security permission reset-all
+          - name: show
+            uid: ext_azure-devops_az_devops_security_permission_show
+            displayName: az devops security permission show
+          - name: update
+            uid: ext_azure-devops_az_devops_security_permission_update
+            displayName: az devops security permission update
+          - name: namespace
+            uid: ext_azure-devops_az_devops_security_permission_namespace
+            displayName: az devops security permission namespace
+            items:
+            - name: list
+              uid: ext_azure-devops_az_devops_security_permission_namespace_list
+              displayName: az devops security permission namespace list
+            - name: show
+              uid: ext_azure-devops_az_devops_security_permission_namespace_show
+              displayName: az devops security permission namespace show
       - name: service-endpoint
         uid: ext_azure-devops_az_devops_service_endpoint
         displayName: az devops service-endpoint
@@ -4281,6 +4054,9 @@
         - name: create
           uid: ext_azure-devops_az_devops_service_endpoint_create
           displayName: az devops service-endpoint create
+        - name: delete
+          uid: ext_azure-devops_az_devops_service_endpoint_delete
+          displayName: az devops service-endpoint delete
         - name: list
           uid: ext_azure-devops_az_devops_service_endpoint_list
           displayName: az devops service-endpoint list
@@ -4606,24 +4382,15 @@
         uid: ext_azure-devops_az_repos_pr
         displayName: az repos pr
         items:
-        - name: abandon
-          uid: ext_azure-devops_az_repos_pr_abandon
-          displayName: az repos pr abandon
         - name: checkout
           uid: ext_azure-devops_az_repos_pr_checkout
           displayName: az repos pr checkout
-        - name: complete
-          uid: ext_azure-devops_az_repos_pr_complete
-          displayName: az repos pr complete
         - name: create
           uid: ext_azure-devops_az_repos_pr_create
           displayName: az repos pr create
         - name: list
           uid: ext_azure-devops_az_repos_pr_list
           displayName: az repos pr list
-        - name: reactivate
-          uid: ext_azure-devops_az_repos_pr_reactivate
-          displayName: az repos pr reactivate
         - name: set-vote
           uid: ext_azure-devops_az_repos_pr_set_vote
           displayName: az repos pr set-vote
@@ -5904,96 +5671,6 @@
         - name: show
           uid: ext_mixed-reality_az_spatial_anchors_account_key_show
           displayName: az spatial-anchors-account key show
-  - name: netappfiles-preview
-    uid: ext_netappfiles-preview_az
-    items:
-    - name: netappfiles
-      uid: ext_netappfiles-preview_az_netappfiles
-      displayName: az netappfiles
-      items:
-      - name: account
-        uid: ext_netappfiles-preview_az_netappfiles_account
-        displayName: az netappfiles account
-        items:
-        - name: create
-          uid: ext_netappfiles-preview_az_netappfiles_account_create
-          displayName: az netappfiles account create
-        - name: delete
-          uid: ext_netappfiles-preview_az_netappfiles_account_delete
-          displayName: az netappfiles account delete
-        - name: list
-          uid: ext_netappfiles-preview_az_netappfiles_account_list
-          displayName: az netappfiles account list
-        - name: set
-          uid: ext_netappfiles-preview_az_netappfiles_account_set
-          displayName: az netappfiles account set
-        - name: show
-          uid: ext_netappfiles-preview_az_netappfiles_account_show
-          displayName: az netappfiles account show
-        - name: update
-          uid: ext_netappfiles-preview_az_netappfiles_account_update
-          displayName: az netappfiles account update
-      - name: mount-target
-        uid: ext_netappfiles-preview_az_netappfiles_mount_target
-        displayName: az netappfiles mount-target
-        items:
-        - name: list
-          uid: ext_netappfiles-preview_az_netappfiles_mount_target_list
-          displayName: az netappfiles mount-target list
-      - name: pool
-        uid: ext_netappfiles-preview_az_netappfiles_pool
-        displayName: az netappfiles pool
-        items:
-        - name: create
-          uid: ext_netappfiles-preview_az_netappfiles_pool_create
-          displayName: az netappfiles pool create
-        - name: delete
-          uid: ext_netappfiles-preview_az_netappfiles_pool_delete
-          displayName: az netappfiles pool delete
-        - name: list
-          uid: ext_netappfiles-preview_az_netappfiles_pool_list
-          displayName: az netappfiles pool list
-        - name: show
-          uid: ext_netappfiles-preview_az_netappfiles_pool_show
-          displayName: az netappfiles pool show
-        - name: update
-          uid: ext_netappfiles-preview_az_netappfiles_pool_update
-          displayName: az netappfiles pool update
-      - name: snapshot
-        uid: ext_netappfiles-preview_az_netappfiles_snapshot
-        displayName: az netappfiles snapshot
-        items:
-        - name: create
-          uid: ext_netappfiles-preview_az_netappfiles_snapshot_create
-          displayName: az netappfiles snapshot create
-        - name: delete
-          uid: ext_netappfiles-preview_az_netappfiles_snapshot_delete
-          displayName: az netappfiles snapshot delete
-        - name: list
-          uid: ext_netappfiles-preview_az_netappfiles_snapshot_list
-          displayName: az netappfiles snapshot list
-        - name: show
-          uid: ext_netappfiles-preview_az_netappfiles_snapshot_show
-          displayName: az netappfiles snapshot show
-      - name: volume
-        uid: ext_netappfiles-preview_az_netappfiles_volume
-        displayName: az netappfiles volume
-        items:
-        - name: create
-          uid: ext_netappfiles-preview_az_netappfiles_volume_create
-          displayName: az netappfiles volume create
-        - name: delete
-          uid: ext_netappfiles-preview_az_netappfiles_volume_delete
-          displayName: az netappfiles volume delete
-        - name: list
-          uid: ext_netappfiles-preview_az_netappfiles_volume_list
-          displayName: az netappfiles volume list
-        - name: show
-          uid: ext_netappfiles-preview_az_netappfiles_volume_show
-          displayName: az netappfiles volume show
-        - name: update
-          uid: ext_netappfiles-preview_az_netappfiles_volume_update
-          displayName: az netappfiles volume update
   - name: privatedns
     uid: ext_privatedns_az
     items:
@@ -6245,63 +5922,6 @@
           - name: wait
             uid: ext_privatedns_az_network_private_dns_zone_wait
             displayName: az network private-dns zone wait
-  - name: rdbms-vnet
-    uid: ext_rdbms-vnet_az
-    items:
-    - name: MySQL
-      uid: ext_rdbms-vnet_az_mysql
-      displayName: az mysql
-      items:
-      - name: Servers
-        uid: ext_rdbms-vnet_az_mysql_server
-        displayName: az mysql server
-        items:
-        - name: vnet-rule
-          uid: ext_rdbms-vnet_az_mysql_server_vnet_rule
-          displayName: az mysql server vnet-rule
-          items:
-          - name: create
-            uid: ext_rdbms-vnet_az_mysql_server_vnet_rule_create
-            displayName: az mysql server vnet-rule create
-          - name: delete
-            uid: ext_rdbms-vnet_az_mysql_server_vnet_rule_delete
-            displayName: az mysql server vnet-rule delete
-          - name: list
-            uid: ext_rdbms-vnet_az_mysql_server_vnet_rule_list
-            displayName: az mysql server vnet-rule list
-          - name: show
-            uid: ext_rdbms-vnet_az_mysql_server_vnet_rule_show
-            displayName: az mysql server vnet-rule show
-          - name: update
-            uid: ext_rdbms-vnet_az_mysql_server_vnet_rule_update
-            displayName: az mysql server vnet-rule update
-    - name: PostgreSQL
-      uid: ext_rdbms-vnet_az_postgres
-      displayName: az postgres
-      items:
-      - name: Servers
-        uid: ext_rdbms-vnet_az_postgres_server
-        displayName: az postgres server
-        items:
-        - name: vnet-rule
-          uid: ext_rdbms-vnet_az_postgres_server_vnet_rule
-          displayName: az postgres server vnet-rule
-          items:
-          - name: create
-            uid: ext_rdbms-vnet_az_postgres_server_vnet_rule_create
-            displayName: az postgres server vnet-rule create
-          - name: delete
-            uid: ext_rdbms-vnet_az_postgres_server_vnet_rule_delete
-            displayName: az postgres server vnet-rule delete
-          - name: list
-            uid: ext_rdbms-vnet_az_postgres_server_vnet_rule_list
-            displayName: az postgres server vnet-rule list
-          - name: show
-            uid: ext_rdbms-vnet_az_postgres_server_vnet_rule_show
-            displayName: az postgres server vnet-rule show
-          - name: update
-            uid: ext_rdbms-vnet_az_postgres_server_vnet_rule_update
-            displayName: az postgres server vnet-rule update
   - name: resource-graph
     uid: ext_resource-graph_az
     items:
@@ -6312,123 +5932,6 @@
       - name: query
         uid: ext_resource-graph_az_graph_query
         displayName: az graph query
-  - name: sap-hana
-    uid: ext_sap-hana_az
-    items:
-    - name: hanainstance
-      uid: ext_sap-hana_az_hanainstance
-      displayName: az hanainstance
-      items:
-      - name: list
-        uid: ext_sap-hana_az_hanainstance_list
-        displayName: az hanainstance list
-      - name: restart
-        uid: ext_sap-hana_az_hanainstance_restart
-        displayName: az hanainstance restart
-      - name: show
-        uid: ext_sap-hana_az_hanainstance_show
-        displayName: az hanainstance show
-      - name: update
-        uid: ext_sap-hana_az_hanainstance_update
-        displayName: az hanainstance update
-  - name: signalr
-    uid: ext_signalr_az
-    items:
-    - name: signalr
-      uid: ext_signalr_az_signalr
-      displayName: az signalr
-      items:
-      - name: create
-        uid: ext_signalr_az_signalr_create
-        displayName: az signalr create
-      - name: delete
-        uid: ext_signalr_az_signalr_delete
-        displayName: az signalr delete
-      - name: list
-        uid: ext_signalr_az_signalr_list
-        displayName: az signalr list
-      - name: show
-        uid: ext_signalr_az_signalr_show
-        displayName: az signalr show
-      - name: key
-        uid: ext_signalr_az_signalr_key
-        displayName: az signalr key
-        items:
-        - name: list
-          uid: ext_signalr_az_signalr_key_list
-          displayName: az signalr key list
-        - name: renew
-          uid: ext_signalr_az_signalr_key_renew
-          displayName: az signalr key renew
-  - name: sqlvm-preview
-    uid: ext_sqlvm-preview_az
-    items:
-    - name: sqlvm
-      uid: ext_sqlvm-preview_az_sqlvm
-      displayName: az sqlvm
-      items:
-      - name: add-to-group
-        uid: ext_sqlvm-preview_az_sqlvm_add_to_group
-        displayName: az sqlvm add-to-group
-      - name: create
-        uid: ext_sqlvm-preview_az_sqlvm_create
-        displayName: az sqlvm create
-      - name: delete
-        uid: ext_sqlvm-preview_az_sqlvm_delete
-        displayName: az sqlvm delete
-      - name: list
-        uid: ext_sqlvm-preview_az_sqlvm_list
-        displayName: az sqlvm list
-      - name: remove-from-group
-        uid: ext_sqlvm-preview_az_sqlvm_remove_from_group
-        displayName: az sqlvm remove-from-group
-      - name: show
-        uid: ext_sqlvm-preview_az_sqlvm_show
-        displayName: az sqlvm show
-      - name: update
-        uid: ext_sqlvm-preview_az_sqlvm_update
-        displayName: az sqlvm update
-      - name: aglistener
-        uid: ext_sqlvm-preview_az_sqlvm_aglistener
-        displayName: az sqlvm aglistener
-        items:
-        - name: add-sqlvm
-          uid: ext_sqlvm-preview_az_sqlvm_aglistener_add_sqlvm
-          displayName: az sqlvm aglistener add-sqlvm
-        - name: create
-          uid: ext_sqlvm-preview_az_sqlvm_aglistener_create
-          displayName: az sqlvm aglistener create
-        - name: delete
-          uid: ext_sqlvm-preview_az_sqlvm_aglistener_delete
-          displayName: az sqlvm aglistener delete
-        - name: list
-          uid: ext_sqlvm-preview_az_sqlvm_aglistener_list
-          displayName: az sqlvm aglistener list
-        - name: remove-sqlvm
-          uid: ext_sqlvm-preview_az_sqlvm_aglistener_remove_sqlvm
-          displayName: az sqlvm aglistener remove-sqlvm
-        - name: show
-          uid: ext_sqlvm-preview_az_sqlvm_aglistener_show
-          displayName: az sqlvm aglistener show
-      - name: group
-        uid: ext_sqlvm-preview_az_sqlvm_group
-        displayName: az sqlvm group
-        items:
-        - name: create
-          uid: ext_sqlvm-preview_az_sqlvm_group_create
-          displayName: az sqlvm group create
-        - name: delete
-          uid: ext_sqlvm-preview_az_sqlvm_group_delete
-          displayName: az sqlvm group delete
-        - name: list
-          uid: ext_sqlvm-preview_az_sqlvm_group_list
-          displayName: az sqlvm group list
-        - name: show
-          uid: ext_sqlvm-preview_az_sqlvm_group_show
-          displayName: az sqlvm group show
-        - name: update
-          uid: ext_sqlvm-preview_az_sqlvm_group_update
-          displayName: az sqlvm group update
   - name: storage-preview
     uid: ext_storage-preview_az
     items:
@@ -6747,6 +6250,23 @@
         - name: update
           uid: ext_virtual-wan_az_network_vwan_update
           displayName: az network vwan update
+  - name: vm-repair
+    uid: ext_vm-repair_az
+    items:
+    - name: Virtual Machines
+      uid: ext_vm-repair_az_vm
+      displayName: az vm
+      items:
+      - name: repair
+        uid: ext_vm-repair_az_vm_repair
+        displayName: az vm repair
+        items:
+        - name: create
+          uid: ext_vm-repair_az_vm_repair_create
+          displayName: az vm repair create
+        - name: restore
+          uid: ext_vm-repair_az_vm_repair_restore
+          displayName: az vm repair restore
   - name: webapp
     uid: ext_webapp_az
     items:
