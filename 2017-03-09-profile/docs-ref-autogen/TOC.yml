@@ -19,6 +19,9 @@
   - name: logout
     uid: az_logout
     displayName: az logout
+  - name: rest
+    uid: az_rest
+    displayName: az rest
   - name: self-test
     uid: az_self_test
     displayName: az self-test
@@ -2764,6 +2767,64 @@
         - name: remove
           uid: az_account_management_group_subscription_remove
           displayName: az account management-group subscription remove
+  - name: VM Images
+    uid: az_image
+    displayName: az image
+    items:
+    - name: template
+      uid: az_image_template
+      displayName: az image template
+      items:
+      - name: create
+        uid: az_image_template_create
+        displayName: az image template create
+      - name: delete
+        uid: az_image_template_delete
+        displayName: az image template delete
+      - name: list
+        uid: az_image_template_list
+        displayName: az image template list
+      - name: run
+        uid: az_image_template_run
+        displayName: az image template run
+      - name: show
+        uid: az_image_template_show
+        displayName: az image template show
+      - name: show-runs
+        uid: az_image_template_show_runs
+        displayName: az image template show-runs
+      - name: update
+        uid: az_image_template_update
+        displayName: az image template update
+      - name: wait
+        uid: az_image_template_wait
+        displayName: az image template wait
+      - name: customizer
+        uid: az_image_template_customizer
+        displayName: az image template customizer
+        items:
+        - name: add
+          uid: az_image_template_customizer_add
+          displayName: az image template customizer add
+        - name: clear
+          uid: az_image_template_customizer_clear
+          displayName: az image template customizer clear
+        - name: remove
+          uid: az_image_template_customizer_remove
+          displayName: az image template customizer remove
+      - name: output
+        uid: az_image_template_output
+        displayName: az image template output
+        items:
+        - name: add
+          uid: az_image_template_output_add
+          displayName: az image template output add
+        - name: clear
+          uid: az_image_template_output_clear
+          displayName: az image template output clear
+        - name: remove
+          uid: az_image_template_output_remove
+          displayName: az image template output remove
   - name: VM Scale Sets
     uid: az_vmss
     displayName: az vmss
@@ -3404,6 +3465,9 @@
         - name: show
           uid: ext_aks-preview_az_aks_nodepool_show
           displayName: az aks nodepool show
+        - name: update
+          uid: ext_aks-preview_az_aks_nodepool_update
+          displayName: az aks nodepool update
         - name: upgrade
           uid: ext_aks-preview_az_aks_nodepool_upgrade
           displayName: az aks nodepool upgrade
@@ -3735,6 +3799,16 @@
           - name: update
             uid: ext_azure-cli-iot-ext_az_iot_hub_device_twin_update
             displayName: az iot hub device-twin update
+        - name: distributed-tracing
+          uid: ext_azure-cli-iot-ext_az_iot_hub_distributed_tracing
+          displayName: az iot hub distributed-tracing
+          items:
+          - name: show
+            uid: ext_azure-cli-iot-ext_az_iot_hub_distributed_tracing_show
+            displayName: az iot hub distributed-tracing show
+          - name: update
+            uid: ext_azure-cli-iot-ext_az_iot_hub_distributed_tracing_update
+            displayName: az iot hub distributed-tracing update
         - name: module-identity
           uid: ext_azure-cli-iot-ext_az_iot_hub_module_identity
           displayName: az iot hub module-identity
@@ -3884,24 +3958,9 @@
           uid: ext_azure-cli-ml_az_ml_computetarget_attach
           displayName: az ml computetarget attach
           items:
-          - name: adla
-            uid: ext_azure-cli-ml_az_ml_computetarget_attach_adla
-            displayName: az ml computetarget attach adla
           - name: aks
             uid: ext_azure-cli-ml_az_ml_computetarget_attach_aks
             displayName: az ml computetarget attach aks
-          - name: batch
-            uid: ext_azure-cli-ml_az_ml_computetarget_attach_batch
-            displayName: az ml computetarget attach batch
-          - name: databricks
-            uid: ext_azure-cli-ml_az_ml_computetarget_attach_databricks
-            displayName: az ml computetarget attach databricks
-          - name: datafactory
-            uid: ext_azure-cli-ml_az_ml_computetarget_attach_datafactory
-            displayName: az ml computetarget attach datafactory
-          - name: hdi
-            uid: ext_azure-cli-ml_az_ml_computetarget_attach_hdi
-            displayName: az ml computetarget attach hdi
           - name: remote
             uid: ext_azure-cli-ml_az_ml_computetarget_attach_remote
             displayName: az ml computetarget attach remote
@@ -3935,6 +3994,9 @@
         - name: attach-blob
           uid: ext_azure-cli-ml_az_ml_datastore_attach_blob
           displayName: az ml datastore attach-blob
+        - name: attach-dbfs
+          uid: ext_azure-cli-ml_az_ml_datastore_attach_dbfs
+          displayName: az ml datastore attach-dbfs
         - name: attach-file
           uid: ext_azure-cli-ml_az_ml_datastore_attach_file
           displayName: az ml datastore attach-file
@@ -4011,21 +4073,42 @@
         uid: ext_azure-cli-ml_az_ml_pipeline
         displayName: az ml pipeline
         items:
+        - name: create-schedule
+          uid: ext_azure-cli-ml_az_ml_pipeline_create_schedule
+          displayName: az ml pipeline create-schedule
         - name: disable
           uid: ext_azure-cli-ml_az_ml_pipeline_disable
           displayName: az ml pipeline disable
+        - name: disable-schedule
+          uid: ext_azure-cli-ml_az_ml_pipeline_disable_schedule
+          displayName: az ml pipeline disable-schedule
         - name: enable
           uid: ext_azure-cli-ml_az_ml_pipeline_enable
           displayName: az ml pipeline enable
+        - name: enable-schedule
+          uid: ext_azure-cli-ml_az_ml_pipeline_enable_schedule
+          displayName: az ml pipeline enable-schedule
+        - name: last-pipeline-run
+          uid: ext_azure-cli-ml_az_ml_pipeline_last_pipeline_run
+          displayName: az ml pipeline last-pipeline-run
         - name: list
           uid: ext_azure-cli-ml_az_ml_pipeline_list
           displayName: az ml pipeline list
         - name: list-steps
           uid: ext_azure-cli-ml_az_ml_pipeline_list_steps
           displayName: az ml pipeline list-steps
+        - name: pipeline-runs-list
+          uid: ext_azure-cli-ml_az_ml_pipeline_pipeline_runs_list
+          displayName: az ml pipeline pipeline-runs-list
         - name: show
           uid: ext_azure-cli-ml_az_ml_pipeline_show
           displayName: az ml pipeline show
+        - name: show-schedule
+          uid: ext_azure-cli-ml_az_ml_pipeline_show_schedule
+          displayName: az ml pipeline show-schedule
+        - name: update-schedule
+          uid: ext_azure-cli-ml_az_ml_pipeline_update_schedule
+          displayName: az ml pipeline update-schedule
       - name: run
         uid: ext_azure-cli-ml_az_ml_run
         displayName: az ml run
@@ -4036,6 +4119,12 @@
         - name: list
           uid: ext_azure-cli-ml_az_ml_run_list
           displayName: az ml run list
+        - name: monitor-logs
+          uid: ext_azure-cli-ml_az_ml_run_monitor_logs
+          displayName: az ml run monitor-logs
+        - name: monitor-tensorboard
+          uid: ext_azure-cli-ml_az_ml_run_monitor_tensorboard
+          displayName: az ml run monitor-tensorboard
         - name: show
           uid: ext_azure-cli-ml_az_ml_run_show
           displayName: az ml run show
@@ -4128,6 +4217,96 @@
       - name: query
         uid: ext_azure-devops_az_boards_query
         displayName: az boards query
+      - name: area
+        uid: ext_azure-devops_az_boards_area
+        displayName: az boards area
+        items:
+        - name: project
+          uid: ext_azure-devops_az_boards_area_project
+          displayName: az boards area project
+          items:
+          - name: create
+            uid: ext_azure-devops_az_boards_area_project_create
+            displayName: az boards area project create
+          - name: delete
+            uid: ext_azure-devops_az_boards_area_project_delete
+            displayName: az boards area project delete
+          - name: list
+            uid: ext_azure-devops_az_boards_area_project_list
+            displayName: az boards area project list
+          - name: show
+            uid: ext_azure-devops_az_boards_area_project_show
+            displayName: az boards area project show
+          - name: update
+            uid: ext_azure-devops_az_boards_area_project_update
+            displayName: az boards area project update
+        - name: team
+          uid: ext_azure-devops_az_boards_area_team
+          displayName: az boards area team
+          items:
+          - name: add
+            uid: ext_azure-devops_az_boards_area_team_add
+            displayName: az boards area team add
+          - name: list
+            uid: ext_azure-devops_az_boards_area_team_list
+            displayName: az boards area team list
+          - name: remove
+            uid: ext_azure-devops_az_boards_area_team_remove
+            displayName: az boards area team remove
+          - name: update
+            uid: ext_azure-devops_az_boards_area_team_update
+            displayName: az boards area team update
+      - name: iteration
+        uid: ext_azure-devops_az_boards_iteration
+        displayName: az boards iteration
+        items:
+        - name: project
+          uid: ext_azure-devops_az_boards_iteration_project
+          displayName: az boards iteration project
+          items:
+          - name: create
+            uid: ext_azure-devops_az_boards_iteration_project_create
+            displayName: az boards iteration project create
+          - name: delete
+            uid: ext_azure-devops_az_boards_iteration_project_delete
+            displayName: az boards iteration project delete
+          - name: list
+            uid: ext_azure-devops_az_boards_iteration_project_list
+            displayName: az boards iteration project list
+          - name: show
+            uid: ext_azure-devops_az_boards_iteration_project_show
+            displayName: az boards iteration project show
+          - name: update
+            uid: ext_azure-devops_az_boards_iteration_project_update
+            displayName: az boards iteration project update
+        - name: team
+          uid: ext_azure-devops_az_boards_iteration_team
+          displayName: az boards iteration team
+          items:
+          - name: add
+            uid: ext_azure-devops_az_boards_iteration_team_add
+            displayName: az boards iteration team add
+          - name: list
+            uid: ext_azure-devops_az_boards_iteration_team_list
+            displayName: az boards iteration team list
+          - name: list-work-items
+            uid: ext_azure-devops_az_boards_iteration_team_list_work_items
+            displayName: az boards iteration team list-work-items
+          - name: remove
+            uid: ext_azure-devops_az_boards_iteration_team_remove
+            displayName: az boards iteration team remove
+          - name: set-backlog-iteration
+            uid: ext_azure-devops_az_boards_iteration_team_set_backlog_iteration
+            displayName: az boards iteration team set-backlog-iteration
+          - name: set-default-iteration
+            uid: ext_azure-devops_az_boards_iteration_team_set_default_iteration
+            displayName: az boards iteration team set-default-iteration
+          - name: show-backlog-iteration
+            uid: ext_azure-devops_az_boards_iteration_team_show_backlog_iteration
+            displayName: az boards iteration team show-backlog-iteration
+          - name: show-default-iteration
+            uid: ext_azure-devops_az_boards_iteration_team_show_default_iteration
+            displayName: az boards iteration team show-default-iteration
       - name: work-item
         uid: ext_azure-devops_az_boards_work_item
         displayName: az boards work-item
@@ -4419,6 +4598,16 @@
       - name: update
         uid: ext_azure-devops_az_pipelines_update
         displayName: az pipelines update
+      - name: agent
+        uid: ext_azure-devops_az_pipelines_agent
+        displayName: az pipelines agent
+        items:
+        - name: list
+          uid: ext_azure-devops_az_pipelines_agent_list
+          displayName: az pipelines agent list
+        - name: show
+          uid: ext_azure-devops_az_pipelines_agent_show
+          displayName: az pipelines agent show
       - name: build
         uid: ext_azure-devops_az_pipelines_build
         displayName: az pipelines build
@@ -4455,6 +4644,26 @@
           - name: list
             uid: ext_azure-devops_az_pipelines_build_tag_list
             displayName: az pipelines build tag list
+      - name: pool
+        uid: ext_azure-devops_az_pipelines_pool
+        displayName: az pipelines pool
+        items:
+        - name: list
+          uid: ext_azure-devops_az_pipelines_pool_list
+          displayName: az pipelines pool list
+        - name: show
+          uid: ext_azure-devops_az_pipelines_pool_show
+          displayName: az pipelines pool show
+      - name: queue
+        uid: ext_azure-devops_az_pipelines_queue
+        displayName: az pipelines queue
+        items:
+        - name: list
+          uid: ext_azure-devops_az_pipelines_queue_list
+          displayName: az pipelines queue list
+        - name: show
+          uid: ext_azure-devops_az_pipelines_queue_show
+          displayName: az pipelines queue show
       - name: release
         uid: ext_azure-devops_az_pipelines_release
         displayName: az pipelines release
@@ -4889,39 +5098,6 @@
         displayName: az sql up
   - name: dev-spaces
     uid: ext_dev-spaces_az
-  - name: dms-preview
-    uid: ext_dms-preview_az
-    items:
-    - name: dms
-      uid: ext_dms-preview_az_dms
-      displayName: az dms
-      items:
-      - name: project
-        uid: ext_dms-preview_az_dms_project
-        displayName: az dms project
-        items:
-        - name: create
-          uid: ext_dms-preview_az_dms_project_create
-          displayName: az dms project create
-        - name: task
-          uid: ext_dms-preview_az_dms_project_task
-          displayName: az dms project task
-          items:
-          - name: cancel
-            uid: ext_dms-preview_az_dms_project_task_cancel
-            displayName: az dms project task cancel
-          - name: create
-            uid: ext_dms-preview_az_dms_project_task_create
-            displayName: az dms project task create
-          - name: cutover
-            uid: ext_dms-preview_az_dms_project_task_cutover
-            displayName: az dms project task cutover
-          - name: restart
-            uid: ext_dms-preview_az_dms_project_task_restart
-            displayName: az dms project task restart
-          - name: stop
-            uid: ext_dms-preview_az_dms_project_task_stop
-            displayName: az dms project task stop
   - name: dns
     uid: ext_dns_az
     items:
@@ -5932,6 +6108,96 @@
         - name: show
           uid: ext_mixed-reality_az_spatial_anchors_account_key_show
           displayName: az spatial-anchors-account key show
+  - name: netappfiles-preview
+    uid: ext_netappfiles-preview_az
+    items:
+    - name: netappfiles
+      uid: ext_netappfiles-preview_az_netappfiles
+      displayName: az netappfiles
+      items:
+      - name: account
+        uid: ext_netappfiles-preview_az_netappfiles_account
+        displayName: az netappfiles account
+        items:
+        - name: create
+          uid: ext_netappfiles-preview_az_netappfiles_account_create
+          displayName: az netappfiles account create
+        - name: delete
+          uid: ext_netappfiles-preview_az_netappfiles_account_delete
+          displayName: az netappfiles account delete
+        - name: list
+          uid: ext_netappfiles-preview_az_netappfiles_account_list
+          displayName: az netappfiles account list
+        - name: set
+          uid: ext_netappfiles-preview_az_netappfiles_account_set
+          displayName: az netappfiles account set
+        - name: show
+          uid: ext_netappfiles-preview_az_netappfiles_account_show
+          displayName: az netappfiles account show
+        - name: update
+          uid: ext_netappfiles-preview_az_netappfiles_account_update
+          displayName: az netappfiles account update
+      - name: mount-target
+        uid: ext_netappfiles-preview_az_netappfiles_mount_target
+        displayName: az netappfiles mount-target
+        items:
+        - name: list
+          uid: ext_netappfiles-preview_az_netappfiles_mount_target_list
+          displayName: az netappfiles mount-target list
+      - name: pool
+        uid: ext_netappfiles-preview_az_netappfiles_pool
+        displayName: az netappfiles pool
+        items:
+        - name: create
+          uid: ext_netappfiles-preview_az_netappfiles_pool_create
+          displayName: az netappfiles pool create
+        - name: delete
+          uid: ext_netappfiles-preview_az_netappfiles_pool_delete
+          displayName: az netappfiles pool delete
+        - name: list
+          uid: ext_netappfiles-preview_az_netappfiles_pool_list
+          displayName: az netappfiles pool list
+        - name: show
+          uid: ext_netappfiles-preview_az_netappfiles_pool_show
+          displayName: az netappfiles pool show
+        - name: update
+          uid: ext_netappfiles-preview_az_netappfiles_pool_update
+          displayName: az netappfiles pool update
+      - name: snapshot
+        uid: ext_netappfiles-preview_az_netappfiles_snapshot
+        displayName: az netappfiles snapshot
+        items:
+        - name: create
+          uid: ext_netappfiles-preview_az_netappfiles_snapshot_create
+          displayName: az netappfiles snapshot create
+        - name: delete
+          uid: ext_netappfiles-preview_az_netappfiles_snapshot_delete
+          displayName: az netappfiles snapshot delete
+        - name: list
+          uid: ext_netappfiles-preview_az_netappfiles_snapshot_list
+          displayName: az netappfiles snapshot list
+        - name: show
+          uid: ext_netappfiles-preview_az_netappfiles_snapshot_show
+          displayName: az netappfiles snapshot show
+      - name: volume
+        uid: ext_netappfiles-preview_az_netappfiles_volume
+        displayName: az netappfiles volume
+        items:
+        - name: create
+          uid: ext_netappfiles-preview_az_netappfiles_volume_create
+          displayName: az netappfiles volume create
+        - name: delete
+          uid: ext_netappfiles-preview_az_netappfiles_volume_delete
+          displayName: az netappfiles volume delete
+        - name: list
+          uid: ext_netappfiles-preview_az_netappfiles_volume_list
+          displayName: az netappfiles volume list
+        - name: show
+          uid: ext_netappfiles-preview_az_netappfiles_volume_show
+          displayName: az netappfiles volume show
+        - name: update
+          uid: ext_netappfiles-preview_az_netappfiles_volume_update
+          displayName: az netappfiles volume update
   - name: privatedns
     uid: ext_privatedns_az
     items:
@@ -6200,6 +6466,12 @@
       uid: ext_sap-hana_az_hanainstance
       displayName: az hanainstance
       items:
+      - name: create
+        uid: ext_sap-hana_az_hanainstance_create
+        displayName: az hanainstance create
+      - name: delete
+        uid: ext_sap-hana_az_hanainstance_delete
+        displayName: az hanainstance delete
       - name: list
         uid: ext_sap-hana_az_hanainstance_list
         displayName: az hanainstance list
@@ -6209,6 +6481,12 @@
       - name: show
         uid: ext_sap-hana_az_hanainstance_show
         displayName: az hanainstance show
+      - name: shutdown
+        uid: ext_sap-hana_az_hanainstance_shutdown
+        displayName: az hanainstance shutdown
+      - name: start
+        uid: ext_sap-hana_az_hanainstance_start
+        displayName: az hanainstance start
       - name: update
         uid: ext_sap-hana_az_hanainstance_update
         displayName: az hanainstance update
@@ -6219,6 +6497,22 @@
         - name: enable
           uid: ext_sap-hana_az_hanainstance_monitor_enable
           displayName: az hanainstance monitor enable
+    - name: sapmonitor
+      uid: ext_sap-hana_az_sapmonitor
+      displayName: az sapmonitor
+      items:
+      - name: create
+        uid: ext_sap-hana_az_sapmonitor_create
+        displayName: az sapmonitor create
+      - name: delete
+        uid: ext_sap-hana_az_sapmonitor_delete
+        displayName: az sapmonitor delete
+      - name: list
+        uid: ext_sap-hana_az_sapmonitor_list
+        displayName: az sapmonitor list
+      - name: show
+        uid: ext_sap-hana_az_sapmonitor_show
+        displayName: az sapmonitor show
   - name: storage-preview
     uid: ext_storage-preview_az
     items:
@@ -6248,9 +6542,6 @@
         - name: show
           uid: ext_storage-preview_az_storage_account_show
           displayName: az storage account show
-        - name: show-connection-string
-          uid: ext_storage-preview_az_storage_account_show_connection_string
-          displayName: az storage account show-connection-string
         - name: show-usage
           uid: ext_storage-preview_az_storage_account_show_usage
           displayName: az storage account show-usage
@@ -6561,9 +6852,6 @@
       uid: ext_webapp_az_webapp
       displayName: az webapp
       items:
-      - name: up
-        uid: ext_webapp_az_webapp_up
-        displayName: az webapp up
       - name: remote-connection
         uid: ext_webapp_az_webapp_remote_connection
         displayName: az webapp remote-connection
@@ -6571,3 +6859,19 @@
         - name: create
           uid: ext_webapp_az_webapp_remote_connection_create
           displayName: az webapp remote-connection create
+      - name: scan
+        uid: ext_webapp_az_webapp_scan
+        displayName: az webapp scan
+        items:
+        - name: list-result
+          uid: ext_webapp_az_webapp_scan_list_result
+          displayName: az webapp scan list-result
+        - name: show-result
+          uid: ext_webapp_az_webapp_scan_show_result
+          displayName: az webapp scan show-result
+        - name: start
+          uid: ext_webapp_az_webapp_scan_start
+          displayName: az webapp scan start
+        - name: track
+          uid: ext_webapp_az_webapp_scan_track
+          displayName: az webapp scan track
