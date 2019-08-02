@@ -41,14 +41,11 @@ items:
     parameterValueGroup: global, local
     summary: Scope of defaults. Using "local" for settings only effective under current folder.
     description: ''
-  - name: --subscription
-    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
-    description: ''
   source:
-    path: src/command_modules/azure-cli-configure/azure/cli/command_modules/configure/_help.py
+    path: src/azure-cli/azure/cli/command_modules/configure/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-configure/azure/cli/command_modules/configure/_help.py
+      path: src/azure-cli/azure/cli/command_modules/configure/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_feedback
   name: az feedback
@@ -56,15 +53,12 @@ items:
   description: ''
   langs:
   - azurecli
-  parameters:
-  - name: --subscription
-    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
-    description: ''
+  parameters: []
   source:
-    path: src/command_modules/azure-cli-feedback/azure/cli/command_modules/feedback/_help.py
+    path: src/azure-cli/azure/cli/command_modules/feedback/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-feedback/azure/cli/command_modules/feedback/_help.py
+      path: src/azure-cli/azure/cli/command_modules/feedback/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_find
   name: az find
@@ -86,14 +80,11 @@ items:
   - name: <CLI_TERM>
     summary: An Azure CLI command or group for which you need an example.
     description: ''
-  - name: --subscription
-    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
-    description: ''
   source:
-    path: src/command_modules/azure-cli-find/azure/cli/command_modules/find/_help.py
+    path: src/azure-cli/azure/cli/command_modules/find/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-find/azure/cli/command_modules/find/_help.py
+      path: src/azure-cli/azure/cli/command_modules/find/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_interactive
   name: az interactive
@@ -108,9 +99,6 @@ items:
     description: ''
   - name: --update
     summary: Update the Interactive extension to the latest available.
-    description: ''
-  - name: --subscription
-    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
 - uid: az_login
   name: az login
@@ -162,14 +150,11 @@ items:
   - name: --identity -i
     summary: Log in using the Virtual Machine's identity.
     description: ''
-  - name: --subscription
-    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
-    description: ''
   source:
-    path: src/command_modules/azure-cli-profile/azure/cli/command_modules/profile/_help.py
+    path: src/azure-cli/azure/cli/command_modules/profile/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-profile/azure/cli/command_modules/profile/_help.py
+      path: src/azure-cli/azure/cli/command_modules/profile/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_logout
   name: az logout
@@ -181,14 +166,11 @@ items:
   - name: --username
     summary: Account user, if missing, logout the current active account.
     description: ''
-  - name: --subscription
-    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
-    description: ''
   source:
-    path: src/command_modules/azure-cli-profile/azure/cli/command_modules/profile/_help.py
+    path: src/azure-cli/azure/cli/command_modules/profile/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-profile/azure/cli/command_modules/profile/_help.py
+      path: src/azure-cli/azure/cli/command_modules/profile/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_rest
   name: az rest
@@ -267,9 +249,15 @@ commands:
 - uid: az_ams
   name: az ams
   summary: Manage Azure Media Services resources.
+- uid: az_appconfig
+  name: az appconfig
+  summary: Manage App Configurations.
 - uid: az_appservice
   name: az appservice
   summary: Manage App Service plans.
+- uid: az_artifacts
+  name: az artifacts
+  summary: Manage Azure Artifacts.
 - uid: az_backup
   name: az backup
   summary: Manage Azure Backups.
@@ -282,6 +270,9 @@ commands:
 - uid: az_billing
   name: az billing
   summary: Manage Azure Billing.
+- uid: az_boards
+  name: az boards
+  summary: Manage Azure Boards.
 - uid: az_bot
   name: az bot
   summary: Manage Microsoft Azure Bot Service.
@@ -315,6 +306,9 @@ commands:
 - uid: az_deploymentmanager
   name: az deploymentmanager
   summary: Create and manage rollouts for your service.
+- uid: az_devops
+  name: az devops
+  summary: Manage Azure DevOps organization level operations.
 - uid: az_disk
   name: az disk
   summary: Manage Azure Managed Disks.
@@ -347,7 +341,7 @@ commands:
   summary: I'm an AI robot, my advice is based on our Azure documentation as well as the usage patterns of Azure CLI and Azure ARM users. Using me improves Azure products and documentation.
 - uid: az_functionapp
   name: az functionapp
-  summary: Manage function apps.
+  summary: Manage function apps. To install the Azure Functions Core tools see <a href="https://github.com/Azure/azure-functions-core-tools">https://github.com/Azure/azure-functions-core-tools</a>.
 - uid: az_group
   name: az group
   summary: Manage resource groups and template deployments.
@@ -390,6 +384,9 @@ commands:
 - uid: az_managedapp
   name: az managedapp
   summary: Manage template solutions provided and maintained by Independent Software Vendors (ISVs).
+- uid: az_managedservices
+  name: az managedservices
+  summary: Manage the registration assignments and definitions in Azure.
 - uid: az_maps
   name: az maps
   summary: Manage Azure Maps.
@@ -402,12 +399,18 @@ commands:
 - uid: az_mysql
   name: az mysql
   summary: Manage Azure Database for MySQL servers.
+- uid: az_netappfiles
+  name: az netappfiles
+  summary: Manage Azure NetApp Files (ANF) Resources.
 - uid: az_network
   name: az network
   summary: Manage Azure Network resources.
 - uid: az_openshift
   name: az openshift
   summary: Manage Azure Red Hat OpenShift Services.
+- uid: az_pipelines
+  name: az pipelines
+  summary: Manage Azure Pipelines.
 - uid: az_policy
   name: az policy
   summary: Manage resource policies.
@@ -426,6 +429,9 @@ commands:
 - uid: az_relay
   name: az relay
   summary: Manage Azure Relay Service namespaces, WCF relays, hybrid connections, and rules.
+- uid: az_repos
+  name: az repos
+  summary: Manage Azure Repos.
 - uid: az_reservations
   name: az reservations
   summary: Manage Azure Reservations.
@@ -494,8 +500,8 @@ globalParameters:
 - name: --verbose
   summary: Increase logging verbosity. Use --debug for full debug logs.
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-doc_source_url_path: src/command_modules/azure-cli-profile/azure/cli/command_modules/profile/_help.py
-original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/command_modules/azure-cli-profile/azure/cli/command_modules/profile/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/250f775d0531e622b4d2486ea3d55aa820675efb/src/command_modules/azure-cli-profile/azure/cli/command_modules/profile/_help.py
-updated_at: 10/25/2018 6:45:26 PM
-ms.date: 10/25/2018
+doc_source_url_path: src/azure-cli/azure/cli/command_modules/profile/_help.py
+original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/profile/_help.py
+gitcommit: https://github.com/Azure/azure-cli/blob/f22ee7fbcfc1266b42d370c0410feb5e7ba5fefe/src/azure-cli/azure/cli/command_modules/profile/_help.py
+updated_at: 6/4/2019 11:58:35 PM
+ms.date: 06/04/2019
