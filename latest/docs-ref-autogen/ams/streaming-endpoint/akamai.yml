@@ -17,13 +17,13 @@ items:
   - azurecli
   parameters:
   - name: --base64-key
-    summary: Authentication key.
+    summary: Base64-encoded authentication key that will be used by the CDN. The authentication key provided by Akamai is an ASCII encoded string, and must be converted to bytes and then base64 encoded.
     description: ''
   - name: --expiration
-    summary: The expiration time of the authentication key.
+    summary: The ISO 8601 DateTime value that specifies when the Akamai authentication expires.
     description: ''
   - name: --identifier
-    summary: Identifier of the key.
+    summary: The identifier for the authentication key. This is the nonce provided by Akamai.
     description: ''
   - name: --account-name -a
     summary: The name of the Azure Media Services account.
@@ -41,10 +41,10 @@ items:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   source:
-    path: src/command_modules/azure-cli-ams/azure/cli/command_modules/ams/_help.py
+    path: src/azure-cli/azure/cli/command_modules/ams/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-ams/azure/cli/command_modules/ams/_help.py
+      path: src/azure-cli/azure/cli/command_modules/ams/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_ams_streaming_endpoint_akamai_remove
   name: az ams streaming-endpoint akamai remove
@@ -55,7 +55,7 @@ items:
   parameters:
   - isRequired: true
     name: --identifier
-    summary: Identifier of the key.
+    summary: The identifier for the authentication key. This is the nonce provided by Akamai.
     description: ''
   - name: --account-name -a
     summary: The name of the Azure Media Services account.
@@ -73,10 +73,10 @@ items:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   source:
-    path: src/command_modules/azure-cli-ams/azure/cli/command_modules/ams/_help.py
+    path: src/azure-cli/azure/cli/command_modules/ams/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-ams/azure/cli/command_modules/ams/_help.py
+      path: src/azure-cli/azure/cli/command_modules/ams/_help.py
       repo: https://github.com/Azure/azure-cli.git
 commands:
 - uid: az_ams_streaming_endpoint_akamai_add
@@ -99,9 +99,9 @@ globalParameters:
 - name: --verbose
   summary: Increase logging verbosity. Use --debug for full debug logs.
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-doc_source_url_path: src/command_modules/azure-cli-ams/azure/cli/command_modules/ams/_help.py
-original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/command_modules/azure-cli-ams/azure/cli/command_modules/ams/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/38c4cb171afa327ff708de038edaf6f8df6ca253/src/command_modules/azure-cli-ams/azure/cli/command_modules/ams/_help.py
-updated_at: 1/31/2019 5:53:50 PM
-ms.date: 01/31/2019
+doc_source_url_path: src/azure-cli/azure/cli/command_modules/ams/_help.py
+original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/ams/_help.py
+gitcommit: https://github.com/Azure/azure-cli/blob/5b557991c099d173ba25a4706290edd69ac87d51/src/azure-cli/azure/cli/command_modules/ams/_help.py
+updated_at: 6/12/2019 8:12:48 PM
+ms.date: 06/12/2019
 description: Manage AkamaiAccessControl objects to be used on streaming endpoints.

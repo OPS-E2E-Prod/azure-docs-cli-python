@@ -59,131 +59,11 @@ items:
   - summary: Create and start a SQL Task which performs all validation checks.
     syntax:
       content: az dms project task create --database-options-json C:\CliFiles\databaseOptions.json -n mytask --project-name myproject -g myresourcegroup --service-name mydms --source-connection-json C:\CliFiles\sourceConnection.json --target-connection-json C:\CliFiles\targetConnection.json --enable-data-integrity-validation --enable-query-analysis-validation --enable-schema-validation --task-type offlinemigration
-  - summary: For SQL, the format of the database options JSON object.
-    syntax:
-      content: >-
-        [
-                                    {
-                                        "name": "source database",
-                                        "target_database_name": "target database",
-                                        "make_source_db_read_only": false|true,
-                                        "table_map": {
-                                            "schema.SourceTableName1": "schema.TargetTableName1",
-                                            "schema.SourceTableName2": "schema.TargetTableName2",
-                                            ...n
-                                        }
-                                    },
-                                    ...n
-                                ]
-  - summary: For MySQL and PostgreSQL, the format of the database options JSON object.
-    syntax:
-      content: >-
-        [
-                                    {
-                                        "name": "source database",
-                                        "target_database_name": "target database"
-                                    },
-                                    ...n
-                                ]
-  - summary: For MongoDB, the format of the database options JSON object.
-    syntax:
-      content: >-
-        {
-                                    // set to zero to get the default boost during migration (recommended)
-                                    "boostRUs": 0,
-                                    // "OneTime" or "Continuous", only "OneTime" is currently supported
-                                    "replication": "OneTime",
-                                    // Set to null to use maximum resources available.
-                                    "throttling": {
-                                        // percentage of the CPU to try to avoid using
-                                        "minFreeCpu": 25,
-                                        // amount of RAM (in MBs) to try to avoid using
-                                        "minFreeMemoryMb": 1024,
-                                        // max number of collections to migrate at a time
-                                        "maxParallelism": 2
-                                    },
-                                    "databases": {
-                                        "database_name": {
-                                            // see https://docs.microsoft.com/th-th/azure/cosmos-db/request-units,     ||
-                                            // set to null to use default
-                                            // or 0 if throughput should not be provisioned at the database level
-                                            "targetRUs": 0,
-                                            "collections": {
-                                                "collection_name_1": {
-                                                    // Whether the target database/collection will be deleted if exists
-                                                    "canDelete": true,
-                                                    // set to null if target should not be sharded
-                                                    // or to copy the shard key from source (if exists)
-                                                    "shardKey": null,
-                                                    // set to null to use default (recommended)
-                                                    "targetRUs": null
-                                                },
-                                                "collection_name_2": {
-                                                    "canDelete": true,
-                                                    "shardKey": {
-                                                        "fields": [
-                                                            {
-                                                                "name": "field_name",
-                                                                // accepts "Forward", "Reverse", or "Hashed" but CosmosDB only accepts a single-field, hashed shard key
-                                                                "order": "Forward"
-                                                            },
-                                                            ...n
-                                                        ],
-                                                        // whether shard key is unique
-                                                        // see https://docs.microsoft.com/en-us/azure/cosmos-db/partition-data
-                                                        "isUnique": false
-                                                    },
-                                                    "targetRUs": 10000
-                                                },
-                                                ...n
-                                            }
-                                        },
-                                        ...n
-                                    }
-                                }
-  - summary: The format of the connection JSON object for SQL connections.
-    syntax:
-      content: >-
-        {
-                                    "userName": "user name",    // if this is missing or null, you will be prompted
-                                    "password": null,           // if this is missing or null (highly recommended) you will be prompted
-                                    "dataSource": "server name[,port]",
-                                    "authentication": "SqlAuthentication|WindowsAuthentication",
-                                    "encryptConnection": true,      // highly recommended to leave as true
-                                    "trustServerCertificate": true  // highly recommended to leave as true
-                                }
-  - summary: The format of the connection JSON object for MySql connections.
-    syntax:
-      content: >-
-        {
-                                    "userName": "user name",    // if this is missing or null, you will be prompted
-                                    "password": null,           // if this is missing or null (highly recommended) you will be prompted
-                                    "serverName": "server name",
-                                    "port": 3306                // if this is missing, it will default to 3306
-                                }
-  - summary: The format of the connection JSON object for PostgreSQL connections.
-    syntax:
-      content: >-
-        {
-                                    "userName": "user name",    // if this is missing or null, you will be prompted
-                                    "password": null,           // if this is missing or null (highly recommended) you will be prompted
-                                    "serverName": "server name",
-                                    "databaseName": "database name", // if this is missing, it will default to the 'postgres' database
-                                    "port": 5432                // if this is missing, it will default to 5432
-                                }
-  - summary: The format of the connection JSON object for MongoDB connections.
-    syntax:
-      content: >-
-        {
-                                    "userName": null,   // if this is missing or null, you will be prompted
-                                    "password": null,   // if this is missing or null (highly recommended) you will be prompted
-                                    "connectionString": "mongodb://hostOrIp:port"
-                                }
   parameters:
   - isRequired: true
     name: --database-options-json
     summary: Database and table information. This can be either a JSON-formatted string or the location to a file containing the JSON object. See examples below for the format.
-    description: ''
+    description: "For SQL we support per table migrations. To use this, specify the tables names in the 'table_map' as below. You can also set the source as read only.\n                                      [\n                                          {\n                                              \"name\": \"source database\",\n                                              \"target_database_name\": \"target database\",\n                                              \"make_source_db_read_only\": false|true,\n                                              \"table_map\": {\n                                                  \"schema.SourceTableName1\": \"schema.TargetTableName1\",\n                                                  \"schema.SourceTableName2\": \"schema.TargetTableName2\",\n                                                  ...n\n                                              }\n                                          },\n                                          ...n\n                                      ]\n                                    \n                                    For MySQL and PostgreSQL, the format of the database options JSON object.\n                                      [\n                                          {\n                                              \"name\": \"source database\",\n                                              \"target_database_name\": \"target database\"\n                                          },\n                                          ...n\n                                      ]\n                                    \n                                    For MongoDB we support per collection migrations. To use this, specify the collections inside the database object as below.\n                                      {\n                                          // set to zero to get the default boost during migration (recommended)\n                                          \"boostRUs\": 0,\n                                          // \"OneTime\" or \"Continuous\", only \"OneTime\" is currently supported\n                                          \"replication\": \"OneTime\",\n                                          // Set to null to use maximum resources available.\n                                          \"throttling\": {\n                                              // percentage of the CPU to try to avoid using\n                                              \"minFreeCpu\": 25,\n                                              // amount of RAM (in MBs) to try to avoid using\n                                              \"minFreeMemoryMb\": 1024,\n                                              // max number of collections to migrate at a time\n                                              \"maxParallelism\": 2\n                                          },\n                                          \"databases\": {\n                                              \"database_name\": {\n                                                  // see <a href=\"https://docs.microsoft.com/th-th/azure/cosmos-db/request-units\">https://docs.microsoft.com/th-th/azure/cosmos-db/request-units</a>,     ||\n                                                  // set to null to use default\n                                                  // or 0 if throughput should not be provisioned at the database level\n                                                  \"targetRUs\": 0,\n                                                  \"collections\": {\n                                                      \"collection_name_1\": {\n                                                          // Whether the target database/collection will be deleted if exists\n                                                          \"canDelete\": true,\n                                                          // set to null if target should not be sharded\n                                                          // or to copy the shard key from source (if exists)\n                                                          \"shardKey\": null,\n                                                          // set to null to use default (recommended)\n                                                          \"targetRUs\": null\n                                                      },\n                                                      \"collection_name_2\": {\n                                                          \"canDelete\": true,\n                                                          \"shardKey\": {\n                                                              \"fields\": [\n                                                                  {\n                                                                      \"name\": \"field_name\",\n                                                                      // accepts \"Forward\", \"Reverse\", or \"Hashed\" but CosmosDB only accepts a single-field, hashed shard key\n                                                                      \"order\": \"Forward\"\n                                                                  },\n                                                                  ...n\n                                                              ],\n                                                              // whether shard key is unique\n                                                              // see <a href=\"https://docs.microsoft.com/en-us/azure/cosmos-db/partition-data\">https://docs.microsoft.com/en-us/azure/cosmos-db/partition-data</a>\n                                                              \"isUnique\": false\n                                                          },\n                                                          \"targetRUs\": 10000\n                                                      },\n                                                      ...n\n                                                  }\n                                              },\n                                              ...n\n                                          }\n                                      }."
   - isRequired: true
     name: --name -n
     summary: The name of the Task. DMS Task is the activity that performs a migration related task. There could be multiple Tasks associated to a Project.
@@ -203,11 +83,11 @@ items:
   - isRequired: true
     name: --source-connection-json
     summary: The connection information to the source server. This can be either a JSON-formatted string or the location to a file containing the JSON object. See examples below for the format.
-    description: ''
+    description: "The format of the connection JSON object for SQL connections.\n                                      {\n                                          \"userName\": \"user name\",    // if this is missing or null, you will be prompted\n                                          \"password\": null,           // if this is missing or null (highly recommended) you will be prompted\n                                          \"dataSource\": \"server name[,port]\",\n                                          \"authentication\": \"SqlAuthentication|WindowsAuthentication\",\n                                          \"encryptConnection\": true,      // highly recommended to leave as true\n                                          \"trustServerCertificate\": true  // highly recommended to leave as true\n                                      }\n                                    \n                                    The format of the connection JSON object for MySql connections.\n                                      {\n                                          \"userName\": \"user name\",    // if this is missing or null, you will be prompted\n                                          \"password\": null,           // if this is missing or null (highly recommended) you will be prompted\n                                          \"serverName\": \"server name\",\n                                          \"port\": 3306                // if this is missing, it will default to 3306\n                                      }\n                                    \n                                    The format of the connection JSON object for PostgreSQL connections.\n                                      {\n                                          \"userName\": \"user name\",    // if this is missing or null, you will be prompted\n                                          \"password\": null,           // if this is missing or null (highly recommended) you will be prompted\n                                          \"serverName\": \"server name\",\n                                          \"databaseName\": \"database name\", // if this is missing, it will default to the 'postgres' database\n                                          \"port\": 5432                // if this is missing, it will default to 5432\n                                      }\n                                    \n                                    The format of the connection JSON object for MongoDB connections.\n                                      {\n                                          \"userName\": null,   // if this is missing or null, you will be prompted\n                                          \"password\": null,   // if this is missing or null (highly recommended) you will be prompted\n                                          \"connectionString\": \"mongodb://hostOrIp:port\"\n                                      }."
   - isRequired: true
     name: --target-connection-json
     summary: The connection information to the target server. This can be either a JSON-formatted string or the location to a file containing the JSON object. See examples below for the format.
-    description: ''
+    description: See 'source-connection-json' for examples of connection formats.
   - isRequired: true
     name: --task-type
     summary: 'The type of data movement the task will support. The supported types are: OnlineMigration, OfflineMigration.'

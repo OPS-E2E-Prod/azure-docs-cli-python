@@ -15,6 +15,13 @@ items:
   description: ''
   langs:
   - azurecli
+  examples:
+  - summary: turn on "alwaysOn"
+    syntax:
+      content: az webapp config set -g MyResourceGroup -n MyUniqueApp --always-on true
+  - summary: turn on "alwaysOn" through a json with content '{"alwaysOn", true}'
+    syntax:
+      content: 'az webapp config set -g MyResourceGroup -n MyUniqueApp --generic-configurations "{"alwaysOn": true}"'
   parameters:
   - name: --always-on
     parameterValueGroup: false, true
@@ -78,7 +85,7 @@ items:
     summary: Enable or disable web sockets.
     description: ''
   - name: --windows-fx-version
-    summary: (Preview) a docker image name used for your windows container web app, e.g., microsoft/nanoserver:ltsc2016.
+    summary: A docker image name used for your windows container web app, e.g., microsoft/nanoserver:ltsc2016.
     description: ''
   - name: --ids
     summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
@@ -121,7 +128,7 @@ items:
 commands:
 - uid: az_webapp_config_appsettings
   name: az webapp config appsettings
-  summary: Configure web app settings.
+  summary: Configure web app settings. Updating or removing application settings will cause an app recycle.
 - uid: az_webapp_config_appsettings_delete
   name: az webapp config appsettings delete
   summary: Delete web app settings.

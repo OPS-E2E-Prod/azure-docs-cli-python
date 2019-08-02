@@ -4,7 +4,7 @@ description: Learn about the latest updates to Azure CLI
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 03/26/2019
+ms.date: 07/30/2019
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
@@ -12,7 +12,545 @@ ms.devlang: azurecli
 ---
 
 # Azure CLI release notes
+
+## July 30, 2019
+
+Version 2.0.70
+
+### ACR
+
+* Fixed issue #9952 (a regression in the `acr pack build` command)
+* Removed the default builder image name in `acr pack build`
+
+### Appservice
+
+* Changed `webapp config ssl` to show a message if a resource is not found
+* Fixed issue where `functionapp create` does not accept `Standard_RAGRS` storage account type
+* Fixed an issue where `webapp up` would fail if run using older versions of python
+
+### Network
+
+* Removed invalid parameter `--ids` from `network nic ip-config add` (fixes #9861)
+* Fixes #9604. Added `--root-certs` parameter to `network application-gateway http-settings [create|update]` to support user associate trusted root certificates.
+* Fixed arguent `--subscription` for `network dns record-set ns create` (#9965)
+
+### RBAC
+
+* Added `user update` command
+* [DEPRECATED] Deprecated `--upn-or-object-id` from user-related commands
+    * Use replacement argument `--id`
+* Added `--id` argument to user-related commands
+
+### SQL
+
+* Added management commands for managed instance keys and TDE protector
+
+### Storage
+
+* Added `storage remove` command
+* Fixed an issue with `storage blob update`
+
+### VM
+
+* Changed `list-skus` to use newer api-version to output zone details
+* Changed default of `--single-placement-group` to `false` for `vmss create`
+* Added ability to select ZRS storage SKUs for `[snapshot|disk] create`
+* Added new command group `vm host` to support dedicated hosts
+* Added parameters `--host` and `--host-group` on `vm create` to set VM dedicated host
+
+## July 16, 2019
+
+Version 2.0.69
+
+### Appservice
+
+* Changed `webapp identity` commands to return a proper error message if ResourceGroupName or App name are invalid
+* Fixed `webapp list` to return the correct value for numberOfSites if no ResourceGroup was provided
+* Fixed side-effects of `appservice plan create` and `webapp create`
+
+### Core
+
+* Fixed issue where `--subscription` would appear despite being not applicable
+
+### Batch
+
+* [BREAKING CHANGE] Replaced `batch pool node-agent-skus list` with `batch pool supported-images list`
+* Added support for security rules blocking network access to a pool based on the source port of the traffic when using the `--json-file` option of `batch pool create network`
+* Added support for executing the task in the container working directory or in the Batch task working directory when using the `--json-file` option of `batch task create`
+* Fixed error in `--application-package-references` option of `batch pool create` where it would only work with defaults
+
+### Eventhubs
+
+* Added validation for parameter `--rights` of `authorizationrule` commands
+
+### RDBMS
+
+* Added optional parameter to specify replica SKU for create replica command
+* Fixed the issue with CI test failure with creating MySQL replica
+
+### Relay
+
+* Fixed issue with hybrid connection when client authroization disabled [#8775](https://github.com/azure/azure-cli/issues/8775)
+* Added parameter `--requires-transport-security` to `relay wcfrelay create`
+
+### Servicebus
+
+* Added validation for parameter `--rights` of `authorizationrule` commands
+
+### Storage
+
+* Enable Files AADDS for storage account update
+* Fixed issue `storage blob service-properties update --set`
+
+## July 2, 2019
+
+Version 2.0.68
+
+### Core
+
+* Command modules are now consolidated into a single Python distributable. This deprecates direct use of many `azure-cli-` packages on PyPI.
+  This should reduce install size and only affect users who have directly installed via `pip`.
+
+### ACR
+
+* Added support for Timer Triggers to Task
+
+### Appservice
+
+* Changed `functionapp create` to enable application insights by default
+* [BREAKING CHANGE] Removed deprecated `functionapp devops-build` command.
+  *  Use the new command `az functionapp devops-pipeline` instead
+* Added Linux Consumption function app plan support to `functionapp deployment config-zip`
+
+### Cosmos DB
+
+* Added support for disabling TTL
+
+### DLS
+
+* Updated ADLS version (0.0.45)
+
+### Feedback
+
+* When reporting a failed extension command, `az feedback` now attempts to open the browser to the project/repo url of the
+  extension from the index
+
+### HDInsight
+
+* [BREAKING CHANGE] Changed `oms` command group name to `monitor`
+* [BREAKING CHANGE] Made `--http-password/-p` a required parameter 
+* Added completers for `--cluster-admin-account` and `cluster-users-group-dns` parameters completer 
+* Changed `cluster-users-group-dns` parameter to be required when `—esp` is present
+* Added a timeout for all existing argument auto-completers
+* Added a timeout for transforming resource name to resource id
+* Changed Auto-completers to select resources from any resource group. It can be a different resource group than the one specified with `-g`
+* Added support for `--sub-domain-suffix` and `--disable_gateway_auth` parameters in the `hdinsight application create` command
+
+### Managed Services
+
+* Introducing managed service command module in preview
+
+### Profile
+* Suppress `--subscription` argument for logout command
+
+### RBAC
+
+* [BREAKING CHANGE] Removed `--password` argument for `create-for-rbac`
+* Added `--assignee-principal-type` parameter to `create` command to avoid intermittent failures caused by AAD graph server replication latency
+* Fixed a crash in `ad signed-in-user` when listing owned objects
+* Fixed issue where `ad sp` would not find the right application from a service principal
+
+### RDBMS
+
+* Added support for replication for MariaDB
+
+### SQL
+
+* Documented allowed values for `sql db create --sample-name`
+
+### Storage
+
+* Added user delegation SAS token support with `--as-user` to `storage blob generate-sas` 
+* Added user delegation SAS token support with `--as-user` to `storage container generate-sas` 
+
+### VM
+
+* Fixed bug where `vmss create` returns an error message when run with `--no-wait`
+* Removed client-side validation for `vmss create --single-placement-group`. Does not fail if `--single-placement-group` is
+  set to `true` and`--instance-count` is greater than 100 or availability zones are specified, but leaves this validation
+  to the compute service
+* Fixed bug where `[vm|vmss] extension image list` fails when used with `--latest`
+
+
+## June 18, 2019
+
+Version 2.0.67
+
+### Core
+
+This release introduces a new [Preview] tag to more clearly communicate to customers
+when a command group, command or argument is in preview status. This was previously
+called out in help text or communicated implicitly by the command module version number.
+The CLI will be removing version numbers for individual packages in the future. If a command is
+in preview, all of its arguments are as well. If a command group is
+labeled as being in preview, then all commands and arguments are considered to be in
+preview as well.
+
+As a result of this change, several command groups may seem to "suddenly" appear to be
+in a preview status with this release. What actually happened is that most packages were
+in a preview status, but are being deemed GA with this release
+
+### ACR
+* Added 'acr check-health' command
+* Improved error handling for AAD tokens and for retrieving external commands
+
+### ACS
+* Deprecated ACS commands are now hidden from help view
+
+### AMS
+* [BREAKING CHANGE] Changed to return ISO 8601 time strings for archive-window-length and key-frame-interval-duration
+
+### AppService
+* Added location based routing for `webapp deleted list` and `webapp deleted restore`
+* Fixed issue where webapp up logged target URL ("You can launch the app at...") was not clickable in Azure Cloud Shell
+* Fixed an issue where creating apps with the some SKUs was failing with an AlwaysOn error
+* Added pre-validation to `[appservice|webapp] create`
+* Fixed `[webapp|functionapp] traffic-routing` to use the correct actionHostName
+* Added slot support to `functionapp` commands
+
+### Batch
+* Fixed AAD auth regression caused by over-aggressive error reporting for Shared Key Auth
+
+### BatchAI
+* BatchAI commands are now deprecated and hidden
+
+### BotService
+* Added "discontinued support"/"maintenance mode" warning messages for commands that support the v3 SDK
+
+### CosmosDB
+* [DEPRECATED] Deprecated the `cosmosdb list-keys` command
+* Added the `cosmosdb keys list` command - replaces `cosmosdb list-keys`
+* `cosmsodb create/update`: Added new format for --location to allow setting "isZoneRedundant" property. Deprecated old format
+
+### EventGrid
+* Added `eventgrid domain` commands for domain CRUD operations
+* Added `eventgrid domain topic` commands for domain topics CRUD operations
+* Added `--odata-query` argument to `eventgrid [topic|event-subscription] list` for filtering results using OData syntax
+* `event-subscription create/update`: Added servicebusqueue as new values for the `--endpoint-type` parameter
+* [BREAKING CHANGE] Removed support for `--included-event-types All` with `eventgrid event-subscription [create|update]`
+
+### HDInsight
+* Added support for `--ssh-public-key` parameter in `hdinsight create` command
+
+### IoT
+* Added support to regenerate authorization policy keys
+* Added SDK and support for DigitalTwin Repository Provisioning Service
+
+### Network
+* Added Zone support for Nat Gateway
+* Added command `network list-service-tags`
+* Fixed issue with `dns zone import` where users could not import wildcard A records
+* Fixed issue with `watcher flow-log configure` where flow logging could not be enabled in certain regions
+
+### Resource
+* Added `az rest` command for making REST calls
+* Fixed error when using `policy assignment list` with a resource group or subscription level `--scope`
+
+### ServiceBus
+* Fixed issue with `servicebus topic create --max-size` [#9319](https://github.com/azure/azure-cli/issues/9319)
+
+### SQL
+* Changed `--location` to be optional for `sql [server|mi] create` - uses resource group location if not specified
+* Fixed "'NoneType' object is not iterable" error for `sql db list-editions --available`
+
+### SQLVm
+* [BREAKING CHNAGE] Changed `sql vm create` to require `--license-type` parameter
+* Changed to allow setting SQL image SKU when creating or updating a sql vm
+
+### Storage
+* Fixed issue with missing account key for `storage container generate-sas`
+* Fixed issue with `storage blob sync` on Linux
+
+### VM
+* [PREVIEW] Added `vm image template` commands to build VM images
+
+## June 4, 2019
+
+Version 2.0.66
+
+### Core
+* Fixed bug where commands fail if `--output yaml` is used with `--query`
+
+### ACR
+* Added 'acr pack' command group for creating quick build Tasks using Buildpacks.
+
+### ACS
+* Allow enabling/disabling AKS kube-dashboard addon
+* Print a friendly message when the subscription is not whitelisted to use Azure Red Hat OpenShift
+
+### Batch
+* Improved error handling when not logged in to an account \[[#9165](https://github.com/Azure/azure-cli/issues/9165)\]\[[#8978](https://github.com/Azure/azure-cli/issues/8978)\]
+
+### IoT
+* Added support for manual failover
+
+### Network
+* Added `network application-gateway waf-policy` commands to support custom WAF rules.
+* Added `--waf-policy` and `--max-capacity` arguments to `network application-gateway [create|update]` 
+
+### Resource
+* Improved error message from `deployment create` when there is no TTY available
+
+### Role
+* Updated help text.
+
+### Compute
+* Added support to `vm create` for VMs from a managed image with data-disk luns that do not start from 0 or that skip numbers
+
+## May 21, 2019
+
+Version 2.0.65
+
+### Core
+* Added better feedback for authentication errors
+* Fixed issue where the CLI would load extensions that were not compatible with its core version
+* Fixed issue with launching when `clouds.config` is corrupted
+
+### ACR
+* Added support for Managed Identities to Tasks
+
+### ACS
+* Fixed `openshift create` command when used with customer AAD client
+
+### AppService
+* [DEPRECATED] Deprecated `functionapp devops-build` command - will be removed in next release
+* Changed `functionapp devops-pipeline` to fetch build log from Azure DevOps in verbose mode
+* [BREAKING CHANGE] Removed `--use_local_settings` flag from `functionapp devops-pipeline` command - was a no-op
+* Changed `webapp up` to return JSON output if `--logs` is not used
+* Added support for writing default resources to local config for `webapp up`
+* Added support to `webapp up` for redeploying an app without using the `--location` argument
+* Fixed an issue where for Linux Free SKU ASP creation use Free as SKU value was not working
+
+### BotService
+* Changed to allow all casing for `--lang` parameters for commands
+* Updated description for command module
+
+### Consumption
+* Added missing required parameter when running `consumption usage list --billing-period-name`
+
+### IoT
+* Added support to list all keys
+
+### Network
+* [BREAKING CHANGE]: Removed `network interface-endpoints` command group - use `network private-endpoints` 
+* Added `--nat-gateway` argument to `network vnet subnet [create|update]` for attaching to a NAT gateway
+* Fixed issue with `dns zone import` where record names could not match a record type
+
+### RDBMS
+* Added postgres and mysql support for geo replication
+
+### RBAC
+* Added support for mangement group scope to `role assignment`
+
+### Storage
+* `storage blob sync`: add sync command for storage blob
+
+### Compute
+* Added `--computer-name` to `vm create` for setting a VM's computer name
+* Renamed `--ssh-key-value` renamed to `--ssh-key-values` for `[vm|vmss] create` - can now accept multiple ssh public key values or paths
+  * __Note__: This is **not** a breaking change - `--ssh-key-value` will be parsed correctly as it matches only `--ssh-key-values`
+* Changed the `--type` argument of `ppg create` to be optional
+
+## May 6, 2019
+
+Version 2.0.64
+
+### ACS
+* [BREAKING CHANGE] Removed `--fqdn` flag on `openshift` commands
+* Changed to use Azure Red Hat Openshift GA API Version
+* Added `customer-admin-group-id` flag to `openshift create`
+* [GA] Removed `(PREVIEW)` from `aks create` option `--network-policy`
+
+### Appservice
+* [DEPRECATED] Deprecated `functionapp devops-build` command
+  * Renamed to `functionapp devops-pipeline`
+* Fixed getting the correct username for cloudshell which was causing `webapp up` to fail
+* Updated `appservice plan --sku` documentation updated to reflect the supported appserviceplans
+* Added optional arguments for resource group and plan to `webapp up`
+* Added support to `webapp ssh` to respect `AZURE_CLI_DISABLE_CONNECTION_VERIFICATION` environment variable
+* Added `appserviceplan create` support for Linux Free SKU
+* Changed `webapp up` to have a 30s sleep after setting `SCM_DO_BUILD_DURING_DEPLOYMENT=true` appsetting to handle kudu cold start
+* Added support for `powershell` runtime to `functionapp create` on Windows
+* Added `create-remote-connection` command
+
+### Batch
+* Fixed bug in validator for `--application-package-references` options
+
+### Botservice
+* [BREAKING CHANGE] Changed `bot create -v v4 -k webapp` to create an empty Web App Bot by default (i.e. no bot is deployed to the App Service)
+* Added `--echo` flag to `bot create` to use the old behavior with `-v v4`
+* [BREAKING CHANGE] Changed the default value of  `--version` to `v4`
+  * __NOTE:__ `bot prepare-publish` still uses the its old default
+* [BREAKING CHANGE] Changed `--lang` to no longer default to `Csharp`. If the command requires `--lang` and it is not provided, the command will now error out
+* [BREAKING CHANGE] Changed the `--appid` and `--password` args for `bot create` to be required and can now be created via `ad app create`
+* Added `--appid` and `--password` validation
+* [BREAKING CHANGE] Changed `bot create -v v4` to not create or use a Storage Account or Application Insights
+* [BREAKING CHANGE] Changed `bot create -v v3` to require a region where Application Insights is available
+* [BREAKING CHANGE] Changed `bot update` to now affect only specific properties of a bot
+* [BREAKING CHANGE] Changed `--lang` flags to accept `Javascript` instead of `Node`
+* [BREAKING CHANGE] Removed `Node` as an allowed `--lang` value
+* [BREAKING CHANGE] Changed `bot create -v v4 -k webapp` to no longer set `SCM_DO_BUILD_DURING_DEPLOYMENT` to true. All deployments through Kudu will act according to their default behavior
+* Changed `bot download` for bots without `.bot` files to create the language-specific configuration file with values from the Application Settings for the bot
+* Added `Typescript` support to `bot prepare-deploy`
+* Added warning message to `bot prepare-deploy` for `Javascript` and `Typescript` bots for when `--code-dir` does not contain `package.json`
+* Changed `bot prepare-deploy` to return `true` if successful
+* Added verbose logging to `bot prepare-deploy`
+* Added more available Application Insights regions to `az bot create -v v3`
+
+### Configure
+* Added support for folder based argument default value configurations
+
+### Eventhubs
+* Added `namespace network-rule` commands
+* Added `--default-action` argument for network rules to `namespace [create|update]`
+
+### Network
+* [BREAKING CHANGE] Replaced `--cache` arugment with `--defer` for `vnet [create|update]` 
+
+### Policy Insights
+* Added support for `--expand PolicyEvaluationDetails` to query policy evaluation details on the resource
+
+### Role
+* [DEPRECATED] Changed `create-for-rbac` hide '--password' argument - support will be removed in May 2019
+
+### Service Bus
+* Added `namespace network-rule` commands
+* Added `--default-action` argument for network rules to `namespace [create|update]`
+* Fixed `topic [create|update]` to allow `--max-size` support for 10, 20, 40 and 80GB values with premium SKU
+
+### SQL
+* Added `sql virtual-cluster [list|show|delete]` commands
+
+### VM
+* Added `--protect-from-scale-in` and `--protect-from-scale-set-actions` to `vmss update` to enable updates to the protection policy of VMSS VM instances
+* Added `--instance-id` to `vmss update` to enable generic update of VMSS VM instances
+* Added `--instance-id` to `vmss wait`
+* Added new `ppg` command group for manging Proximity Placement Groups
+* Added `--ppg` to `[vm|vmss] create` and `vm availability-set create` for managing PPGs
+* Added `--hyper-v-generation` parameter to `image create`
+
+## April 23, 2019
+
+Version 2.0.63
+
+### ACS
+* Changed `aks get-credentials` to prompt to overwrite duplicated values
+* Removed `(PREVIEW)` from Dev Spaces commands "aks use-dev-spaces" and "aks remove-dev-spaces"
+
+### AMS
+* Fixed bug with asset and account filters update
+
+### AppService
+* Added support for ASE and timeout to `webapp ssh`
+* Added support for establishing CI CD to an Azure DevOps pipeline from a Github repository to Function apps
+* Added `--github-pat` argument to `functionapp devops-build create` to accept Github personal access token
+* Added `--github-repository` argument to `functionapp devops-build create` to accept Github repository that contains a functionapp source code
+* Fixed issue where `az webapp up --logs` was failing with a error and updating default .NETCORE version to 2.1
+* Removed unnecessary functionapp settings when creating a function app with consumption plan
+* Changed `webapp up` so the default asp string now appends number at the end to create a new ASP based on SKU options
+* Added `-b` as an option to `webapp up` to launch the app in the browser
+* Changed `webapp deployment source config zip` to handle `AZURE_CLI_DISABLE_CONNECTION_VERIFICATION` environment variable
+
+### Deployment Manager
+* [PREVIEW] Create and manage artifacts that support rollouts
+
+### Lab
+* Fixed bug which would cause an early exit
+
+### Network
+* Added auto name server delegation to `dns zone create` in parent during child zone creation
+
+### Resource
+* [DEPRECATED] Deprecated `--link-id`, `--target-id` and `--filter-string` arguments of `resource link`
+  * Use the arguments `--link`, `--target`, and `--filter` instead
+* Fixed issue where `resource link [create|update]` commands would not work
+* Fixed an issue where deleting using a resource ID could crash on error
+
+### SQL
+* Added support for custom time zone on managed instances
+* Changed to allow elastic pool name to be used with `sql db update`
+* Added `--no-wait` support to `sql server [create|update]`
+* Added command `sql server wait`
+
+### Storage
+* Fixed issue with double-encoded SAS tokens in `storage blob generate-sas`
+
+### VM
+* Added `--skip-shutdown` flag to `vm|vmss stop` to power-off VMs without shutdown
+* Added `--storage-account-type` argument to `sig image-version create` to set the publishing profile's account type
+* Added `--target-regions` argument to `sig image-version create` to allow setting region-specific storage account types
+
+## April 9, 2019
+
+### Core
+* Fixed issue where some extensions showed a version of `Unknown` and could not be updated
+
+### ACR
+* Added support running an image contextlessly
+
+### AMS
+* [DEPRECATED]: Deprecated the `--bitrate` parameter of `account-filter` and `asset-filter`
+* [BREAKING CHANGE]: Renamed the `--bitrate` parameter to `--first-quality`
+* Added new encryption parameters support in `ams streaming-policy create`
+* Added new paramter `--filters` to `ams streaming-locator create`
+
+### AppService
+* Added `--logs` support to `webapp up`
+* Fixed `functionapp devops-build create` command `azure-pipelines.yml` generation issues
+* Improved `unctionapp devops-build create` error handling and indicators
+* [BREAKING CHANGE] Removed the `--local-git` flag for `devops-build` command, local git detection and handling are compulsory for creating Azure DevOps pipelines
+* Added support for Linux functions plan creation
+* Added ability to switch a plan underneath a function app using `functionapp update --plan`
+* Added support for Azure Functions premium plan scale out settings
+
+### CDN
+* Added support for `Microsoft_Standard` and `Standard_ChinaCdn`
+
+### Feedback
+* Changed `feedback` to show metadata on recently run commands
+* Changed `feedback` to prompt user to assist in issue creation process by opening a brower and using an issue template
+* Changed `feedback` to print out issue body when run with '--verbose'
+
+### Monitor
+* Fixed issue where "count" was not a permitted value with `metrics alert [create|update]` 
+
+### Network
+* Fixed table format not displaying with `vnet-gateway list-bgp-peer-status`
+* Added `list-request-headers` and `list-response-headers` commands to `application-gateway rewrite-rule`
+* Added `list-server-variables` command to `application-gateway rewrite-rule condition`
+* Fixed an issue where updating link state on an express-route port would throw an unknown attribute exception `express-route port update`
+
+### PrivateDNS
+* Added `network private-dns` for Private DNS zones
+
+### Resource
+* Fixed issue with `deployment create` and `group deployment create` where a parameters file with an empty set of parameters would not work
+
+### Role
+* Fixed `create-for-rbac` to handle `--years` correctly
+* [BREAKING CHANGE] Changed `role assignment delete` to prompt when deleting all assignments under the subscription unconditionally
+
+### SQL
+* Updated `sql mi [create|update]` with the properties proxyOverride and publicDataEndpointEnabled
+
+### Storage
+* [BREAKING CHANGE] Removed result of `storage blob delete`
+* Added `--full-uri` to `storage blob generate-sas` to create the full uri for the blob with sas
+* Added `--file-snapshot` to `storage file copy start` to copy file from snapshot
+* Changed `storage blob copy cancel` to only show the error instead of exception for NoPendingCopyOperation
+
 ## March 26, 2019
+
 
 ### Core
 * Fixed issues with dev extension incompatibility
@@ -95,7 +633,7 @@ Version 2.0.60
 
 ### ACS
 
-* Changed to ignore `--listen-address` argument to `aks browse` if `kubectl` doesn't support it
+* Changed to ignore the `--listen-address` parameter for `aks browse` if it is not supported by kubectl 
 
 ### AppService
 

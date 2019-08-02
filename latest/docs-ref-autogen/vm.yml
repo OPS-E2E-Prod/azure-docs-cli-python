@@ -76,10 +76,10 @@ items:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   source:
-    path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+    path: src/azure-cli/azure/cli/command_modules/vm/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+      path: src/azure-cli/azure/cli/command_modules/vm/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_vm_convert
   name: az vm convert
@@ -108,10 +108,10 @@ items:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   source:
-    path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+    path: src/azure-cli/azure/cli/command_modules/vm/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+      path: src/azure-cli/azure/cli/command_modules/vm/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_vm_create
   name: az vm create
@@ -174,17 +174,14 @@ items:
     name: --resource-group -g
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=&lt;name&gt;`.
     description: ''
-  - name: --attach-data-disks
-    summary: Attach existing data disks to the VM. Can use the name or ID of a managed disk or the URI to an unmanaged disk VHD.
-    description: ''
-  - name: --attach-os-disk
-    summary: Attach an existing OS disk to the VM. Can use the name or ID of a managed disk or the URI to an unmanaged disk VHD.
-    description: ''
   - name: --availability-set
     summary: Name or ID of an existing availability set to add the VM to. None by default.
     description: ''
   - name: --boot-diagnostics-storage
     summary: Pre-existing storage account name or its blob uri to capture boot diagnostics. Its sku should be one of Standard_GRS, Standard_LRS and Standard_RAGRS.
+    description: ''
+  - name: --computer-name
+    summary: The host OS name of the virtual machine. Defaults to the name of the VM.
     description: ''
   - name: --custom-data
     summary: Custom init script file or text (cloud-init, cloud-config, etc..).
@@ -202,6 +199,9 @@ items:
     description: ''
   - name: --no-wait
     summary: Do not wait for the long-running operation to finish.
+    description: ''
+  - name: --ppg
+    summary: The name or ID of the proximity placement group the VM should be associated with.
     description: ''
   - name: --secrets
     summary: 'One or many Key Vault secrets as JSON strings or files via `@{path}` containing `[{ "sourceVault": { "id": "value" }, "vaultCertificates": [{ "certificateUrl": "value", "certificateStore": "cert store name (only on windows)"}] }]`.'
@@ -235,10 +235,16 @@ items:
     summary: Generate SSH public and private key files if missing. The keys will be stored in the ~/.ssh directory.
     description: ''
   - name: --ssh-dest-key-path
-    summary: Destination file path on the VM for the SSH key.
+    summary: Destination file path on the VM for the SSH key. If the file already exists, the specified key(s) are appended to the file.
     description: ''
-  - name: --ssh-key-value
-    summary: The SSH public key or public key file path.
+  - name: --ssh-key-values
+    summary: Space-separated list of SSH public keys or public key file paths.
+    description: ''
+  - name: --host
+    summary: Name or ID of the dedicated host this VM will reside in. If a name is specified, a host group must be specified via `--host-group`.
+    description: ''
+  - name: --host-group
+    summary: Name of the dedicated host group containing the dedicated host this VM will reside in.
     description: ''
   - name: --assign-identity
     summary: Accept system or user assigned identities separated by spaces. Use '[system]' to refer system assigned identity, or a resource id to refer user assigned identity. Check out help for more examples.
@@ -310,6 +316,12 @@ items:
   - name: --vnet-name
     summary: Name of the virtual network when creating a new one or referencing an existing one.
     description: ''
+  - name: --attach-data-disks
+    summary: Attach existing data disks to the VM. Can use the name or ID of a managed disk or the URI to an unmanaged disk VHD.
+    description: ''
+  - name: --attach-os-disk
+    summary: Attach an existing OS disk to the VM. Can use the name or ID of a managed disk or the URI to an unmanaged disk VHD.
+    description: ''
   - name: --data-disk-caching
     summary: Storage caching type for data disk(s), including 'None', 'ReadOnly', 'ReadWrite', etc. Use a singular value to apply on all disks, or use '<lun>=<vaule1> <lun>=<value2>' to configure individual disk.
     description: ''
@@ -318,7 +330,7 @@ items:
     description: ''
   - name: --ephemeral-os-disk
     parameterValueGroup: false, true
-    summary: (Preview) Allows you to create an OS disk directly on the host node, providing local disk performance and faster VM/VMSS reimage time.
+    summary: Allows you to create an OS disk directly on the host node, providing local disk performance and faster VM/VMSS reimage time.
     description: ''
   - name: --os-disk-caching
     parameterValueGroup: None, ReadOnly, ReadWrite
@@ -345,7 +357,7 @@ items:
     description: ''
   - name: --ultra-ssd-enabled
     parameterValueGroup: false, true
-    summary: (PREVIEW) Enables or disables the capability to have 1 or more managed data disks with UltraSSD_LRS storage account.
+    summary: Enables or disables the capability to have 1 or more managed data disks with UltraSSD_LRS storage account.
     description: ''
   - name: --use-unmanaged-disk
     summary: Do not use managed disk to persist VM.
@@ -354,10 +366,10 @@ items:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   source:
-    path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+    path: src/azure-cli/azure/cli/command_modules/vm/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+      path: src/azure-cli/azure/cli/command_modules/vm/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_vm_deallocate
   name: az vm deallocate
@@ -379,6 +391,9 @@ items:
                                 az vm deallocate --ids {vms_ids}
                                 az vm generalize --ids {vms_ids}
                                 az vm capture --ids {vms_ids} --vhd-name-prefix MyPrefix
+  - summary: Deallocate a VM. (autogenerated)
+    syntax:
+      content: az vm deallocate --name MyVm --no-wait --resource-group MyResourceGroup
   parameters:
   - name: --no-wait
     summary: Do not wait for the long-running operation to finish.
@@ -396,10 +411,10 @@ items:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   source:
-    path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+    path: src/azure-cli/azure/cli/command_modules/vm/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+      path: src/azure-cli/azure/cli/command_modules/vm/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_vm_delete
   name: az vm delete
@@ -434,10 +449,10 @@ items:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   source:
-    path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+    path: src/azure-cli/azure/cli/command_modules/vm/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+      path: src/azure-cli/azure/cli/command_modules/vm/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_vm_generalize
   name: az vm generalize
@@ -476,10 +491,10 @@ items:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   source:
-    path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+    path: src/azure-cli/azure/cli/command_modules/vm/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+      path: src/azure-cli/azure/cli/command_modules/vm/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_vm_get_instance_view
   name: az vm get-instance-view
@@ -508,10 +523,10 @@ items:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   source:
-    path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+    path: src/azure-cli/azure/cli/command_modules/vm/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+      path: src/azure-cli/azure/cli/command_modules/vm/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_vm_list
   name: az vm list
@@ -540,10 +555,10 @@ items:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   source:
-    path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+    path: src/azure-cli/azure/cli/command_modules/vm/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+      path: src/azure-cli/azure/cli/command_modules/vm/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_vm_list_ip_addresses
   name: az vm list-ip-addresses
@@ -572,10 +587,10 @@ items:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   source:
-    path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+    path: src/azure-cli/azure/cli/command_modules/vm/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+      path: src/azure-cli/azure/cli/command_modules/vm/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_vm_list_sizes
   name: az vm list-sizes
@@ -596,10 +611,10 @@ items:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   source:
-    path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+    path: src/azure-cli/azure/cli/command_modules/vm/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+      path: src/azure-cli/azure/cli/command_modules/vm/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_vm_list_skus
   name: az vm list-skus
@@ -629,7 +644,7 @@ items:
     summary: 'Location. Values from: `az account list-locations`. You can configure the default location using `az configure --defaults location=&lt;location&gt;`.'
     description: ''
   - name: --resource-type -r
-    summary: Resource types e.g. "availabilitySets", "snapshots", "disk", etc.
+    summary: Resource types e.g. "availabilitySets", "snapshots", "disks", etc.
     description: ''
   - name: --size -s
     summary: Size name, partial name is accepted.
@@ -642,10 +657,10 @@ items:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   source:
-    path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+    path: src/azure-cli/azure/cli/command_modules/vm/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+      path: src/azure-cli/azure/cli/command_modules/vm/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_vm_list_usage
   name: az vm list-usage
@@ -666,10 +681,10 @@ items:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   source:
-    path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+    path: src/azure-cli/azure/cli/command_modules/vm/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+      path: src/azure-cli/azure/cli/command_modules/vm/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_vm_list_vm_resize_options
   name: az vm list-vm-resize-options
@@ -698,10 +713,10 @@ items:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   source:
-    path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+    path: src/azure-cli/azure/cli/command_modules/vm/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+      path: src/azure-cli/azure/cli/command_modules/vm/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_vm_open_port
   name: az vm open-port
@@ -747,10 +762,10 @@ items:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   source:
-    path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+    path: src/azure-cli/azure/cli/command_modules/vm/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+      path: src/azure-cli/azure/cli/command_modules/vm/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_vm_perform_maintenance
   name: az vm perform-maintenance
@@ -772,10 +787,10 @@ items:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   source:
-    path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+    path: src/azure-cli/azure/cli/command_modules/vm/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+      path: src/azure-cli/azure/cli/command_modules/vm/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_vm_redeploy
   name: az vm redeploy
@@ -807,10 +822,10 @@ items:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   source:
-    path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+    path: src/azure-cli/azure/cli/command_modules/vm/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+      path: src/azure-cli/azure/cli/command_modules/vm/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_vm_resize
   name: az vm resize
@@ -847,10 +862,10 @@ items:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   source:
-    path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+    path: src/azure-cli/azure/cli/command_modules/vm/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+      path: src/azure-cli/azure/cli/command_modules/vm/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_vm_restart
   name: az vm restart
@@ -885,10 +900,10 @@ items:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   source:
-    path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+    path: src/azure-cli/azure/cli/command_modules/vm/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+      path: src/azure-cli/azure/cli/command_modules/vm/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_vm_show
   name: az vm show
@@ -920,10 +935,10 @@ items:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   source:
-    path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+    path: src/azure-cli/azure/cli/command_modules/vm/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+      path: src/azure-cli/azure/cli/command_modules/vm/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_vm_start
   name: az vm start
@@ -938,6 +953,9 @@ items:
   - summary: Start all VMs in a resource group.
     syntax:
       content: az vm start --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
+  - summary: Start a stopped VM. (autogenerated)
+    syntax:
+      content: az vm start --name MyVm --no-wait --resource-group MyResourceGroup
   parameters:
   - name: --no-wait
     summary: Do not wait for the long-running operation to finish.
@@ -955,10 +973,10 @@ items:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   source:
-    path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+    path: src/azure-cli/azure/cli/command_modules/vm/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+      path: src/azure-cli/azure/cli/command_modules/vm/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_vm_stop
   name: az vm stop
@@ -969,13 +987,19 @@ items:
   examples:
   - summary: Power off (stop) a running VM.
     syntax:
-      content: az vm stop -g MyResourceGroup -n MyVm
-  - summary: Stop all VMs in a resource group.
+      content: az vm stop --resource-group MyResourceGroup --name MyVm
+  - summary: Power off a running VM without shutting down.
+    syntax:
+      content: az vm stop --resource-group MyResourceGroup --name MyVm --skip-shutdown
+  - summary: Power off VMs in a resource group.
     syntax:
       content: az vm stop --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
   parameters:
   - name: --no-wait
     summary: Do not wait for the long-running operation to finish.
+    description: ''
+  - name: --skip-shutdown
+    summary: Skip shutdown and power-off immediately.
     description: ''
   - name: --ids
     summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
@@ -990,10 +1014,10 @@ items:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   source:
-    path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+    path: src/azure-cli/azure/cli/command_modules/vm/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+      path: src/azure-cli/azure/cli/command_modules/vm/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_vm_update
   name: az vm update
@@ -1059,10 +1083,10 @@ items:
     summary: 'Update an object by specifying a property path and value to set.  Example: --set property1.property2=<value>.'
     description: ''
   source:
-    path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+    path: src/azure-cli/azure/cli/command_modules/vm/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+      path: src/azure-cli/azure/cli/command_modules/vm/_help.py
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_vm_wait
   name: az vm wait
@@ -1114,10 +1138,10 @@ items:
     summary: Wait until updated with provisioningState at 'Succeeded'.
     description: ''
   source:
-    path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+    path: src/azure-cli/azure/cli/command_modules/vm/_help.py
     remote:
       branch: dev
-      path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
+      path: src/azure-cli/azure/cli/command_modules/vm/_help.py
       repo: https://github.com/Azure/azure-cli.git
 commands:
 - uid: az_vm_availability_set
@@ -1240,6 +1264,45 @@ commands:
 - uid: az_vm_get_instance_view
   name: az vm get-instance-view
   summary: Get instance information about a VM.
+- uid: az_vm_host
+  name: az vm host
+  summary: Manage Dedicated Hosts for Virtual Machines.
+- uid: az_vm_host_create
+  name: az vm host create
+  summary: Create a dedicated host.
+- uid: az_vm_host_delete
+  name: az vm host delete
+  summary: Delete a dedicated host.
+- uid: az_vm_host_get_instance_view
+  name: az vm host get-instance-view
+  summary: Get instance information about a dedicated host.
+- uid: az_vm_host_group
+  name: az vm host group
+  summary: Manage Dedicated Host Groups.
+- uid: az_vm_host_group_create
+  name: az vm host group create
+  summary: Create a dedicated host group.
+- uid: az_vm_host_group_delete
+  name: az vm host group delete
+  summary: Delete a dedicated host group.
+- uid: az_vm_host_group_list
+  name: az vm host group list
+  summary: List dedicated host groups.
+- uid: az_vm_host_group_show
+  name: az vm host group show
+  summary: Get the details of a dedicated host group.
+- uid: az_vm_host_group_update
+  name: az vm host group update
+  summary: Update a dedicated host group.
+- uid: az_vm_host_list
+  name: az vm host list
+  summary: List dedicated hosts.
+- uid: az_vm_host_show
+  name: az vm host show
+  summary: Get the details of a dedicated host.
+- uid: az_vm_host_update
+  name: az vm host update
+  summary: Update a dedicated host.
 - uid: az_vm_identity
   name: az vm identity
   summary: Manage service identities of a VM.
@@ -1404,9 +1467,9 @@ globalParameters:
 - name: --verbose
   summary: Increase logging verbosity. Use --debug for full debug logs.
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-doc_source_url_path: src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
-original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/a84f4307109230b2fc820fc6f037df00561c118f/src/command_modules/azure-cli-vm/azure/cli/command_modules/vm/_help.py
-updated_at: 3/21/2019 5:04:51 PM
-ms.date: 03/21/2019
+doc_source_url_path: src/azure-cli/azure/cli/command_modules/vm/_help.py
+original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+gitcommit: https://github.com/Azure/azure-cli/blob/7cb57dd2bfed18cf8637d333fa948b77ee26d618/src/azure-cli/azure/cli/command_modules/vm/_help.py
+updated_at: 7/24/2019 4:06:02 PM
+ms.date: 07/24/2019
 description: Manage Linux or Windows virtual machines.
