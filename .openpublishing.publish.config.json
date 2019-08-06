@@ -37,7 +37,7 @@
   "enable_incremental_build": false,
   "error_log_codes": ["DuplicateOutputFiles"],
   "contribution_branch_mappings": {},
-  "branches_to_filter": ["master-sync-work","live-sync-work","repo_sync_novalidation_prtest_branch","repo_sync_novalidation_live_branch","repo_sync_novalidation_master_branch"],
+  "branches_to_filter": ["prtest","prtest-nometavalidation","master-sync-work","live-sync-work","repo_sync_novalidation_prtest_branch","repo_sync_novalidation_live_branch","repo_sync_novalidation_master_branch"],
   "dependent_repositories": [
     {
       "path_to_root": "_themes",
