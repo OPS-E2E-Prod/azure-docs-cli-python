@@ -3,7 +3,7 @@ items:
 - uid: az_network_route_filter_rule
   name: az network route-filter rule
   summary: Manage rules in a route filter.
-  description: To learn more about route filters with Microsoft peering with ExpressRoute, visit <a href="https://docs.microsoft.com/en-us/azure/expressroute/how-to-routefilter-cli">https://docs.microsoft.com/en-us/azure/expressroute/how-to-routefilter-cli</a>.
+  description: To learn more about route filters with Microsoft peering with ExpressRoute, visit <a href="https://docs.microsoft.com/azure/expressroute/how-to-routefilter-cli">https://docs.microsoft.com/azure/expressroute/how-to-routefilter-cli</a>.
   langs:
   - azurecli
   children:
@@ -24,7 +24,7 @@ items:
     syntax:
       content: >-
         az network route-filter rule create -g MyResourceGroup --filter-name MyRouteFilter \
-                                    -n MyRouteFilterRule --communities 12076:5040 --access Allow
+            -n MyRouteFilterRule --communities 12076:5040 --access Allow
   parameters:
   - isRequired: true
     name: --access
@@ -134,7 +134,7 @@ items:
     syntax:
       content: >-
         az network route-filter rule list-service-communities \
-                                    --query '[].bgpCommunities[?communityName==`Exchange`].[communityValue][][]' -o tsv
+            --query '[].bgpCommunities[?communityName==`Exchange`].[communityValue][][]' -o tsv
   parameters:
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
@@ -188,7 +188,7 @@ items:
     syntax:
       content: >-
         az network route-filter rule update -g MyResourceGroup --filter-name MyRouteFilter \
-                                    -n MyRouteFilterRule --add communities='12076:5010'
+            -n MyRouteFilterRule --add communities='12076:5010'
   parameters:
   - name: --filter-name
     summary: Name of the route filter.
@@ -258,7 +258,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/network/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/87fd8b9a6d204cabe1bf0511803dece064b63829/src/azure-cli/azure/cli/command_modules/network/_help.py
-updated_at: 7/26/2019 2:24:39 PM
-ms.date: 07/26/2019
-description: To learn more about route filters with Microsoft peering with ExpressRoute, visit <a href="https://docs.microsoft.com/en-us/azure/expressroute/how-to-routefilter-cli">https://docs.microsoft.com/en-us/azure/expressroute/how-to-routefilter-cli</a>.
+gitcommit: https://github.com/Azure/azure-cli/blob/fb2e335c4951149571a5a5068fd4651a40db372b/src/azure-cli/azure/cli/command_modules/network/_help.py
+updated_at: 9/4/2019 7:40:53 AM
+ms.date: 09/04/2019
+description: To learn more about route filters with Microsoft peering with ExpressRoute, visit <a href="https://docs.microsoft.com/azure/expressroute/how-to-routefilter-cli">https://docs.microsoft.com/azure/expressroute/how-to-routefilter-cli</a>.

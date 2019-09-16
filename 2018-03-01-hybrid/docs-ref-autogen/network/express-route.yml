@@ -3,7 +3,7 @@ items:
 - uid: az_network_express_route
   name: az network express-route
   summary: Manage dedicated private network fiber connections to Azure.
-  description: To learn more about ExpressRoute circuits visit <a href="https://docs.microsoft.com/en-us/azure/expressroute/howto-circuit-cli">https://docs.microsoft.com/en-us/azure/expressroute/howto-circuit-cli</a>.
+  description: To learn more about ExpressRoute circuits visit <a href="https://docs.microsoft.com/azure/expressroute/howto-circuit-cli">https://docs.microsoft.com/azure/expressroute/howto-circuit-cli</a>.
   langs:
   - azurecli
   children:
@@ -178,7 +178,7 @@ items:
     syntax:
       content: >-
         az network express-route list-arp-tables -g MyResourceGroup -n MyCircuit \
-                                    --path primary --peering-name AzurePrivatePeering
+            --path primary --peering-name AzurePrivatePeering
   parameters:
   - isRequired: true
     name: --path
@@ -218,7 +218,7 @@ items:
     syntax:
       content: >-
         az network express-route list-route-tables -g MyResourceGroup -n MyCircuit \
-                                    --path primary --peering-name AzurePrivatePeering
+            --path primary --peering-name AzurePrivatePeering
   parameters:
   - isRequired: true
     name: --path
@@ -526,7 +526,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/network/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/87fd8b9a6d204cabe1bf0511803dece064b63829/src/azure-cli/azure/cli/command_modules/network/_help.py
-updated_at: 7/26/2019 2:24:39 PM
-ms.date: 07/26/2019
-description: To learn more about ExpressRoute circuits visit <a href="https://docs.microsoft.com/en-us/azure/expressroute/howto-circuit-cli">https://docs.microsoft.com/en-us/azure/expressroute/howto-circuit-cli</a>.
+gitcommit: https://github.com/Azure/azure-cli/blob/fb2e335c4951149571a5a5068fd4651a40db372b/src/azure-cli/azure/cli/command_modules/network/_help.py
+updated_at: 9/4/2019 7:40:53 AM
+ms.date: 09/04/2019
+description: To learn more about ExpressRoute circuits visit <a href="https://docs.microsoft.com/azure/expressroute/howto-circuit-cli">https://docs.microsoft.com/azure/expressroute/howto-circuit-cli</a>.
