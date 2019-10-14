@@ -16,7 +16,7 @@ ms.devlang: azurecli
 If you are running a distribution that comes with `apt`, such as Ubuntu or Debian, there's an x86_64 package available
 for the Azure CLI. This package has been tested with and is supported for:
 
-* Ubuntu trusty, xenial, artful, bionic, and disco
+* Ubuntu trusty, xenial, artful, bionic, buster, and disco
 * Debian wheezy, jessie, and stretch
 
 [!INCLUDE [current-version](includes/current-version.md)]
@@ -59,8 +59,8 @@ If you don't want to run a script as superuser or the all-in-one script fails, f
 2. Download and install the Microsoft signing key:
 
     ```bash
-    curl -sL https://packages.microsoft.com/keys/microsoft.asc | \
-        gpg --dearmor | \
+    curl -sL https://packages.microsoft.com/keys/microsoft.asc | 
+        gpg --dearmor | 
         sudo tee /etc/apt/trusted.gpg.d/microsoft.asc.gpg > /dev/null
     ```
 
@@ -68,7 +68,7 @@ If you don't want to run a script as superuser or the all-in-one script fails, f
 
     ```bash
     AZ_REPO=$(lsb_release -cs)
-    echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | \
+    echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | 
         sudo tee /etc/apt/sources.list.d/azure-cli.list
     ```
 
@@ -163,7 +163,7 @@ Use `apt-get upgrade` to update the CLI package.
    sudo rm /etc/apt/sources.list.d/azure-cli.list
    ```
 
-3. Remove the signing key:
+3. If you use no other packages from Microsoft, remove the signing key:
 
     ```bash
     sudo rm /etc/apt/trusted.gpg.d/microsoft.asc.gpg

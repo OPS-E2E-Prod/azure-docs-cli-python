@@ -11,6 +11,21 @@ items:
   - azurecli
   children: []
 commands:
+- uid: ext_azure-cli-iot-ext_az_iot_central
+  name: az iot central
+  summary: Manage Azure IoT Central assets.
+- uid: ext_azure-cli-iot-ext_az_iot_central_app
+  name: az iot central app
+  summary: Manage Azure IoT Central applications.
+- uid: ext_azure-cli-iot-ext_az_iot_central_app_monitor_events
+  name: az iot central app monitor-events
+  summary: Monitor device telemetry & messages sent to the IoT Hub for an IoT Central app.
+- uid: ext_azure-cli-iot-ext_az_iot_central_device_twin
+  name: az iot central device-twin
+  summary: Manage IoT Central device twins.
+- uid: ext_azure-cli-iot-ext_az_iot_central_device_twin_show
+  name: az iot central device-twin show
+  summary: Get the device twin from IoT Hub.
 - uid: ext_azure-cli-iot-ext_az_iot_device
   name: az iot device
   summary: Leverage device-to-cloud and cloud-to-device messaging capabilities.
@@ -136,16 +151,13 @@ commands:
   summary: Evaluate a target system metric defined in an IoT Edge deployment.
 - uid: ext_azure-cli-iot-ext_az_iot_edge_deployment_update
   name: az iot edge deployment update
-  summary: Update an IoT Edge deployment with the specified properties.
+  summary: Update specified properties of an IoT Edge deployment.
 - uid: ext_azure-cli-iot-ext_az_iot_edge_set_modules
   name: az iot edge set-modules
   summary: Set edge modules on a single device.
 - uid: ext_azure-cli-iot-ext_az_iot_hub
   name: az iot hub
   summary: Manage entities in an Azure IoT Hub.
-- uid: ext_azure-cli-iot-ext_az_iot_hub_apply_configuration
-  name: az iot hub apply-configuration
-  summary: Apply a deployment manifest to a single device.
 - uid: ext_azure-cli-iot-ext_az_iot_hub_configuration
   name: az iot hub configuration
   summary: Manage IoT device configurations at scale.
