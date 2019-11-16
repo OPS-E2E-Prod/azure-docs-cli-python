@@ -29,13 +29,16 @@ items:
   - summary: Create a deployment with labels (bash syntax example) that applies for devices in 'building 9' and the environment is 'test'.
     syntax:
       content: az iot edge deployment create -d {deployment_name} -n {iothub_name} --content ../modules_content.json --labels '{"key0":"value0", "key1":"value1"}' --target-condition "tags.building=9 and tags.environment='test'" --priority 3
-  - summary: Create a deployment with labels (cmd syntax example) that applies for devices tagged with environment 'dev'.
+  - summary: Create a deployment with labels (powershell syntax example) that applies for devices tagged with environment 'dev'.
     syntax:
-      content: az iot edge deployment create -d {deployment_name} -n {iothub_name} --content ../modules_content.json --labels "{\"key\":\"value\"}" --target-condition "tags.environment='dev'"
+      content: az iot edge deployment create -d {deployment_name} -n {iothub_name} --content ../modules_content.json --labels '{\"key\":\"value\"}' --target-condition "tags.environment='dev'"
+  - summary: Create a deployment that applies for devices tagged with environment 'dev' with user metrics inline (bash syntax example).
+    syntax:
+      content: "az iot edge deployment create -d {deployment_name} -n {iothub_name} --content ../modules_content.json --target-condition \"tags.environment='dev'\" --metrics '{\"queries\": {\"mymetrik\": \"SELECT deviceId from devices where properties.reported.lastDesiredStatus.code = 200\"}}'"
   parameters:
   - isRequired: true
     name: --config-id --deployment-id -c -d
-    summary: Target deployment. --config-id/-c is deprecated for deployments. Use --deployment-id/-d instead.
+    summary: Target deployment name. Option '--config-id' has been deprecated and will be removed in a future release. Use '--deployment-id' instead.
     description: ''
   - isRequired: true
     name: --content -k
@@ -49,6 +52,9 @@ items:
     description: ''
   - name: --login -l
     summary: This command supports an entity connection string with rights to perform action. Use to avoid session login via "az login". If both an entity connection string and name are provided the connection string takes priority.
+    description: ''
+  - name: --metrics -m
+    summary: IoT Edge deployment metric definitions. Provide file path or raw json.
     description: ''
   - name: --pri --priority
     summary: Weight of deployment in case of competing rules (highest wins).
@@ -68,7 +74,7 @@ items:
   parameters:
   - isRequired: true
     name: --config-id --deployment-id -c -d
-    summary: Target deployment. --config-id/-c is deprecated for deployments. Use --deployment-id/-d instead.
+    summary: Target deployment name. Option '--config-id' has been deprecated and will be removed in a future release. Use '--deployment-id' instead.
     description: ''
   - name: --hub-name -n
     summary: IoT Hub name.
@@ -108,7 +114,7 @@ items:
   parameters:
   - isRequired: true
     name: --config-id --deployment-id -c -d
-    summary: Target deployment. --config-id/-c is deprecated for deployments. Use --deployment-id/-d instead.
+    summary: Target deployment name. Option '--config-id' has been deprecated and will be removed in a future release. Use '--deployment-id' instead.
     description: ''
   - name: --hub-name -n
     summary: IoT Hub name.
@@ -132,7 +138,7 @@ items:
   parameters:
   - isRequired: true
     name: --config-id --deployment-id -c -d
-    summary: Target deployment. --config-id/-c is deprecated for deployments. Use --deployment-id/-d instead.
+    summary: Target deployment name. Option '--config-id' has been deprecated and will be removed in a future release. Use '--deployment-id' instead.
     description: ''
   - isRequired: true
     name: --metric-id -m
@@ -149,14 +155,17 @@ items:
     description: ''
 - uid: ext_azure-cli-iot-ext_az_iot_edge_deployment_update
   name: az iot edge deployment update
-  summary: Update specified properties of an IoT Edge deployment.
-  description: >-
+  summary: >-
+    Update specified properties of an IoT Edge deployment.
+
+
     Use --set followed by property assignments for updating a deployment.
 
 
     Note: IoT Edge deployment content is immutable. Deployment properties that can be
 
     updated are 'labels', 'metrics', 'priority' and 'targetCondition'.
+  description: ''
   langs:
   - azurecli
   examples:
@@ -166,7 +175,7 @@ items:
   parameters:
   - isRequired: true
     name: --config-id --deployment-id -c -d
-    summary: Target deployment. --config-id/-c is deprecated for deployments. Use --deployment-id/-d instead.
+    summary: Target deployment name. Option '--config-id' has been deprecated and will be removed in a future release. Use '--deployment-id' instead.
     description: ''
   - name: --hub-name -n
     summary: IoT Hub name.
@@ -207,7 +216,16 @@ commands:
   summary: Evaluate a target system metric defined in an IoT Edge deployment.
 - uid: ext_azure-cli-iot-ext_az_iot_edge_deployment_update
   name: az iot edge deployment update
-  summary: Update specified properties of an IoT Edge deployment.
+  summary: >-
+    Update specified properties of an IoT Edge deployment.
+
+
+    Use --set followed by property assignments for updating a deployment.
+
+
+    Note: IoT Edge deployment content is immutable. Deployment properties that can be
+
+    updated are 'labels', 'metrics', 'priority' and 'targetCondition'.
 globalParameters:
 - name: --debug
   summary: Increase logging verbosity to show all debug logs.
