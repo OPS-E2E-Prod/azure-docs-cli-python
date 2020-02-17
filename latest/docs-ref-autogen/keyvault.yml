@@ -69,7 +69,7 @@ items:
     summary: Required. SKU details.
     description: ''
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
   - name: --bypass
     parameterValueGroup: AzureServices, None
@@ -246,9 +246,6 @@ items:
     name: --name -n
     summary: Name of the key vault.
     description: ''
-  - name: --object-id
-    summary: A GUID that identifies the principal that will receive permissions.
-    description: ''
   - name: --resource-group -g
     summary: Proceed only if Key Vault belongs to the specified resource group.
     description: ''
@@ -265,6 +262,9 @@ items:
   - name: --key-permissions
     parameterValueGroup: backup, create, decrypt, delete, encrypt, get, import, list, purge, recover, restore, sign, unwrapKey, update, verify, wrapKey
     summary: Space-separated list of key permissions to assign.
+    description: ''
+  - name: --object-id
+    summary: A GUID that identifies the principal that will receive permissions.
     description: ''
   - name: --secret-permissions
     parameterValueGroup: backup, delete, get, list, purge, recover, restore, set
@@ -495,6 +495,9 @@ commands:
 - uid: az_keyvault_key_delete
   name: az keyvault key delete
   summary: Deletes a key of any type from storage in Azure Key Vault.
+- uid: az_keyvault_key_download
+  name: az keyvault key download
+  summary: Download a key from a KeyVault.
 - uid: az_keyvault_key_import
   name: az keyvault key import
   summary: Import a private key.
@@ -623,7 +626,7 @@ commands:
   summary: Regenerates the specified key value for the given storage account.
 - uid: az_keyvault_storage_remove
   name: az keyvault storage remove
-  summary: Deletes a storage account.
+  summary: Remove a Key Vault managed Azure Storage Account and all associated SAS definitions. This operation requires the storage/delete permission.
 - uid: az_keyvault_storage_restore
   name: az keyvault storage restore
   summary: Restores a backed up storage account to a vault.
@@ -682,7 +685,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/keyvault/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/844005a08d19ab7a5544aa9147869e101426ea67/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
-updated_at: 8/20/2019 5:09:19 AM
-ms.date: 08/20/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/f57bc9e50197057e939afebd8de4f19a3495ddc0/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+updated_at: 1/15/2020 2:23:47 AM
+ms.date: 01/15/2020
 description: Manage KeyVault keys, secrets, and certificates.

@@ -22,6 +22,7 @@ items:
   - az_vm_list_vm_resize_options
   - az_vm_open_port
   - az_vm_perform_maintenance
+  - az_vm_reapply
   - az_vm_redeploy
   - az_vm_resize
   - az_vm_restart
@@ -232,7 +233,7 @@ items:
     description: ''
   - name: --priority
     parameterValueGroup: Low, Regular, Spot
-    summary: Priority. Use 'Low' to run short-lived workloads in a cost-effective way.
+    summary: Priority. Use 'Spot' to run short-lived workloads in a cost-effective way. 'Low' enum will be deprecated in the future. Please use 'Spot' to deploy Azure spot VM and/or VMSS.
     description: ''
   - name: --secrets
     summary: 'One or many Key Vault secrets as JSON strings or files via `@{path}` containing `[{ "sourceVault": { "id": "value" }, "vaultCertificates": [{ "certificateUrl": "value", "certificateStore": "cert store name (only on windows)"}] }]`.'
@@ -243,7 +244,7 @@ items:
     description: ''
     valueFrom: az vm list-sizes
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
   - name: --validate
     summary: Generate and validate the ARM template without creating any resources.
@@ -317,7 +318,7 @@ items:
     summary: Names or IDs of existing NICs to attach to the VM. The first NIC will be designated as primary. If omitted, a new NIC will be created. If an existing NIC is specified, do not specify subnet, VNet, public IP or NSG.
     description: ''
   - name: --nsg
-    summary: The name to use when creating a new Network Security Group (default) or referencing an existing one. Can also reference an existing NSG by ID or specify "" for none.
+    summary: The name to use when creating a new Network Security Group (default) or referencing an existing one. Can also reference an existing NSG by ID or specify "" for none ('""' in Azure CLI using PowerShell or --% operator).
     description: ''
   - name: --nsg-rule
     parameterValueGroup: RDP, SSH
@@ -327,7 +328,7 @@ items:
     summary: Static private IP address (e.g. 10.0.0.5).
     description: ''
   - name: --public-ip-address
-    summary: Name of the public IP address when creating one (default) or referencing an existing one. Can also reference an existing public IP by ID or specify "" for None.
+    summary: Name of the public IP address when creating one (default) or referencing an existing one. Can also reference an existing public IP by ID or specify "" for None ('""' in Azure CLI using PowerShell or --% operator).
     description: ''
   - name: --public-ip-address-allocation
     parameterValueGroup: dynamic, static
@@ -363,6 +364,9 @@ items:
   - name: --data-disk-caching
     summary: Storage caching type for data disk(s), including 'None', 'ReadOnly', 'ReadWrite', etc. Use a singular value to apply on all disks, or use '<lun>=<vaule1> <lun>=<value2>' to configure individual disk.
     description: ''
+  - name: --data-disk-encryption-sets
+    summary: Names or IDs (space delimited) of disk encryption sets for data disks.
+    description: ''
   - name: --data-disk-sizes-gb
     summary: Space-separated empty managed data disk sizes in GB to create.
     description: ''
@@ -373,6 +377,9 @@ items:
   - name: --os-disk-caching
     parameterValueGroup: None, ReadOnly, ReadWrite
     summary: 'Storage caching type for the VM OS disk. Default: ReadWrite.'
+    description: ''
+  - name: --os-disk-encryption-set
+    summary: Name or ID of disk encryption set for OS disk.
     description: ''
   - name: --os-disk-name
     summary: The name of the new VM OS disk.
@@ -840,6 +847,41 @@ items:
       branch: dev
       path: src/azure-cli/azure/cli/command_modules/vm/_help.py
       repo: https://github.com/Azure/azure-cli.git
+- uid: az_vm_reapply
+  name: az vm reapply
+  summary: Reapply VMs.
+  description: ''
+  langs:
+  - azurecli
+  examples:
+  - summary: Reapply a VM.
+    syntax:
+      content: az vm reapply -g MyResourceGroup -n MyVm
+  - summary: Reapply all VMs in a resource group.
+    syntax:
+      content: az vm reapply --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
+  parameters:
+  - name: --no-wait
+    summary: Do not wait for the long-running operation to finish.
+    description: ''
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
+    description: ''
+  - name: --name -n
+    summary: The name of the Virtual Machine. You can configure the default using `az configure --defaults vm=&lt;name&gt;`.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=&lt;name&gt;`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  source:
+    path: src/azure-cli/azure/cli/command_modules/vm/_help.py
+    remote:
+      branch: dev
+      path: src/azure-cli/azure/cli/command_modules/vm/_help.py
+      repo: https://github.com/Azure/azure-cli.git
 - uid: az_vm_redeploy
   name: az vm redeploy
   summary: Redeploy an existing VM.
@@ -1097,11 +1139,18 @@ items:
     parameterValueGroup: None, Windows_Client, Windows_Server
     summary: Specifies that the Windows image or disk was licensed on-premises. To enable Azure Hybrid Benefit for Windows Server, use 'Windows_Server'. To enable Multitenant Hosting Rights for Windows 10, use 'Windows_Client'. For more information see the Azure Windows VM online docs.
     description: ''
+  - name: --max-price
+    summary: The maximum price (in US Dollars) you are willing to pay for a low priority VM/VMSS. -1 indicates that the low priority VM/VMSS should not be evicted for price reasons.
+    description: ''
   - name: --no-wait
     summary: Do not wait for the long-running operation to finish.
     description: ''
   - name: --os-disk
     summary: Managed OS disk ID or name to swap to.
+    description: ''
+  - name: --priority
+    parameterValueGroup: Low, Regular, Spot
+    summary: Priority. Use 'Spot' to run short-lived workloads in a cost-effective way. 'Low' enum will be deprecated in the future. Please use 'Spot' to deploy Azure spot VM and/or VMSS.
     description: ''
   - name: --ultra-ssd-enabled
     parameterValueGroup: false, true
@@ -1427,6 +1476,15 @@ commands:
 - uid: az_vm_monitor_log_show
   name: az vm monitor log show
   summary: Executes a query against the Log Analytics workspace linked with a vm.
+- uid: az_vm_monitor_metrics
+  name: az vm monitor metrics
+  summary: Manage metrics for a vm.
+- uid: az_vm_monitor_metrics_list_definitions
+  name: az vm monitor metrics list-definitions
+  summary: List the metric definitions for a VM.
+- uid: az_vm_monitor_metrics_tail
+  name: az vm monitor metrics tail
+  summary: List the metric values for a VM.
 - uid: az_vm_nic
   name: az vm nic
   summary: Manage network interfaces. See also `az network nic`.
@@ -1451,6 +1509,9 @@ commands:
 - uid: az_vm_perform_maintenance
   name: az vm perform-maintenance
   summary: The operation to perform maintenance on a virtual machine.
+- uid: az_vm_reapply
+  name: az vm reapply
+  summary: Reapply VMs.
 - uid: az_vm_redeploy
   name: az vm redeploy
   summary: Redeploy an existing VM.
@@ -1542,7 +1603,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/vm/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/935e54977378ee6107f5c78ecce88c469e61285e/src/azure-cli/azure/cli/command_modules/vm/_help.py
-updated_at: 11/19/2019 3:21:04 AM
-ms.date: 11/19/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/c8b028dbb12c1f4e6d715d828e7e60707211fcb0/src/azure-cli/azure/cli/command_modules/vm/_help.py
+updated_at: 1/3/2020 5:13:29 AM
+ms.date: 01/03/2020
 description: Manage Linux or Windows virtual machines.

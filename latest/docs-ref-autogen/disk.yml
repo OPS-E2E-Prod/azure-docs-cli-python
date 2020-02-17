@@ -54,11 +54,18 @@ items:
     name: --resource-group -g
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=&lt;name&gt;`.
     description: ''
+  - name: --disk-encryption-set
+    summary: Name or ID of disk encryption set that is used to encrypt the disk.
+    description: ''
   - name: --disk-iops-read-write
     summary: The number of IOPS allowed for this disk. Only settable for UltraSSD disks. One operation can transfer between 4k and 256k bytes.
     description: ''
   - name: --disk-mbps-read-write
     summary: The bandwidth allowed for this disk. Only settable for UltraSSD disks. MBps means millions of bytes per second with ISO notation of powers of 10.
+    description: ''
+  - name: --encryption-type
+    parameterValueGroup: EncryptionAtRestWithCustomerKey, EncryptionAtRestWithPlatformKey
+    summary: 'Encryption type. EncryptionAtRestWithPlatformKey: Disk is encrypted with XStore managed key at rest. It is the default encryption type. EncryptionAtRestWithCustomerKey: Disk is encrypted with Customer managed key at rest.'
     description: ''
   - name: --for-upload
     parameterValueGroup: false, true
@@ -94,7 +101,7 @@ items:
     summary: Used when source blob is in a different subscription.
     description: ''
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
   - name: --upload-size-bytes
     summary: 'The size (in bytes) of the contents of the upload including the VHD footer. Min value: 20972032. Max value: 35183298347520.'
@@ -236,11 +243,18 @@ items:
     syntax:
       content: az disk update --name MyManagedDisk --resource-group MyResourceGroup --size-gb 20
   parameters:
+  - name: --disk-encryption-set
+    summary: Name or ID of disk encryption set that is used to encrypt the disk.
+    description: ''
   - name: --disk-iops-read-write
     summary: The number of IOPS allowed for this disk. Only settable for UltraSSD disks. One operation can transfer between 4k and 256k bytes.
     description: ''
   - name: --disk-mbps-read-write
     summary: The bandwidth allowed for this disk. Only settable for UltraSSD disks. MBps means millions of bytes per second with ISO notation of powers of 10.
+    description: ''
+  - name: --encryption-type
+    parameterValueGroup: EncryptionAtRestWithCustomerKey, EncryptionAtRestWithPlatformKey
+    summary: 'Encryption type. EncryptionAtRestWithPlatformKey: Disk is encrypted with XStore managed key at rest. It is the default encryption type. EncryptionAtRestWithCustomerKey: Disk is encrypted with Customer managed key at rest.'
     description: ''
   - name: --no-wait
     summary: Do not wait for the long-running operation to finish.

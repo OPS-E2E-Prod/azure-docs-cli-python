@@ -34,7 +34,7 @@ items:
       content: az openshift create -g MyResourceGroup -n MyManagedCluster --vnet-peer "/subscriptions/0000000-0000-0000-0000-000000000000/resourceGroups/openshift-vnet/providers/Microsoft.Network/virtualNetworks/test"
   - summary: Create an Openshift cluster with Log Analytics monitoring enabled
     syntax:
-      content: az openshift create -g MyResourceGroup -n MyManagedCluster --workspace-resource-id {WORKSPACE_RESOURCE_ID}
+      content: az openshift create -g MyResourceGroup -n MyManagedCluster --workspace-id "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/MyResourceGroup/providers/Microsoft.OperationalInsights/workspaces/{workspace-id}"
   parameters:
   - isRequired: true
     name: --name -n
@@ -75,7 +75,7 @@ items:
     summary: The CIDR used on the Subnet into which to deploy the cluster.
     description: ''
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
   - name: --vnet-peer
     summary: The ID or the name of a subnet in an existing VNet into which to peer the cluster.
@@ -84,8 +84,8 @@ items:
     defaultValue: 10.0.0.0/8
     summary: The CIDR used on the VNet into which to deploy the cluster.
     description: ''
-  - name: --workspace-resource-id
-    summary: The resource ID of an existing Log Analytics Workspace to use for storing monitoring data.
+  - name: --workspace-id
+    summary: The resource id of an existing Log Analytics Workspace to use for storing monitoring data.
     description: ''
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
@@ -238,6 +238,15 @@ commands:
 - uid: az_openshift_list
   name: az openshift list
   summary: List managed OpenShift clusters.
+- uid: az_openshift_monitor
+  name: az openshift monitor
+  summary: Commands to manage Log Analytics monitoring. Requires "--workspace-id".
+- uid: az_openshift_monitor_disable
+  name: az openshift monitor disable
+  summary: Disable Log Analytics monitoring.
+- uid: az_openshift_monitor_enable
+  name: az openshift monitor enable
+  summary: Enable Log Analytics monitoring. Requires "--workspace-id".
 - uid: az_openshift_scale
   name: az openshift scale
   summary: Scale the compute pool in a managed OpenShift cluster.

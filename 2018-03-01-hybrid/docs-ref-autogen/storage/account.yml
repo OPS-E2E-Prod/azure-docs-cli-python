@@ -42,9 +42,12 @@ items:
   langs:
   - azurecli
   examples:
-  - summary: Create a storage account 'MyStorageAccount' in resource group 'MyResourceGroup' in the West US region with locally redundant storage.
+  - summary: Create a storage account 'mystorageaccount' in resource group 'MyResourceGroup' in the West US region with locally redundant storage.
     syntax:
-      content: az storage account create -n MyStorageAccount -g MyResourceGroup -l westus --sku Standard_LRS
+      content: az storage account create -n mystorageaccount -g MyResourceGroup -l westus --sku Standard_LRS
+  - summary: Create a storage account 'mystorageaccount' in resource group 'MyResourceGroup' in the eastus2euap region with account-scoped encryption key enabled for Table Service.
+    syntax:
+      content: az storage account create -n mystorageaccount -g MyResourceGroup --kind StorageV2 -l eastus2euap -t Account
   parameters:
   - isRequired: true
     name: --name -n
@@ -79,7 +82,7 @@ items:
     summary: The storage account SKU.
     description: ''
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
@@ -379,7 +382,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/storage/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/3a1fdc6b3f85c2590b540cc9ab6dbd0ce5269204/src/azure-cli/azure/cli/command_modules/storage/_help.py
-updated_at: 10/30/2019 4:26:32 AM
-ms.date: 10/30/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/26c8ead7536cb3fe56490fd86db6b0a83b3c7066/src/azure-cli/azure/cli/command_modules/storage/_help.py
+updated_at: 1/21/2020 11:03:59 AM
+ms.date: 01/21/2020
 description: Manage storage accounts.

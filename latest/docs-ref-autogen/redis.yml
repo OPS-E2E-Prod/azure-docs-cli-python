@@ -61,6 +61,9 @@ items:
   - name: --redis-configuration
     summary: JSON encoded configuration settings. Use @{file} to load from a file.
     description: ''
+  - name: --replicas-per-master
+    summary: The number of replicas to be created per master.
+    description: ''
   - name: --shard-count
     summary: The number of shards to be created on a Premium Cluster Cache.
     description: ''
@@ -71,7 +74,7 @@ items:
     summary: The full resource ID of a subnet in a virtual network to deploy the redis cache in. Example format /subscriptions/{subid}/resourceGroups/{resourceGroupName}/providers/Microsoft.{Network|ClassicNetwork}/virtualNetworks/vnet1/subnets/subnet1.
     description: ''
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
   - name: --tenant-settings
     summary: Space-separated tenant settings in key[=value] format.

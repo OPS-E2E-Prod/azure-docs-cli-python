@@ -44,9 +44,12 @@ items:
   langs:
   - azurecli
   examples:
-  - summary: Create a storage account 'MyStorageAccount' in resource group 'MyResourceGroup' in the West US region with locally redundant storage.
+  - summary: Create a storage account 'mystorageaccount' in resource group 'MyResourceGroup' in the West US region with locally redundant storage.
     syntax:
-      content: az storage account create -n MyStorageAccount -g MyResourceGroup -l westus --sku Standard_LRS
+      content: az storage account create -n mystorageaccount -g MyResourceGroup -l westus --sku Standard_LRS
+  - summary: Create a storage account 'mystorageaccount' in resource group 'MyResourceGroup' in the eastus2euap region with account-scoped encryption key enabled for Table Service.
+    syntax:
+      content: az storage account create -n mystorageaccount -g MyResourceGroup --kind StorageV2 -l eastus2euap -t Account
   parameters:
   - isRequired: true
     name: --name -n
@@ -81,6 +84,14 @@ items:
   - name: --enable-large-file-share
     summary: Enable the capability to support large file shares with more than 5 TiB capacity for storage account.Once the property is enabled, the feature cannot be disabled. Currently only supported for LRS and ZRS replication types, hence account conversions to geo-redundant accounts would not be possible. For more information, please refer to <a href="https://go.microsoft.com/fwlink/?linkid=2086047">https://go.microsoft.com/fwlink/?linkid=2086047</a>.
     description: ''
+  - name: --encryption-key-type-for-queue -q
+    parameterValueGroup: Account, Service
+    summary: 'Set the encryption key type for Queue service. "Account": Queue will be encrypted with account-scoped encryption key. "Service": Queue will always be encrypted with service-scoped keys. Currently the default encryption key type is "Service".'
+    description: ''
+  - name: --encryption-key-type-for-table -t
+    parameterValueGroup: Account, Service
+    summary: 'Set the encryption key type for Table service. "Account": Table will be encrypted with account-scoped encryption key. "Service": Table will always be encrypted with service-scoped keys. Currently the default encryption key type is "Service".'
+    description: ''
   - name: --encryption-services
     parameterValueGroup: blob, file, queue, table
     summary: Specifies which service(s) to encrypt.
@@ -103,7 +114,7 @@ items:
     summary: The storage account SKU.
     description: ''
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
   - name: --azure-storage-sid
     summary: Specify the security identifier (SID) for Azure Storage. Required when --enable-files-adds is set to True.
@@ -463,7 +474,7 @@ items:
     summary: The storage account SKU.
     description: ''
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
   - name: --use-subdomain
     parameterValueGroup: false, true
@@ -539,6 +550,15 @@ items:
       path: src/azure-cli/azure/cli/command_modules/storage/_help.py
       repo: https://github.com/Azure/azure-cli.git
 commands:
+- uid: az_storage_account_blob_service_properties
+  name: az storage account blob-service-properties
+  summary: Manage the properties of a storage account's blob service.
+- uid: az_storage_account_blob_service_properties_show
+  name: az storage account blob-service-properties show
+  summary: Show the properties of a storage account's blob service.
+- uid: az_storage_account_blob_service_properties_update
+  name: az storage account blob-service-properties update
+  summary: Update the properties of a storage account's blob service.
 - uid: az_storage_account_check_name
   name: az storage account check-name
   summary: Checks that the storage account name is valid and is not already in use.
@@ -621,7 +641,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/storage/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/3a1fdc6b3f85c2590b540cc9ab6dbd0ce5269204/src/azure-cli/azure/cli/command_modules/storage/_help.py
-updated_at: 10/30/2019 4:26:32 AM
-ms.date: 10/30/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/26c8ead7536cb3fe56490fd86db6b0a83b3c7066/src/azure-cli/azure/cli/command_modules/storage/_help.py
+updated_at: 1/21/2020 11:03:59 AM
+ms.date: 01/21/2020
 description: Manage storage accounts.

@@ -65,7 +65,7 @@ items:
     summary: Required. SKU details.
     description: ''
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
   - name: --bypass
     parameterValueGroup: AzureServices, None
@@ -515,7 +515,7 @@ commands:
   summary: Regenerates the specified key value for the given storage account.
 - uid: ext_keyvault-preview_az_keyvault_storage_remove
   name: az keyvault storage remove
-  summary: Deletes a storage account.
+  summary: Remove a Key Vault managed Azure Storage Account and all associated SAS definitions. This operation requires the storage/delete permission.
 - uid: ext_keyvault-preview_az_keyvault_storage_restore
   name: az keyvault storage restore
   summary: Restores a backed up storage account to a vault.
