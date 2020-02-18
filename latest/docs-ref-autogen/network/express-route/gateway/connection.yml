@@ -34,6 +34,10 @@ items:
   - name: --authorization-key
     summary: Authorization key to establish the connection.
     description: ''
+  - name: --internet-security
+    parameterValueGroup: false, true
+    summary: Enable internet security. A virtual hub can have the ability to propagate a learned default route to this ExpressRoute connection. This ref <a href="https://review.docs.microsoft.com/en-us/azure/virtual-wan/effective-routes-virtual-hub?branch=pr-en-us-91866#aboutdefaultroute">https://review.docs.microsoft.com/en-us/azure/virtual-wan/effective-routes-virtual-hub?branch=pr-en-us-91866#aboutdefaultroute</a> might be helpful.
+    description: ''
   - name: --routing-weight
     summary: Routing weight associated with the connection.
     description: ''
@@ -68,7 +72,7 @@ items:
     summary: ExpressRoute gateway name.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: ExpressRoute connection name.
@@ -128,7 +132,7 @@ items:
     summary: ExpressRoute gateway name.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: ExpressRoute connection name.
@@ -155,6 +159,10 @@ items:
   - name: --authorization-key
     summary: Authorization key to establish the connection.
     description: ''
+  - name: --internet-security
+    parameterValueGroup: false, true
+    summary: Enable internet security. A virtual hub can have the ability to propagate a learned default route to this ExpressRoute connection. This ref <a href="https://review.docs.microsoft.com/en-us/azure/virtual-wan/effective-routes-virtual-hub?branch=pr-en-us-91866#aboutdefaultroute">https://review.docs.microsoft.com/en-us/azure/virtual-wan/effective-routes-virtual-hub?branch=pr-en-us-91866#aboutdefaultroute</a> might be helpful.
+    description: ''
   - name: --routing-weight
     summary: Routing weight associated with the connection.
     description: ''
@@ -162,7 +170,7 @@ items:
     summary: ExpressRoute gateway name.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: ExpressRoute connection name.
@@ -229,7 +237,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/network/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/87fd8b9a6d204cabe1bf0511803dece064b63829/src/azure-cli/azure/cli/command_modules/network/_help.py
-updated_at: 7/26/2019 2:24:39 PM
-ms.date: 07/26/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/800e711239d60c81de6679d73779563b2cedcc62/src/azure-cli/azure/cli/command_modules/network/_help.py
+updated_at: 2/13/2020 4:56:47 AM
+ms.date: 02/13/2020
 description: Manage ExpressRoute gateway connections.

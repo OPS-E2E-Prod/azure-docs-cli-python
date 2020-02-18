@@ -4,7 +4,7 @@ description: How to install the Azure CLI with the apt package manager
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 05/08/2019
+ms.date: 10/14/2019
 ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
@@ -17,7 +17,7 @@ If you are running a distribution that comes with `apt`, such as Ubuntu or Debia
 for the Azure CLI. This package has been tested with and is supported for:
 
 * Ubuntu trusty, xenial, artful, bionic, and disco
-* Debian wheezy, jessie, and stretch
+* Debian wheezy, jessie, stretch, and buster
 
 [!INCLUDE [current-version](includes/current-version.md)]
 
@@ -59,8 +59,8 @@ If you don't want to run a script as superuser or the all-in-one script fails, f
 2. Download and install the Microsoft signing key:
 
     ```bash
-    curl -sL https://packages.microsoft.com/keys/microsoft.asc | \
-        gpg --dearmor | \
+    curl -sL https://packages.microsoft.com/keys/microsoft.asc | 
+        gpg --dearmor | 
         sudo tee /etc/apt/trusted.gpg.d/microsoft.asc.gpg > /dev/null
     ```
 
@@ -68,7 +68,7 @@ If you don't want to run a script as superuser or the all-in-one script fails, f
 
     ```bash
     AZ_REPO=$(lsb_release -cs)
-    echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | \
+    echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | 
         sudo tee /etc/apt/sources.list.d/azure-cli.list
     ```
 
@@ -163,7 +163,7 @@ Use `apt-get upgrade` to update the CLI package.
    sudo rm /etc/apt/sources.list.d/azure-cli.list
    ```
 
-3. Remove the signing key:
+3. If you use no other packages from Microsoft, remove the signing key:
 
     ```bash
     sudo rm /etc/apt/trusted.gpg.d/microsoft.asc.gpg

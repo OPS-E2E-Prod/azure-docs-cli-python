@@ -12,6 +12,7 @@ items:
   - az_storage_account_delete
   - az_storage_account_generate_sas
   - az_storage_account_list
+  - az_storage_account_revoke_delegation_keys
   - az_storage_account_show
   - az_storage_account_show_connection_string
   - az_storage_account_show_usage
@@ -43,9 +44,12 @@ items:
   langs:
   - azurecli
   examples:
-  - summary: Create a storage account 'MyStorageAccount' in resource group 'MyResourceGroup' in the West US region with locally redundant storage.
+  - summary: Create a storage account 'mystorageaccount' in resource group 'MyResourceGroup' in the West US region with locally redundant storage.
     syntax:
-      content: az storage account create -n MyStorageAccount -g MyResourceGroup -l westus --sku Standard_LRS
+      content: az storage account create -n mystorageaccount -g MyResourceGroup -l westus --sku Standard_LRS
+  - summary: Create a storage account 'mystorageaccount' in resource group 'MyResourceGroup' in the eastus2euap region with account-scoped encryption key enabled for Table Service.
+    syntax:
+      content: az storage account create -n mystorageaccount -g MyResourceGroup --kind StorageV2 -l eastus2euap -t Account
   parameters:
   - isRequired: true
     name: --name -n
@@ -67,7 +71,26 @@ items:
     description: ''
   - name: --enable-files-aadds
     parameterValueGroup: false, true
-    summary: Enable the identity based authentication settings for Azure Files.
+    summary: Enable Azure Active Directory Domain Services authentication for Azure Files.
+    description: ''
+  - name: --enable-files-adds
+    parameterValueGroup: false, true
+    summary: Enable Azure Files Active Directory Domain Service Authentication for storage account. When --enable-files-adds is set to true, Azure Active Directory Properties arguments must be provided.
+    description: ''
+  - name: --enable-hierarchical-namespace --hns
+    parameterValueGroup: false, true
+    summary: Allow the blob service to exhibit filesystem semantics. This property can be enabled only when storage account kind is StorageV2.
+    description: ''
+  - name: --enable-large-file-share
+    summary: Enable the capability to support large file shares with more than 5 TiB capacity for storage account.Once the property is enabled, the feature cannot be disabled. Currently only supported for LRS and ZRS replication types, hence account conversions to geo-redundant accounts would not be possible. For more information, please refer to <a href="https://go.microsoft.com/fwlink/?linkid=2086047">https://go.microsoft.com/fwlink/?linkid=2086047</a>.
+    description: ''
+  - name: --encryption-key-type-for-queue -q
+    parameterValueGroup: Account, Service
+    summary: 'Set the encryption key type for Queue service. "Account": Queue will be encrypted with account-scoped encryption key. "Service": Queue will always be encrypted with service-scoped keys. Currently the default encryption key type is "Service".'
+    description: ''
+  - name: --encryption-key-type-for-table -t
+    parameterValueGroup: Account, Service
+    summary: 'Set the encryption key type for Table service. "Account": Table will be encrypted with account-scoped encryption key. "Service": Table will always be encrypted with service-scoped keys. Currently the default encryption key type is "Service".'
     description: ''
   - name: --encryption-services
     parameterValueGroup: blob, file, queue, table
@@ -75,10 +98,10 @@ items:
     description: ''
   - name: --https-only
     parameterValueGroup: false, true
-    summary: Allows https traffic only to storage service.
+    summary: Allow https traffic only to storage service if set to true. The default value is true.
     description: ''
   - name: --kind
-    defaultValue: Storage
+    defaultValue: StorageV2
     parameterValueGroup: BlobStorage, BlockBlobStorage, FileStorage, Storage, StorageV2
     summary: Indicates the type of storage account.
     description: ''
@@ -91,7 +114,25 @@ items:
     summary: The storage account SKU.
     description: ''
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
+    description: ''
+  - name: --azure-storage-sid
+    summary: Specify the security identifier (SID) for Azure Storage. Required when --enable-files-adds is set to True.
+    description: ''
+  - name: --domain-guid
+    summary: Specify the domain GUID. Required when --enable-files-adds is set to True.
+    description: ''
+  - name: --domain-name
+    summary: Specify the primary domain that the AD DNS server is authoritative for. Required when --enable-files-adds is set to True.
+    description: ''
+  - name: --domain-sid
+    summary: Specify the security identifier (SID). Required when --enable-files-adds is set to True.
+    description: ''
+  - name: --forest-name
+    summary: Specify the Active Directory forest to get. Required when --enable-files-adds is set to True.
+    description: ''
+  - name: --net-bios-domain-name
+    summary: Specify the NetBIOS domain name. Required when --enable-files-adds is set to True.
     description: ''
   - name: --bypass
     parameterValueGroup: AzureServices, Logging, Metrics, None
@@ -128,7 +169,7 @@ items:
     summary: Do not prompt for confirmation.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: The storage account name.
@@ -156,13 +197,15 @@ items:
     syntax:
       content: >-
         end=`date -u -d "30 minutes" '+%Y-%m-%dT%H:%MZ'`
-                                az storage account generate-sas --permissions cdlruwap --account-name MyStorageAccount --services qt --resource-types sco --expiry $end -o tsv
+
+        az storage account generate-sas --permissions cdlruwap --account-name MyStorageAccount --services qt --resource-types sco --expiry $end -o tsv
   - summary: Generate a sas token for the account that is valid for queue and table services on MacOS.
     syntax:
       content: >-
         end=`date -v+30M '+%Y-%m-%dT%H:%MZ'`
-                                az storage account generate-sas --permissions cdlruwap --account-name MyStorageAccount --services qt --resource-types sco --expiry $end -o tsv
-  - summary: Generates a shared access signature for the account (autogenerated)
+
+        az storage account generate-sas --permissions cdlruwap --account-name MyStorageAccount --services qt --resource-types sco --expiry $end -o tsv
+  - summary: Generate a shared access signature for the account (autogenerated)
     syntax:
       content: az storage account generate-sas --account-key 00000000 --account-name MyStorageAccount --expiry 2020-01-01 --https-only --permissions acuw --resource-types co --services bfqt
   parameters:
@@ -195,7 +238,7 @@ items:
     summary: 'Storage account name. Must be used in conjunction with either storage account key or a SAS token. Environment Variable: AZURE_STORAGE_ACCOUNT.'
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
@@ -238,6 +281,38 @@ items:
       branch: dev
       path: src/azure-cli/azure/cli/command_modules/storage/_help.py
       repo: https://github.com/Azure/azure-cli.git
+- uid: az_storage_account_revoke_delegation_keys
+  name: az storage account revoke-delegation-keys
+  summary: Revoke all user delegation keys for a storage account.
+  description: ''
+  langs:
+  - azurecli
+  examples:
+  - summary: Revoke all user delegation keys for a storage account by resource ID.
+    syntax:
+      content: az storage account revoke-delegation-keys --ids /subscriptions/{SubID}/resourceGroups/{ResourceGroup}/providers/Microsoft.Storage/storageAccounts/{StorageAccount}
+  - summary: Revoke all user delegation keys for a storage account 'MyStorageAccount' in resource group 'MyResourceGroup' in the West US region with locally redundant storage.
+    syntax:
+      content: az storage account revoke-delegation-keys -n MyStorageAccount -g MyResourceGroup
+  parameters:
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
+    description: ''
+  - name: --name -n
+    summary: The storage account name.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=&lt;name&gt;`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  source:
+    path: src/azure-cli/azure/cli/command_modules/storage/_help.py
+    remote:
+      branch: dev
+      path: src/azure-cli/azure/cli/command_modules/storage/_help.py
+      repo: https://github.com/Azure/azure-cli.git
 - uid: az_storage_account_show
   name: az storage account show
   summary: Show storage account properties.
@@ -253,10 +328,10 @@ items:
       content: az storage account show -g MyResourceGroup -n MyStorageAccount
   parameters:
   - name: --expand
-    summary: May be used to expand the properties within account's properties. By default, data is not included when fetching properties. Currently we only support geoReplicationStats.
+    summary: May be used to expand the properties within account's properties. By default, data is not included when fetching properties. Currently we only support geoReplicationStats and blobRestoreStatus.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: The storage account name.
@@ -313,7 +388,7 @@ items:
     summary: Custom endpoint for tables.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: The storage account name.
@@ -377,7 +452,14 @@ items:
     description: ''
   - name: --enable-files-aadds
     parameterValueGroup: false, true
-    summary: Enable the identity based authentication settings for Azure Files.
+    summary: Enable Azure Active Directory Domain Services authentication for Azure Files.
+    description: ''
+  - name: --enable-files-adds
+    parameterValueGroup: false, true
+    summary: Enable Azure Files Active Directory Domain Service Authentication for storage account. When --enable-files-adds is set to true, Azure Active Directory Properties arguments must be provided.
+    description: ''
+  - name: --enable-large-file-share
+    summary: Enable the capability to support large file shares with more than 5 TiB capacity for storage account.Once the property is enabled, the feature cannot be disabled. Currently only supported for LRS and ZRS replication types, hence account conversions to geo-redundant accounts would not be possible. For more information, please refer to <a href="https://go.microsoft.com/fwlink/?linkid=2086047">https://go.microsoft.com/fwlink/?linkid=2086047</a>.
     description: ''
   - name: --encryption-services
     parameterValueGroup: blob, file, queue, table
@@ -392,14 +474,14 @@ items:
     summary: The storage account SKU.
     description: ''
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
   - name: --use-subdomain
     parameterValueGroup: false, true
     summary: Specify whether to use indirect CNAME validation.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: The storage account name.
@@ -409,6 +491,24 @@ items:
     description: ''
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  - name: --azure-storage-sid
+    summary: Specify the security identifier (SID) for Azure Storage. Required when --enable-files-adds is set to True.
+    description: ''
+  - name: --domain-guid
+    summary: Specify the domain GUID. Required when --enable-files-adds is set to True.
+    description: ''
+  - name: --domain-name
+    summary: Specify the primary domain that the AD DNS server is authoritative for. Required when --enable-files-adds is set to True.
+    description: ''
+  - name: --domain-sid
+    summary: Specify the security identifier (SID). Required when --enable-files-adds is set to True.
+    description: ''
+  - name: --forest-name
+    summary: Specify the Active Directory forest to get. Required when --enable-files-adds is set to True.
+    description: ''
+  - name: --net-bios-domain-name
+    summary: Specify the NetBIOS domain name. Required when --enable-files-adds is set to True.
     description: ''
   - name: --encryption-key-name
     summary: The name of the KeyVault key.
@@ -450,6 +550,15 @@ items:
       path: src/azure-cli/azure/cli/command_modules/storage/_help.py
       repo: https://github.com/Azure/azure-cli.git
 commands:
+- uid: az_storage_account_blob_service_properties
+  name: az storage account blob-service-properties
+  summary: Manage the properties of a storage account's blob service.
+- uid: az_storage_account_blob_service_properties_show
+  name: az storage account blob-service-properties show
+  summary: Show the properties of a storage account's blob service.
+- uid: az_storage_account_blob_service_properties_update
+  name: az storage account blob-service-properties update
+  summary: Update the properties of a storage account's blob service.
 - uid: az_storage_account_check_name
   name: az storage account check-name
   summary: Checks that the storage account name is valid and is not already in use.
@@ -467,10 +576,10 @@ commands:
   summary: Manage storage account keys.
 - uid: az_storage_account_keys_list
   name: az storage account keys list
-  summary: List the primary and secondary keys for a storage account.
+  summary: List the access keys or Kerberos keys (if active directory enabled) for a storage account.
 - uid: az_storage_account_keys_renew
   name: az storage account keys renew
-  summary: Regenerates one of the access keys for the specified storage account.
+  summary: Regenerate one of the access keys or Kerberos keys (if active directory enabled) for a storage account.
 - uid: az_storage_account_list
   name: az storage account list
   summary: List storage accounts.
@@ -501,6 +610,9 @@ commands:
 - uid: az_storage_account_network_rule_remove
   name: az storage account network-rule remove
   summary: Remove a network rule.
+- uid: az_storage_account_revoke_delegation_keys
+  name: az storage account revoke-delegation-keys
+  summary: Revoke all user delegation keys for a storage account.
 - uid: az_storage_account_show
   name: az storage account show
   summary: Show storage account properties.
@@ -529,7 +641,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/storage/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/eab51138bdaf7d9724cc532953b14257f13cf49f/src/azure-cli/azure/cli/command_modules/storage/_help.py
-updated_at: 8/8/2019 2:08:43 AM
-ms.date: 08/08/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/800e711239d60c81de6679d73779563b2cedcc62/src/azure-cli/azure/cli/command_modules/storage/_help.py
+updated_at: 2/13/2020 4:56:47 AM
+ms.date: 02/13/2020
 description: Manage storage accounts.

@@ -21,15 +21,15 @@ items:
     name: --subnet
     summary: Name or ID of the subnet.
     description: ''
-  - name: --ignore-missing-vnet-service-endpoint
+  - name: --ignore-missing-endpoint --ignore-missing-vnet-service-endpoint
     parameterValueGroup: false, true
     summary: Create firewall rule before the virtual network has vnet service endpoint enabled.
     description: ''
-  - name: --virtual-network
+  - name: --virtual-network --vnet-name
     summary: The name of the VNET, which must be provided in conjunction with the name of the subnet.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: Name of the Cosmos DB database account.
@@ -81,11 +81,11 @@ items:
     name: --subnet
     summary: Name or ID of the subnet.
     description: ''
-  - name: --virtual-network
+  - name: --virtual-network --vnet-name
     summary: The name of the VNET, which must be provided in conjunction with the name of the subnet.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: Name of the Cosmos DB database account.
@@ -128,7 +128,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/cosmosdb/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/cosmosdb/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/035f0a9524b6fafbd988e0950d8026229dcaf350/src/azure-cli/azure/cli/command_modules/cosmosdb/_help.py
-updated_at: 8/6/2019 7:04:56 AM
-ms.date: 08/06/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/6c6b983c6649772bd26534470666a4edbb7017a5/src/azure-cli/azure/cli/command_modules/cosmosdb/_help.py
+updated_at: 10/16/2019 4:37:10 AM
+ms.date: 10/16/2019
 description: Manage Azure Comsos DB network rules.

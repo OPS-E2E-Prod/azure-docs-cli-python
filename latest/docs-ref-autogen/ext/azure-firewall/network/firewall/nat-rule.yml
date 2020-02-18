@@ -20,11 +20,11 @@ items:
   parameters:
   - isRequired: true
     name: --destination-addresses
-    summary: Space-separated list of destination IP addresses. Use '*' to match all.
+    summary: Space-separated list of destination IP addresses. Use '\*' to match all.
     description: ''
   - isRequired: true
     name: --destination-ports
-    summary: Space-separated list of destination ports. Use '*' to match all.
+    summary: Space-separated list of destination ports. Use '\*' to match all.
     description: ''
   - isRequired: true
     name: --firewall-name -f
@@ -45,11 +45,7 @@ items:
     description: ''
   - isRequired: true
     name: --source-addresses
-    summary: Space-separated list of source IP addresses. Use '*' to match all.
-    description: ''
-  - isRequired: true
-    name: --translated-address
-    summary: Translated address for this NAT rule.
+    summary: Space-separated list of source IP addresses. Use '\*' to match all.
     description: ''
   - isRequired: true
     name: --translated-port
@@ -57,6 +53,15 @@ items:
     description: ''
   - name: --description
     summary: Rule description.
+    description: ''
+  - name: --source-ip-groups
+    summary: Space-separated list of name or resource id of source IpGroups.
+    description: ''
+  - name: --translated-address
+    summary: Translated address for this NAT rule.
+    description: ''
+  - name: --translated-fqdn
+    summary: Translated FQDN for this NAT rule.
     description: ''
   - isRequired: true
     name: --collection-name -c

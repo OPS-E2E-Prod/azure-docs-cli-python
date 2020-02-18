@@ -3,7 +3,7 @@ items:
 - uid: az_network_vnet_subnet
   name: az network vnet subnet
   summary: Manage subnets in an Azure Virtual Network.
-  description: To learn more about subnets visit <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-subnet">https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-subnet</a>.
+  description: To learn more about subnets visit <a href="https://docs.microsoft.com/azure/virtual-network/virtual-network-manage-subnet">https://docs.microsoft.com/azure/virtual-network/virtual-network-manage-subnet</a>.
   langs:
   - azurecli
   children:
@@ -23,7 +23,7 @@ items:
     syntax:
       content: >-
         az network vnet subnet create -g MyResourceGroup --vnet-name MyVnet -n MySubnet \
-                                    --address-prefixes 10.0.0.0/24 --network-security-group MyNsg --route-table MyRouteTable
+            --address-prefixes 10.0.0.0/24 --network-security-group MyNsg --route-table MyRouteTable
   - summary: Create new subnet attached to a NAT gateway.
     syntax:
       content: az network vnet subnet create -n MySubnet --vnet-name MyVnet -g MyResourceGroup --nat-gateway MyNatGateway --address-prefixes "10.0.0.0/21"
@@ -77,7 +77,7 @@ items:
       content: az network vnet subnet delete --name MySubnet --resource-group MyResourceGroup --vnet-name MyVnet
   parameters:
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: The subnet name.
@@ -108,17 +108,16 @@ items:
     syntax:
       content: az network vnet subnet list -g MyResourceGroup --vnet-name MyVNet
   parameters:
-  - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
-    description: ''
-  - name: --resource-group -g
+  - isRequired: true
+    name: --resource-group -g
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=&lt;name&gt;`.
+    description: ''
+  - isRequired: true
+    name: --vnet-name
+    summary: The virtual network (VNet) name.
     description: ''
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
-    description: ''
-  - name: --vnet-name
-    summary: The virtual network (VNet) name.
     description: ''
   source:
     path: src/azure-cli/azure/cli/command_modules/network/_help.py
@@ -141,7 +140,7 @@ items:
     summary: Expands referenced resources.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: The subnet name.
@@ -174,6 +173,9 @@ items:
   - summary: Update subnet with NAT gateway.
     syntax:
       content: az network vnet subnet update -n MySubnet --vnet-name MyVnet -g MyResourceGroup --nat-gateway MyNatGateway --address-prefixes "10.0.0.0/21"
+  - summary: Disable the private endpoint network policies
+    syntax:
+      content: az network vnet subnet update -n MySubnet --vnet-name MyVnet -g MyResourceGroup --disable-private-endpoint-network-policies
   parameters:
   - name: --address-prefix
     summary: Address prefix in CIDR format.
@@ -182,10 +184,10 @@ items:
     summary: Name or ID of a network security group (NSG). Use empty string "" to detach it.
     description: ''
   - name: --route-table
-    summary: Name or ID of a route table to associate with the subnet.
+    summary: Name or ID of a route table to associate with the subnet. Use empty string "" to detach it. You can also append "--remove routeTable" in "az network vnet subnet update" to detach it.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: The subnet name.
@@ -249,7 +251,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/network/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/87fd8b9a6d204cabe1bf0511803dece064b63829/src/azure-cli/azure/cli/command_modules/network/_help.py
-updated_at: 7/26/2019 2:24:39 PM
-ms.date: 07/26/2019
-description: To learn more about subnets visit <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-subnet">https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-subnet</a>.
+gitcommit: https://github.com/Azure/azure-cli/blob/800e711239d60c81de6679d73779563b2cedcc62/src/azure-cli/azure/cli/command_modules/network/_help.py
+updated_at: 2/13/2020 4:56:47 AM
+ms.date: 02/13/2020
+description: To learn more about subnets visit <a href="https://docs.microsoft.com/azure/virtual-network/virtual-network-manage-subnet">https://docs.microsoft.com/azure/virtual-network/virtual-network-manage-subnet</a>.

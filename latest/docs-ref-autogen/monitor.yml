@@ -178,7 +178,7 @@ commands:
   summary: Retrieve service diagnostic settings categories.
 - uid: az_monitor_diagnostic_settings_categories_list
   name: az monitor diagnostic-settings categories list
-  summary: Lists the diagnostic settings categories for the specified resource.
+  summary: List the diagnostic settings categories for the specified resource.
 - uid: az_monitor_diagnostic_settings_categories_show
   name: az monitor diagnostic-settings categories show
   summary: Gets the diagnostic settings category for the specified resource.
@@ -197,6 +197,51 @@ commands:
 - uid: az_monitor_diagnostic_settings_update
   name: az monitor diagnostic-settings update
   summary: Update diagnostic settings.
+- uid: az_monitor_log_analytics
+  name: az monitor log-analytics
+  summary: Manage Azure log analytics.
+- uid: az_monitor_log_analytics_workspace
+  name: az monitor log-analytics workspace
+  summary: Manage Azure log analytics workspace.
+- uid: az_monitor_log_analytics_workspace_create
+  name: az monitor log-analytics workspace create
+  summary: Create a workspace instance.
+- uid: az_monitor_log_analytics_workspace_delete
+  name: az monitor log-analytics workspace delete
+  summary: Delete a workspace instance.
+- uid: az_monitor_log_analytics_workspace_get_schema
+  name: az monitor log-analytics workspace get-schema
+  summary: Get the schema for a given workspace.
+- uid: az_monitor_log_analytics_workspace_get_shared_keys
+  name: az monitor log-analytics workspace get-shared-keys
+  summary: Get the shared keys for a workspace.
+- uid: az_monitor_log_analytics_workspace_list
+  name: az monitor log-analytics workspace list
+  summary: Get a list of workspaces under a resource group or a subscription.
+- uid: az_monitor_log_analytics_workspace_list_management_groups
+  name: az monitor log-analytics workspace list-management-groups
+  summary: Get a list of management groups connected to a workspace.
+- uid: az_monitor_log_analytics_workspace_list_usages
+  name: az monitor log-analytics workspace list-usages
+  summary: Get a list of usage metrics for a workspace.
+- uid: az_monitor_log_analytics_workspace_pack
+  name: az monitor log-analytics workspace pack
+  summary: Manage intelligent packs for log analytics workspace.
+- uid: az_monitor_log_analytics_workspace_pack_disable
+  name: az monitor log-analytics workspace pack disable
+  summary: Disable an intelligence pack for a given workspace.
+- uid: az_monitor_log_analytics_workspace_pack_enable
+  name: az monitor log-analytics workspace pack enable
+  summary: Enable an intelligence pack for a given workspace.
+- uid: az_monitor_log_analytics_workspace_pack_list
+  name: az monitor log-analytics workspace pack list
+  summary: List all the intelligence packs possible and whether they are enabled or disabled for a given workspace.
+- uid: az_monitor_log_analytics_workspace_show
+  name: az monitor log-analytics workspace show
+  summary: Show a workspace instance.
+- uid: az_monitor_log_analytics_workspace_update
+  name: az monitor log-analytics workspace update
+  summary: Update a workspace instance.
 - uid: az_monitor_log_profiles
   name: az monitor log-profiles
   summary: Manage log profiles.
@@ -258,7 +303,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/monitor/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/f7cb641abeb77511a20cb6c258cc3d94b9596021/src/azure-cli/azure/cli/command_modules/monitor/_help.py
-updated_at: 6/12/2019 9:52:39 PM
-ms.date: 06/12/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/800e711239d60c81de6679d73779563b2cedcc62/src/azure-cli/azure/cli/command_modules/monitor/_help.py
+updated_at: 2/13/2020 4:56:47 AM
+ms.date: 02/13/2020
 description: Manage the Azure Monitor Service.

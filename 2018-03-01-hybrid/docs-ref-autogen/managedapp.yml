@@ -22,14 +22,14 @@ items:
     syntax:
       content: >-
         az managedapp create -g MyResourceGroup -n MyManagedApp -l westcentralus --kind ServiceCatalog \
-                                    -m "/subscriptions/{SubID}/resourceGroups/{ManagedResourceGroup}" \
-                                    -d "/subscriptions/{SubID}/resourceGroups/{ResourceGroup}/providers/Microsoft.Solutions/applianceDefinitions/{ApplianceDefinition}"
+            -m "/subscriptions/{SubID}/resourceGroups/{ManagedResourceGroup}" \
+            -d "/subscriptions/{SubID}/resourceGroups/{ResourceGroup}/providers/Microsoft.Solutions/applianceDefinitions/{ApplianceDefinition}"
   - summary: Create a managed application of kind 'MarketPlace'. This requires a valid plan, containing details about existing marketplace package like plan name, version, publisher and product.
     syntax:
       content: >-
         az managedapp create -g MyResourceGroup -n MyManagedApp -l westcentralus --kind MarketPlace \
-                                    -m "/subscriptions/{SubID}/resourceGroups/{ManagedResourceGroup}" \
-                                    --plan-name ContosoAppliance --plan-version "1.0" --plan-product "contoso-appliance" --plan-publisher Contoso
+            -m "/subscriptions/{SubID}/resourceGroups/{ManagedResourceGroup}" \
+            --plan-name ContosoAppliance --plan-version "1.0" --plan-product "contoso-appliance" --plan-publisher Contoso
   parameters:
   - isRequired: true
     name: --kind
@@ -92,7 +92,7 @@ items:
       content: az managedapp delete --name MyManagedApplication --resource-group MyResourceGroup
   parameters:
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: The name of the managed application.
@@ -140,7 +140,7 @@ items:
   - azurecli
   parameters:
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: The managed application name.
@@ -201,7 +201,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/resource/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/5c7ddcb1066236c3d6a634c50428fc0f2a94fce3/src/azure-cli/azure/cli/command_modules/resource/_help.py
-updated_at: 6/21/2019 10:50:06 PM
-ms.date: 06/21/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/800e711239d60c81de6679d73779563b2cedcc62/src/azure-cli/azure/cli/command_modules/resource/_help.py
+updated_at: 2/13/2020 4:56:47 AM
+ms.date: 02/13/2020
 description: Manage template solutions provided and maintained by Independent Software Vendors (ISVs).

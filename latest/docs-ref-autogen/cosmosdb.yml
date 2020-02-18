@@ -30,7 +30,7 @@ items:
       content: az cosmosdb check-name-exists --name MyCosmosDBDatabaseAccount
   parameters:
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: Name of the Cosmos DB database account.
@@ -73,6 +73,10 @@ items:
     parameterValueGroup: BoundedStaleness, ConsistentPrefix, Eventual, Session, Strong
     summary: Default consistency level of the Cosmos DB database account.
     description: ''
+  - name: --disable-key-based-metadata-write-access
+    parameterValueGroup: false, true
+    summary: Disable write operations on metadata resources (databases, containers, throughput) via account keys.
+    description: ''
   - name: --enable-automatic-failover
     parameterValueGroup: false, true
     summary: Enables automatic failover of the write region in the rare event that the region is unavailable due to an outage. Automatic failover will result in a new write region for the account and is chosen based on the failover priorities configured for the account.
@@ -97,11 +101,16 @@ items:
     summary: Add a location to the Cosmos DB database account.
     description: >-
       Usage:          --locations KEY=VALUE [KEY=VALUE ...]
-                                          Required Keys:  regionName, failoverPriority
-                                          Optional Key:   isZoneRedundant
-                                          Default:        single region account in the location of the specified resource group.
-                                          Failover priority values are 0 for write regions and greater than 0 for read regions. A failover priority value must be unique and less than the total number of regions.
-                                          Multiple locations can be specified by using more than one `--locations` argument.
+
+      Required Keys:  regionName, failoverPriority
+
+      Optional Key:   isZoneRedundant
+
+      Default:        single region account in the location of the specified resource group.
+
+      Failover priority values are 0 for write regions and greater than 0 for read regions. A failover priority value must be unique and less than the total number of regions.
+
+      Multiple locations can be specified by using more than one `--locations` argument.
   - name: --max-interval
     defaultValue: "5"
     summary: When used with Bounded Staleness consistency, this value represents the time amount of staleness (in seconds) tolerated. Accepted range for this value is 1 - 100.
@@ -111,7 +120,7 @@ items:
     summary: When used with Bounded Staleness consistency, this value represents the number of stale requests tolerated. Accepted range for this value is 1 - 2,147,483,647.
     description: ''
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
   - name: --virtual-network-rules
     summary: ACL's for virtual network.
@@ -137,7 +146,7 @@ items:
       content: az cosmosdb delete --name MyCosmosDBDatabaseAccount --resource-group MyResourceGroup
   parameters:
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: Name of the Cosmos DB database account.
@@ -170,7 +179,7 @@ items:
     summary: Space-separated failover policies in 'regionName=failoverPriority' format. E.g eastus=0 westus=1.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: Name of the Cosmos DB database account.
@@ -218,7 +227,7 @@ items:
       content: az cosmosdb list-connection-strings --name MyCosmosDBDatabaseAccount --resource-group MyResourceGroup
   parameters:
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: Name of the Cosmos DB database account.
@@ -247,7 +256,7 @@ items:
       content: az cosmosdb list-keys --name MyCosmosDBDatabaseAccount --resource-group MyResourceGroup --subscription MySubscription
   parameters:
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: Name of the Cosmos DB database account.
@@ -276,7 +285,7 @@ items:
       content: az cosmosdb list-read-only-keys --name MyCosmosDBDatabaseAccount --resource-group MyResourceGroup
   parameters:
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: Name of the Cosmos DB database account.
@@ -310,7 +319,7 @@ items:
     summary: The access key to regenerate.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: Name of the Cosmos DB database account.
@@ -339,7 +348,7 @@ items:
       content: az cosmosdb show --name MyCosmosDBDatabaseAccount --resource-group MyResourceGroup
   parameters:
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: Name of the Cosmos DB database account.
@@ -377,6 +386,10 @@ items:
     parameterValueGroup: BoundedStaleness, ConsistentPrefix, Eventual, Session, Strong
     summary: Default consistency level of the Cosmos DB database account.
     description: ''
+  - name: --disable-key-based-metadata-write-access
+    parameterValueGroup: false, true
+    summary: Disable write operations on metadata resources (databases, containers, throughput) via account keys.
+    description: ''
   - name: --enable-automatic-failover
     parameterValueGroup: false, true
     summary: Enables automatic failover of the write region in the rare event that the region is unavailable due to an outage. Automatic failover will result in a new write region for the account and is chosen based on the failover priorities configured for the account.
@@ -396,11 +409,16 @@ items:
     summary: Add a location to the Cosmos DB database account.
     description: >-
       Usage:          --locations KEY=VALUE [KEY=VALUE ...]
-                                          Required Keys:  regionName, failoverPriority
-                                          Optional Key:   isZoneRedundant
-                                          Default:        single region account in the location of the specified resource group.
-                                          Failover priority values are 0 for write regions and greater than 0 for read regions. A failover priority value must be unique and less than the total number of regions.
-                                          Multiple locations can be specified by using more than one `--locations` argument.
+
+      Required Keys:  regionName, failoverPriority
+
+      Optional Key:   isZoneRedundant
+
+      Default:        single region account in the location of the specified resource group.
+
+      Failover priority values are 0 for write regions and greater than 0 for read regions. A failover priority value must be unique and less than the total number of regions.
+
+      Multiple locations can be specified by using more than one `--locations` argument.
   - name: --max-interval
     summary: When used with Bounded Staleness consistency, this value represents the time amount of staleness (in seconds) tolerated. Accepted range for this value is 1 - 100.
     description: ''
@@ -408,13 +426,13 @@ items:
     summary: When used with Bounded Staleness consistency, this value represents the number of stale requests tolerated. Accepted range for this value is 1 - 2,147,483,647.
     description: ''
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
   - name: --virtual-network-rules
     summary: ACL's for virtual network.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: Name of the Cosmos DB database account.
@@ -596,7 +614,10 @@ commands:
   summary: Manage Azure Comsos DB keys.
 - uid: az_cosmosdb_keys_list
   name: az cosmosdb keys list
-  summary: List the access keys for a Azure Cosmos DB database account.
+  summary: List the access keys or connection strings for a Azure Cosmos DB database account.
+- uid: az_cosmosdb_keys_regenerate
+  name: az cosmosdb keys regenerate
+  summary: Regenerates an access key for the specified Azure Cosmos DB database account.
 - uid: az_cosmosdb_list
   name: az cosmosdb list
   summary: List Azure Cosmos DB database accounts.
@@ -778,7 +799,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/cosmosdb/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/cosmosdb/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/035f0a9524b6fafbd988e0950d8026229dcaf350/src/azure-cli/azure/cli/command_modules/cosmosdb/_help.py
-updated_at: 8/6/2019 7:04:56 AM
-ms.date: 08/06/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/6c6b983c6649772bd26534470666a4edbb7017a5/src/azure-cli/azure/cli/command_modules/cosmosdb/_help.py
+updated_at: 10/16/2019 4:37:10 AM
+ms.date: 10/16/2019
 description: Manage Azure Cosmos DB database accounts.

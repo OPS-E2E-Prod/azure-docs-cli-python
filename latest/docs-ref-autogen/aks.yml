@@ -20,8 +20,10 @@ items:
   - az_aks_list
   - az_aks_remove_connector
   - az_aks_remove_dev_spaces
+  - az_aks_rotate_certs
   - az_aks_scale
   - az_aks_show
+  - az_aks_update
   - az_aks_update_credentials
   - az_aks_upgrade
   - az_aks_upgrade_connector
@@ -82,6 +84,30 @@ items:
   - summary: Create a Kubernetes cluster with a larger node pool.
     syntax:
       content: az aks create -g MyResourceGroup -n MyManagedCluster --node-count 7
+  - summary: Create a kubernetes cluster with k8s 1.13.9 but use vmas.
+    syntax:
+      content: az aks create -g MyResourceGroup -n MyManagedCluster --kubernetes-version 1.13.9 --vm-set-type AvailabilitySet
+  - summary: Create a kubernetes cluster with default kubernetes version, default SKU load balancer (Standard) and default vm set type (VirtualMachineScaleSet).
+    syntax:
+      content: az aks create -g MyResourceGroup -n MyManagedCluster
+  - summary: Create a kubernetes cluster with standard SKU load balancer and two AKS created IPs for the load balancer outbound connection usage.
+    syntax:
+      content: az aks create -g MyResourceGroup -n MyManagedCluster --load-balancer-managed-outbound-ip-count 2
+  - summary: Create a kubernetes cluster with a standard SKU load balancer, with two outbound AKS managed IPs an idle flow timeout of 5 minutes and 8000 allocated ports per machine
+    syntax:
+      content: az aks create -g MyResourceGroup -n MyManagedCluster --load-balancer-managed-outbound-ip-count 2 --load-balancer-idle-timeout 5 --load-balancer-outbound-ports 8000
+  - summary: Create a kubernetes cluster with standard SKU load balancer and use the provided public IPs for the load balancer outbound connection usage.
+    syntax:
+      content: az aks create -g MyResourceGroup -n MyManagedCluster --load-balancer-outbound-ips <ip-resource-id-1,ip-resource-id-2>
+  - summary: Create a kubernetes cluster with standard SKU load balancer and use the provided public IP prefixes for the load balancer outbound connection usage.
+    syntax:
+      content: az aks create -g MyResourceGroup -n MyManagedCluster --load-balancer-outbound-ip-prefixes <ip-prefix-resource-id-1,ip-prefix-resource-id-2>
+  - summary: Create a kubernetes cluster with basic SKU load balancer and AvailabilitySet vm set type.
+    syntax:
+      content: az aks create -g MyResourceGroup -n MyManagedCluster --load-balancer-sku basic --vm-set-type AvailabilitySet
+  - summary: Create a kubernetes cluster with authorized apiserver IP ranges.
+    syntax:
+      content: az aks create -g MyResourceGroup -n MyManagedCluster --api-server-authorized-ip-ranges 193.168.1.0/24,194.168.1.0/24,195.168.1.0
   parameters:
   - isRequired: true
     name: --name -n
@@ -107,6 +133,12 @@ items:
     defaultValue: azureuser
     summary: User account to create on node VMs for SSH access.
     description: ''
+  - name: --api-server-authorized-ip-ranges
+    summary: Comma seperated list of authorized apiserver IP ranges. Set to 0.0.0.0/32 to restrict apiserver traffic to node pools.
+    description: ''
+  - name: --attach-acr
+    summary: Grant the 'acrpull' role assignment to the ACR specified by name or resource ID.
+    description: ''
   - name: --client-secret
     summary: Secret associated with the service principal. This argument is required if `--service-principal` is specified.
     description: ''
@@ -126,9 +158,12 @@ items:
     summary: Enable the Kubernetes addons in a comma-separated list.
     description: >-
       These addons are available:
-                                              http_application_routing - configure ingress with automatic public DNS name creation.
-                                              monitoring - turn on Log Analytics monitoring. Uses the Log Analytics Default Workspace if it exists, else creates one. Specify "--workspace-resource-id" to use an existing workspace.
-                                              virtual-node - enable AKS Virtual Node (PREVIEW). Requires --subnet-name to provide the name of an existing subnet for the Virtual Node to use.
+          http_application_routing - configure ingress with automatic public DNS name creation.
+          monitoring - turn on Log Analytics monitoring. Uses the Log Analytics Default Workspace if it exists, else creates one. Specify "--workspace-resource-id" to use an existing workspace.
+          virtual-node - enable AKS Virtual Node (PREVIEW). Requires --subnet-name to provide the name of an existing subnet for the Virtual Node to use.
+  - name: --enable-cluster-autoscaler
+    summary: Enable cluster autoscaler, default value is false.
+    description: If specified, please make sure the kubernetes version is larger than 1.10.6.
   - name: --enable-rbac -r
     summary: 'Enable Kubernetes Role-Based Access Control. Default: enabled.'
     description: ''
@@ -139,12 +174,36 @@ items:
     summary: Version of Kubernetes to use for creating the cluster, such as "1.11.8" or "1.12.6".
     description: ''
     valueFrom: '`az aks get-versions`'
+  - name: --load-balancer-idle-timeout
+    summary: Load balancer idle timeout in minutes.
+    description: Desired idle timeout for load balancer outbound flows, default is 30 minutes. Please specify a value in the range of [4, 120].
+  - name: --load-balancer-managed-outbound-ip-count
+    summary: Load balancer managed outbound IP count.
+    description: Desired number of managed outbound IPs for load balancer outbound connection. Valid for Standard SKU load balancer cluster only.
+  - name: --load-balancer-outbound-ip-prefixes
+    summary: Load balancer outbound IP prefix resource IDs.
+    description: Comma-separated public IP prefix resource IDs for load balancer outbound connection. Valid for Standard SKU load balancer cluster only.
+  - name: --load-balancer-outbound-ips
+    summary: Load balancer outbound IP resource IDs.
+    description: Comma-separated public IP resource IDs for load balancer outbound connection. Valid for Standard SKU load balancer cluster only.
+  - name: --load-balancer-outbound-ports
+    summary: Load balancer outbound allocated ports.
+    description: Desired static number of outbound ports per VM in the load balancer backend pool. By default, set to 0 which uses the default allocation based on the number of VMs.
+  - name: --load-balancer-sku
+    summary: Azure Load Balancer SKU selection for your cluster. basic or standard.
+    description: Select between Basic or Standard Azure Load Balancer SKU for your AKS cluster.
   - name: --location -l
     summary: 'Location. Values from: `az account list-locations`. You can configure the default location using `az configure --defaults location=&lt;location&gt;`.'
+    description: ''
+  - name: --max-count
+    summary: Maximum nodes count used for autoscaler, when "--enable-cluster-autoscaler" specified. Please specify the value in the range of [1, 100].
     description: ''
   - name: --max-pods -m
     summary: The maximum number of pods deployable to a node.
     description: If not specified, defaults to 110, or 30 for advanced networking configurations.
+  - name: --min-count
+    summary: Minimum nodes count used for autoscaler, when "--enable-cluster-autoscaler" specified. Please specify the value in the range of [1, 100].
+    description: ''
   - name: --network-plugin
     summary: The Kubernetes network plugin to use.
     description: Specify "azure" for advanced networking configurations. Defaults to "kubenet".
@@ -152,8 +211,10 @@ items:
     summary: The Kubernetes network policy to use.
     description: >-
       Using together with "azure" network plugin.
-                                          Specify "azure" for Azure network policy manager and "calico" for calico network policy controller.
-                                          Defaults to "" (network policy disabled).
+
+      Specify "azure" for Azure network policy manager and "calico" for calico network policy controller.
+
+      Defaults to "" (network policy disabled).
   - name: --no-ssh-key -x
     summary: Do not use or create a local SSH key.
     description: To access nodes after creating a cluster with this option, use the Azure Portal.
@@ -192,13 +253,20 @@ items:
     summary: Public key path or key contents to install on node VMs for SSH access. For example, 'ssh-rsa AAAAB...snip...UcyupgH azureuser@linuxvm'.
     description: ''
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
+    description: ''
+  - name: --vm-set-type
+    summary: Agent pool vm set type. VirtualMachineScaleSets or AvailabilitySet.
     description: ''
   - name: --vnet-subnet-id
     summary: The ID of a subnet in an existing VNet into which to deploy the cluster.
     description: ''
   - name: --workspace-resource-id
     summary: The resource ID of an existing Log Analytics Workspace to use for storing monitoring data. If not specified, uses the default Log Analytics Workspace if it exists, otherwise creates one.
+    description: ''
+  - name: --zones -z
+    parameterValueGroup: 1, 2, 3
+    summary: Availability zones where agent nodes will be placed.
     description: ''
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
@@ -283,9 +351,9 @@ items:
   summary: Enable Kubernetes addons.
   description: >-
     These addons are available:
-                                    http_application_routing - configure ingress with automatic public DNS name creation.
-                                    monitoring - turn on Log Analytics monitoring. Requires "--workspace-resource-id".
-                                    virtual-node - enable AKS Virtual Node (PREVIEW). Requires --subnet-name to provide the name of an existing subnet for the Virtual Node to use.
+        http_application_routing - configure ingress with automatic public DNS name creation.
+        monitoring - turn on Log Analytics monitoring. Requires "--workspace-resource-id".
+        virtual-node - enable AKS Virtual Node (PREVIEW). Requires --subnet-name to provide the name of an existing subnet for the Virtual Node to use.
   langs:
   - azurecli
   examples:
@@ -429,7 +497,7 @@ items:
     description: ''
   - name: --install-location
     defaultValue: ~/.azure-kubectl/kubectl.exe
-    summary: Path at which to install DC/OS.
+    summary: Path at which to install kubectl.
     description: ''
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
@@ -447,30 +515,30 @@ items:
   langs:
   - azurecli
   examples:
-  - summary: Install the ACI Connector for Linux to a managed Kubernetes cluster.
+  - summary: Install the virtual Kubelet for Linux to a managed Kubernetes cluster.
     syntax:
       content: az aks install-connector --name MyManagedCluster --resource-group MyResourceGroup
-  - summary: Install the ACI Connector for Windows to a managed Kubernetes cluster.
+  - summary: Install the virtual Kubelet for Windows to a managed Kubernetes cluster.
     syntax:
       content: >-
         az aks install-connector --name MyManagedCluster --resource-group MyResourceGroup \
-                                   --connector-name aci-connector --os-type Windows
-  - summary: Install the ACI Connector for both Windows and Linux to a managed Kubernetes cluster.
+           --connector-name virtual-kubelet --os-type Windows
+  - summary: Install the virtual Kubelet for both Windows and Linux to a managed Kubernetes cluster.
     syntax:
       content: >-
         az aks install-connector --name MyManagedCluster --resource-group MyResourceGroup \
-                                  --connector-name aci-connector --os-type Both
-  - summary: Install the ACI Connector using a specific service principal in a specific resource group.
+          --connector-name virtual-kubelet --os-type Both
+  - summary: Install the virtual Kubelet using a specific service principal in a specific resource group.
     syntax:
       content: >-
         az aks install-connector --name MyManagedCluster --resource-group MyResourceGroup \
-                                  --connector-name aci-connector --service-principal {SPN_ID} --client-secret {SPN_SECRET} \
-                                  --aci-resource-group ACI-resource-group
-  - summary: Install the ACI Connector from a custom Helm chart with custom tag.
+          --connector-name virtual-kubelet --service-principal {SPN_ID} --client-secret {SPN_SECRET} \
+          --aci-resource-group ACI-resource-group
+  - summary: Install the virtual Kubelet from a custom Helm chart with custom tag.
     syntax:
       content: >-
         az aks install-connector --name MyManagedCluster --resource-group MyResourceGroup \
-                                  --connector-name aci-connector --chart-url {CustomURL} --image-tag {VirtualKubeletImageTag}
+          --connector-name virtual-kubelet --chart-url {CustomURL} --image-tag {VirtualKubeletImageTag}
   parameters:
   - isRequired: true
     name: --name -n
@@ -481,7 +549,7 @@ items:
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=&lt;name&gt;`.
     description: ''
   - name: --aci-resource-group
-    summary: The resource group to create the ACI container groups. Use the MC_* resource group if it is not specified.
+    summary: The resource group to create the ACI container groups. Use the MC_\* resource group if it is not specified.
     description: ''
   - name: --chart-url
     defaultValue: <a href="https://github.com/virtual-kubelet/virtual-kubelet/raw/master/charts/virtual-kubelet-for-aks-latest.tgz">https://github.com/virtual-kubelet/virtual-kubelet/raw/master/charts/virtual-kubelet-for-aks-latest.tgz</a>
@@ -498,7 +566,7 @@ items:
     summary: The image tag of the virtual kubelet. Use 'latest' if it is not specified.
     description: ''
   - name: --location -l
-    summary: The location to create the ACI container groups. Use the location of the MC_* resource group if it is not specified.
+    summary: The location to create the ACI container groups. Use the location of the MC_\* resource group if it is not specified.
     description: ''
   - name: --os-type
     defaultValue: Linux
@@ -547,7 +615,10 @@ items:
     syntax:
       content: >-
         az aks remove-connector --name MyManagedCluster --resource-group MyResourceGroup \
-                                  --connector-name MyConnector --graceful
+          --connector-name MyConnector --graceful
+  - summary: Remove the ACI Connector from a managed Kubernetes cluster. (autogenerated)
+    syntax:
+      content: az aks remove-connector --connector-name MyConnector --name MyManagedCluster --os-type Windows --resource-group MyResourceGroup
   parameters:
   - isRequired: true
     name: --name -n
@@ -602,6 +673,36 @@ items:
   - isRequired: true
     name: --resource-group -g
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=&lt;name&gt;`.
+    description: ''
+  - name: --yes -y
+    summary: Do not prompt for confirmation.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  source:
+    path: src/azure-cli/azure/cli/command_modules/acs/_help.py
+    remote:
+      branch: dev
+      path: src/azure-cli/azure/cli/command_modules/acs/_help.py
+      repo: https://github.com/Azure/azure-cli.git
+- uid: az_aks_rotate_certs
+  name: az aks rotate-certs
+  summary: Rotate certificates and keys on a managed Kubernetes cluster.
+  description: Kubernetes will be unavailable during cluster certificate rotation.
+  langs:
+  - azurecli
+  parameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name of the managed cluster.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=&lt;name&gt;`.
+    description: ''
+  - name: --no-wait
+    summary: Do not wait for the long-running operation to finish.
     description: ''
   - name: --yes -y
     summary: Do not prompt for confirmation.
@@ -671,6 +772,97 @@ items:
   - isRequired: true
     name: --resource-group -g
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=&lt;name&gt;`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  source:
+    path: src/azure-cli/azure/cli/command_modules/acs/_help.py
+    remote:
+      branch: dev
+      path: src/azure-cli/azure/cli/command_modules/acs/_help.py
+      repo: https://github.com/Azure/azure-cli.git
+- uid: az_aks_update
+  name: az aks update
+  summary: Update a managed Kubernetes cluster.
+  description: ''
+  langs:
+  - azurecli
+  examples:
+  - summary: Update a kubernetes cluster with standard SKU load balancer to use two AKS created IPs for the load balancer outbound connection usage.
+    syntax:
+      content: az aks update -g MyResourceGroup -n MyManagedCluster --load-balancer-managed-outbound-ip-count 2
+  - summary: Update a kubernetes cluster with standard SKU load balancer to use the provided public IPs for the load balancer outbound connection usage.
+    syntax:
+      content: az aks update -g MyResourceGroup -n MyManagedCluster --load-balancer-outbound-ips <ip-resource-id-1,ip-resource-id-2>
+  - summary: Create a kubernetes cluster with a standard SKU load balancer, with two outbound AKS managed IPs an idle flow timeout of 5 minutes and 8000 allocated ports per machine
+    syntax:
+      content: az aks update -g MyResourceGroup -n MyManagedCluster --load-balancer-managed-outbound-ip-count 2 --load-balancer-idle-timeout 5 --load-balancer-outbound-ports 8000
+  - summary: Update a kubernetes cluster with standard SKU load balancer to use the provided public IP prefixes for the load balancer outbound connection usage.
+    syntax:
+      content: az aks update -g MyResourceGroup -n MyManagedCluster --load-balancer-outbound-ip-prefixes <ip-prefix-resource-id-1,ip-prefix-resource-id-2>
+  - summary: Attach AKS cluster to ACR by name "acrName"
+    syntax:
+      content: az aks update -g MyResourceGroup -n MyManagedCluster --attach-acr acrName
+  - summary: Update a kubernetes cluster with authorized apiserver ip ranges.
+    syntax:
+      content: az aks update -g MyResourceGroup -n MyManagedCluster --api-server-authorized-ip-ranges 193.168.1.0/24,194.168.1.0/24
+  - summary: Disable authorized apiserver ip ranges feature for a kubernetes cluster.
+    syntax:
+      content: az aks update -g MyResourceGroup -n MyManagedCluster --api-server-authorized-ip-ranges ""
+  - summary: Restrict apiserver traffic in a kubernetes cluster to agentpool nodes.
+    syntax:
+      content: az aks update -g MyResourceGroup -n MyManagedCluster --api-server-authorized-ip-ranges 0.0.0.0/32
+  parameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name of the managed cluster.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=&lt;name&gt;`.
+    description: ''
+  - name: --api-server-authorized-ip-ranges
+    summary: Comma seperated list of authorized apiserver IP ranges. Set to "" to allow all traffic on a previously restricted cluster. Set to 0.0.0.0/32 to restrict apiserver traffic to node pools.
+    description: ''
+  - name: --attach-acr
+    summary: Grant the 'acrpull' role assignment to the ACR specified by name or resource ID.
+    description: ''
+  - name: --detach-acr
+    summary: Disable the 'acrpull' role assignment to the ACR specified by name or resource ID.
+    description: ''
+  - name: --disable-cluster-autoscaler -d
+    summary: Disable cluster autoscaler.
+    description: ''
+  - name: --enable-cluster-autoscaler -e
+    summary: Enable cluster autoscaler.
+    description: ''
+  - name: --load-balancer-idle-timeout
+    summary: Load balancer idle timeout in minutes.
+    description: Desired idle timeout for load balancer outbound flows, default is 30 minutes. Please specify a value in the range of [4, 120].
+  - name: --load-balancer-managed-outbound-ip-count
+    summary: Load balancer managed outbound IP count.
+    description: Desired number of managed outbound IPs for load balancer outbound connection. Valid for Standard SKU load balancer cluster only.
+  - name: --load-balancer-outbound-ip-prefixes
+    summary: Load balancer outbound IP prefix resource IDs.
+    description: Comma-separated public IP prefix resource IDs for load balancer outbound connection. Valid for Standard SKU load balancer cluster only.
+  - name: --load-balancer-outbound-ips
+    summary: Load balancer outbound IP resource IDs.
+    description: Comma-separated public IP resource IDs for load balancer outbound connection. Valid for Standard SKU load balancer cluster only.
+  - name: --load-balancer-outbound-ports
+    summary: Load balancer outbound allocated ports.
+    description: Desired static number of outbound ports per VM in the load balancer backend pool. By default, set to 0 which uses the default allocation based on the number of VMs.
+  - name: --max-count
+    summary: Maximum nodes count used for autoscaler, when "--enable-cluster-autoscaler" specified. Please specify the value in the range of [1, 100].
+    description: ''
+  - name: --min-count
+    summary: Minimum nodes count used for autoscaler, when "--enable-cluster-autoscaler" specified. Please specify the value in the range of [1, 100].
+    description: ''
+  - name: --no-wait
+    summary: Do not wait for the long-running operation to finish.
+    description: ''
+  - name: --update-cluster-autoscaler -u
+    summary: Update min-count or max-count for cluster autoscaler.
     description: ''
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
@@ -763,6 +955,9 @@ items:
     name: --resource-group -g
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=&lt;name&gt;`.
     description: ''
+  - name: --control-plane-only
+    summary: Upgrade the cluster control plane only. If not specified, both control plane AND all node pools will be upgraded.
+    description: ''
   - name: --no-wait
     summary: Do not wait for the long-running operation to finish.
     description: ''
@@ -789,28 +984,28 @@ items:
     syntax:
       content: >-
         az aks upgrade-connector --name MyManagedCluster --resource-group MyResourceGroup \
-                                  --connector-name aci-connector
+          --connector-name virtual-kubelet
   - summary: Upgrade the ACI Connector for Windows to a managed Kubernetes cluster.
     syntax:
       content: >-
         az aks upgrade-connector --name MyManagedCluster --resource-group MyResourceGroup \
-                                   --connector-name aci-connector --os-type Windows
+           --connector-name virtual-kubelet --os-type Windows
   - summary: Upgrade the ACI Connector for both Windows and Linux to a managed Kubernetes cluster.
     syntax:
       content: >-
         az aks upgrade-connector --name MyManagedCluster --resource-group MyResourceGroup \
-                                  --connector-name aci-connector --os-type Both
+          --connector-name virtual-kubelet --os-type Both
   - summary: Upgrade the ACI Connector to use a specific service principal in a specific resource group.
     syntax:
       content: >-
         az aks upgrade-connector --name MyManagedCluster --resource-group MyResourceGroup \
-                                  --connector-name aci-connector --service-principal {SPN_ID} --client-secret {SPN_SECRET} \
-                                  --aci-resource-group ACI-resource-group
+          --connector-name virtual-kubelet --service-principal {SPN_ID} --client-secret {SPN_SECRET} \
+          --aci-resource-group ACI-resource-group
   - summary: Upgrade the ACI Connector from a custom Helm chart with custom tag.
     syntax:
       content: >-
         az aks upgrade-connector --name MyManagedCluster --resource-group MyResourceGroup \
-                                  --connector-name aci-connector --chart-url {CustomURL} --image-tag {VirtualKubeletImageTag}
+          --connector-name virtual-kubelet --chart-url {CustomURL} --image-tag {VirtualKubeletImageTag}
   parameters:
   - isRequired: true
     name: --name -n
@@ -821,7 +1016,7 @@ items:
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=&lt;name&gt;`.
     description: ''
   - name: --aci-resource-group
-    summary: The resource group to create the ACI container groups. Use the MC_* resource group if it is not specified.
+    summary: The resource group to create the ACI container groups. Use the MC_\* resource group if it is not specified.
     description: ''
   - name: --chart-url
     defaultValue: <a href="https://github.com/virtual-kubelet/virtual-kubelet/raw/master/charts/virtual-kubelet-for-aks-latest.tgz">https://github.com/virtual-kubelet/virtual-kubelet/raw/master/charts/virtual-kubelet-for-aks-latest.tgz</a>
@@ -838,7 +1033,7 @@ items:
     summary: The image tag of the virtual kubelet. Use 'latest' if it is not specified.
     description: ''
   - name: --location -l
-    summary: The location to create the ACI container groups. Use the location of the MC_* resource group if it is not specified.
+    summary: The location to create the ACI container groups. Use the location of the MC_\* resource group if it is not specified.
     description: ''
   - name: --os-type
     defaultValue: Linux
@@ -910,6 +1105,9 @@ items:
   - summary: Wait for a cluster to be upgraded, polling every minute for up to thirty minutes.
     syntax:
       content: az aks wait -g MyResourceGroup -n MyManagedCluster --updated --interval 60 --timeout 1800
+  - summary: Wait for a managed Kubernetes cluster to reach a desired state (autogenerated)
+    syntax:
+      content: az aks wait --created --interval 60 --name MyManagedCluster --resource-group MyResourceGroup --timeout 1800
   parameters:
   - isRequired: true
     name: --name -n
@@ -985,18 +1183,48 @@ commands:
 - uid: az_aks_list
   name: az aks list
   summary: List managed Kubernetes clusters.
+- uid: az_aks_nodepool
+  name: az aks nodepool
+  summary: Commands to manage node pools in Kubernetes kubernetes cluster.
+- uid: az_aks_nodepool_add
+  name: az aks nodepool add
+  summary: Add a node pool to the managed Kubernetes cluster.
+- uid: az_aks_nodepool_delete
+  name: az aks nodepool delete
+  summary: Delete the agent pool in the managed Kubernetes cluster.
+- uid: az_aks_nodepool_list
+  name: az aks nodepool list
+  summary: List node pools in the managed Kubernetes cluster.
+- uid: az_aks_nodepool_scale
+  name: az aks nodepool scale
+  summary: Scale the node pool in a managed Kubernetes cluster.
+- uid: az_aks_nodepool_show
+  name: az aks nodepool show
+  summary: Show the details for a node pool in the managed Kubernetes cluster.
+- uid: az_aks_nodepool_update
+  name: az aks nodepool update
+  summary: Update a node pool to enable/disable cluster-autoscaler or change min-count or max-count.
+- uid: az_aks_nodepool_upgrade
+  name: az aks nodepool upgrade
+  summary: Upgrade the node pool in a managed Kubernetes cluster.
 - uid: az_aks_remove_connector
   name: az aks remove-connector
   summary: Remove the ACI Connector from a managed Kubernetes cluster.
 - uid: az_aks_remove_dev_spaces
   name: az aks remove-dev-spaces
   summary: Remove Azure Dev Spaces from a managed Kubernetes cluster.
+- uid: az_aks_rotate_certs
+  name: az aks rotate-certs
+  summary: Rotate certificates and keys on a managed Kubernetes cluster.
 - uid: az_aks_scale
   name: az aks scale
   summary: Scale the node pool in a managed Kubernetes cluster.
 - uid: az_aks_show
   name: az aks show
   summary: Show the details for a managed Kubernetes cluster.
+- uid: az_aks_update
+  name: az aks update
+  summary: Update a managed Kubernetes cluster.
 - uid: az_aks_update_credentials
   name: az aks update-credentials
   summary: Update credentials for a managed Kubernetes cluster, like service principal.
@@ -1028,7 +1256,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/acs/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/17015379924a13b12a48781469c8b0e5021c7c2a/src/azure-cli/azure/cli/command_modules/acs/_help.py
-updated_at: 6/14/2019 4:29:50 PM
-ms.date: 06/14/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/b81192b5d7f7fd42ba29297db882193fc66e72ff/src/azure-cli/azure/cli/command_modules/acs/_help.py
+updated_at: 1/31/2020 8:57:27 AM
+ms.date: 01/31/2020
 description: Manage Azure Kubernetes Services.

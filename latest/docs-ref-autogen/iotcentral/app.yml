@@ -16,9 +16,11 @@ items:
   name: az iotcentral app create
   summary: Create an IoT Central application.
   description: >-
-    For an introduction to IoT Central, see <a href="https://docs.microsoft.com/en-us/azure/iot-central/">https://docs.microsoft.com/en-us/azure/iot-central/</a>.
-                                The F1 Sku is no longer supported. Please use the S1 Sku (default) for app creation.
-                                For more pricing information, please visit <a href="https://azure.microsoft.com/en-us/pricing/details/iot-central/">https://azure.microsoft.com/en-us/pricing/details/iot-central/</a>.
+    For an introduction to IoT Central, see <a href="https://docs.microsoft.com/azure/iot-central/">https://docs.microsoft.com/azure/iot-central/</a>.
+
+    The F1 Sku is no longer supported. Please use the S1 Sku (default) for app creation.
+
+    For more pricing information, please visit <a href="https://azure.microsoft.com/pricing/details/iot-central/">https://azure.microsoft.com/pricing/details/iot-central/</a>.
   langs:
   - azurecli
   examples:
@@ -49,7 +51,7 @@ items:
     description: ''
   - name: --sku
     defaultValue: S1
-    parameterValueGroup: F1, S1
+    parameterValueGroup: F1, S1, ST0, ST1, ST2
     summary: Pricing tier for IoT Central applications. Default value is S1.
     description: ''
   - name: --template
@@ -213,7 +215,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/iotcentral/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/iotcentral/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/e9803a025673991c33ac3d4fcbafb440f933d7b6/src/azure-cli/azure/cli/command_modules/iotcentral/_help.py
-updated_at: 6/11/2019 8:27:23 PM
-ms.date: 06/11/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/b375582c5584faf9cf3b75896cf8a03f31008077/src/azure-cli/azure/cli/command_modules/iotcentral/_help.py
+updated_at: 10/19/2019 11:33:17 AM
+ms.date: 10/19/2019
 description: Manage IoT Central applications.

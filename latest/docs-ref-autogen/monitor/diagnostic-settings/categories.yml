@@ -11,10 +11,17 @@ items:
   - az_monitor_diagnostic_settings_categories_show
 - uid: az_monitor_diagnostic_settings_categories_list
   name: az monitor diagnostic-settings categories list
-  summary: Lists the diagnostic settings categories for the specified resource.
+  summary: List the diagnostic settings categories for the specified resource.
   description: ''
   langs:
   - azurecli
+  examples:
+  - summary: List diagnostic settings categories by using resource ID
+    syntax:
+      content: az monitor diagnostic-settings categories list --resource /subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/myRG/providers/microsoft.logic/workflows/myWorkflow
+  - summary: List diagnostic settings categories by using resource name
+    syntax:
+      content: az monitor diagnostic-settings categories list -g myRG --resource-type microsoft.logic/workflows --resource myWorkflow
   parameters:
   - isRequired: true
     name: --resource
@@ -80,7 +87,7 @@ items:
 commands:
 - uid: az_monitor_diagnostic_settings_categories_list
   name: az monitor diagnostic-settings categories list
-  summary: Lists the diagnostic settings categories for the specified resource.
+  summary: List the diagnostic settings categories for the specified resource.
 - uid: az_monitor_diagnostic_settings_categories_show
   name: az monitor diagnostic-settings categories show
   summary: Gets the diagnostic settings category for the specified resource.
@@ -100,7 +107,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/monitor/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/f7cb641abeb77511a20cb6c258cc3d94b9596021/src/azure-cli/azure/cli/command_modules/monitor/_help.py
-updated_at: 6/12/2019 9:52:39 PM
-ms.date: 06/12/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/800e711239d60c81de6679d73779563b2cedcc62/src/azure-cli/azure/cli/command_modules/monitor/_help.py
+updated_at: 2/13/2020 4:56:47 AM
+ms.date: 02/13/2020
 description: Retrieve service diagnostic settings categories.

@@ -28,7 +28,20 @@ items:
   examples:
   - summary: Create a storage account and setup a vault to manage its keys
     syntax:
-      content: "$id = az storage account create -g resourcegroup -n storageacct --query id\n                        \n                        # assign the Azure Key Vault service the \"Storage Account Key Operator Service Role\" role.\n                        az role assignment create --role \"Storage Account Key Operator Service Role\" --scope $id \\\n                        --assignee cfa8b339-82a2-471a-a3c9-0fc0be7a4093\n                        \n                        az keyvault storage add --vault-name vault -n storageacct --active-key-name key1    \\\n                        --auto-regenerate-key --regeneration-period P90D  --resource-id $id"
+      content: >-
+        $id = az storage account create -g resourcegroup -n storageacct --query id
+
+
+        # assign the Azure Key Vault service the "Storage Account Key Operator Service Role" role.
+
+        az role assignment create --role "Storage Account Key Operator Service Role" --scope $id \
+
+        --assignee cfa8b339-82a2-471a-a3c9-0fc0be7a4093
+
+
+        az keyvault storage add --vault-name vault -n storageacct --active-key-name key1    \
+
+        --auto-regenerate-key --regeneration-period P90D  --resource-id $id
   parameters:
   - isRequired: true
     name: --active-key-name
@@ -50,7 +63,7 @@ items:
     summary: The key regeneration time duration specified in ISO-8601 format, such as "P30D" for rotation every 30 days.
     description: ''
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
   - isRequired: true
     name: --name -n
@@ -223,8 +236,8 @@ items:
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_keyvault_storage_remove
   name: az keyvault storage remove
-  summary: Deletes a storage account.
-  description: This operation requires the storage/delete permission.
+  summary: Remove a Key Vault managed Azure Storage Account and all associated SAS definitions. This operation requires the storage/delete permission.
+  description: ''
   langs:
   - azurecli
   parameters:
@@ -341,7 +354,7 @@ items:
     summary: The key regeneration time duration specified in ISO-8601 format, such as "P30D" for rotation every 30 days.
     description: ''
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
   - name: --id
     summary: Id of the storage account.  If specified all other 'Id' arguments should be omitted.
@@ -385,7 +398,7 @@ commands:
   summary: Regenerates the specified key value for the given storage account.
 - uid: az_keyvault_storage_remove
   name: az keyvault storage remove
-  summary: Deletes a storage account.
+  summary: Remove a Key Vault managed Azure Storage Account and all associated SAS definitions. This operation requires the storage/delete permission.
 - uid: az_keyvault_storage_restore
   name: az keyvault storage restore
   summary: Restores a backed up storage account to a vault.
@@ -441,7 +454,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/keyvault/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/5c7ddcb1066236c3d6a634c50428fc0f2a94fce3/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
-updated_at: 6/21/2019 10:50:06 PM
-ms.date: 06/21/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/eb12ac454cbe1ddb59c86cdf2045e1912660e750/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+updated_at: 2/13/2020 7:10:31 AM
+ms.date: 02/13/2020
 description: Manage storage accounts.

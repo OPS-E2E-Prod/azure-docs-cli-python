@@ -28,7 +28,7 @@ items:
   parameters:
   - isRequired: true
     name: --ag-name -a
-    summary: Name of the availability group. Please refer to <a href="https://docs.microsoft.com/en-us/sql/database-engine/availability-groups/windows/use-the-availability-group-wizard-sql-server-management-studio?view=sql-server-2017">https://docs.microsoft.com/en-us/sql/database-engine/availability-groups/windows/use-the-availability-group-wizard-sql-server-management-studio?view=sql-server-2017</a> to create and availability group.
+    summary: Name of the availability group. Please refer to <a href="https://docs.microsoft.com/sql/database-engine/availability-groups/windows/use-the-availability-group-wizard-sql-server-management-studio?view=sql-server-2017">https://docs.microsoft.com/sql/database-engine/availability-groups/windows/use-the-availability-group-wizard-sql-server-management-studio?view=sql-server-2017</a> to create and availability group.
     description: ''
   - isRequired: true
     name: --group-name -r
@@ -96,7 +96,7 @@ items:
     summary: Do not prompt for confirmation.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: Name of the availability group listener.
@@ -149,7 +149,7 @@ items:
     summary: Name of the SQL virtual machine group.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: Name of the availability group listener.
@@ -182,7 +182,7 @@ items:
     summary: Name of the SQL virtual machine group.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: Name of the availability group listener.
@@ -246,7 +246,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/sql/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/1b80e0dcfebb2e7f37293686d580baf62e64ce17/src/azure-cli/azure/cli/command_modules/sql/_help.py
-updated_at: 7/17/2019 4:36:02 PM
-ms.date: 07/17/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/64085510f767a8e2c62864c7992677cfcf170fd7/src/azure-cli/azure/cli/command_modules/sql/_help.py
+updated_at: 2/9/2020 1:22:19 PM
+ms.date: 02/09/2020
 description: Manage SQL availability group listeners.

@@ -27,7 +27,7 @@ items:
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=&lt;name&gt;`.
     description: ''
   - name: --policy
-    summary: 'The Storage Account ManagementPolicies Rules, in JSON format. See more details in: <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-lifecycle-managment-concepts">https://docs.microsoft.com/en-us/azure/storage/common/storage-lifecycle-managment-concepts</a>.'
+    summary: 'The Storage Account ManagementPolicies Rules, in JSON format. See more details in: <a href="https://docs.microsoft.com/azure/storage/common/storage-lifecycle-managment-concepts">https://docs.microsoft.com/azure/storage/common/storage-lifecycle-managment-concepts</a>.'
     description: ''
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
@@ -151,7 +151,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/storage/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/eab51138bdaf7d9724cc532953b14257f13cf49f/src/azure-cli/azure/cli/command_modules/storage/_help.py
-updated_at: 8/8/2019 2:08:43 AM
-ms.date: 08/08/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/800e711239d60c81de6679d73779563b2cedcc62/src/azure-cli/azure/cli/command_modules/storage/_help.py
+updated_at: 2/13/2020 4:56:47 AM
+ms.date: 02/13/2020
 description: Manage storage account management policies.

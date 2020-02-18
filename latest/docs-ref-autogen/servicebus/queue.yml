@@ -85,7 +85,7 @@ items:
     summary: Maximum size of queue in megabytes, which is the size of the memory allocated for the queue. Default is 1024. Max for Standard SKU is 5120 and for Premium SKU is 81920.
     description: ''
   - name: --status
-    parameterValueGroup: Active, Disabled, ReceiveDisabled, SendDisabled
+    parameterValueGroup: Active, Disabled, SendDisabled
     summary: Enumerates the possible values for the status of a messaging entity.
     description: ''
   - name: --subscription
@@ -109,7 +109,7 @@ items:
       content: az servicebus queue delete --resource-group myresourcegroup --namespace-name mynamespace --name myqueue
   parameters:
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: Name of Queue.
@@ -175,7 +175,7 @@ items:
       content: az servicebus queue show --resource-group myresourcegroup --namespace-name mynamespace --name myqueue
   parameters:
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: Name of Queue.
@@ -256,11 +256,11 @@ items:
     summary: Maximum size of queue in megabytes, which is the size of the memory allocated for the queue. Default is 1024. Max for Standard SKU is 5120 and for Premium SKU is 81920.
     description: ''
   - name: --status
-    parameterValueGroup: Active, Disabled, ReceiveDisabled, SendDisabled
+    parameterValueGroup: Active, Disabled, SendDisabled
     summary: Enumerates the possible values for the status of a messaging entity.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: Name of Queue.
@@ -351,7 +351,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/servicebus/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/servicebus/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/117c7df07b0fd77d4897fcf7a797573be1c6ccab/src/azure-cli/azure/cli/command_modules/servicebus/_help.py
-updated_at: 6/12/2019 10:26:06 PM
-ms.date: 06/12/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/14b5a20839a9bc1f37d3c259564bce7546ef6478/src/azure-cli/azure/cli/command_modules/servicebus/_help.py
+updated_at: 10/17/2019 11:07:36 AM
+ms.date: 10/17/2019
 description: Manage Azure Service Bus Queue and Authorization Rule.

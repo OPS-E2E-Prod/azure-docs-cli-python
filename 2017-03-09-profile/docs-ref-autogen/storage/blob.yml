@@ -3,7 +3,7 @@ items:
 - uid: az_storage_blob
   name: az storage blob
   summary: Manage object storage for unstructured data (blobs).
-  description: ''
+  description: 'Please specify one of the following authentication parameters for your commands: --auth-mode, --account-key, --connection-string, --sas-token. You also can use corresponding environment variables to store your authentication credentials, e.g. AZURE_STORAGE_KEY, AZURE_STORAGE_CONNECTION_STRING and AZURE_STORAGE_SAS_TOKEN.'
   langs:
   - azurecli
   children:
@@ -31,7 +31,10 @@ items:
   examples:
   - summary: Delete a blob.
     syntax:
-      content: az storage blob delete -c MyContainer -n MyBlob
+      content: az storage blob delete -c mycontainer -n MyBlob
+  - summary: Delete a blob using login credentials.
+    syntax:
+      content: az storage blob delete -c mycontainer -n MyBlob --account-name mystorageaccount --auth-mode login
   parameters:
   - isRequired: true
     name: --container-name -c
@@ -55,13 +58,13 @@ items:
     summary: Request timeout in seconds. Applies to each call to the service.
     description: ''
   - name: --if-match
-    summary: An ETag value, or the wildcard character (*). Specify this header to perform the operation only if the resource's ETag matches the value specified.
+    summary: An ETag value, or the wildcard character (\*). Specify this header to perform the operation only if the resource's ETag matches the value specified.
     description: ''
   - name: --if-modified-since
     summary: Commence only if modified since supplied UTC datetime (Y-m-d'T'H:M'Z').
     description: ''
   - name: --if-none-match
-    summary: An ETag value, or the wildcard character (*). Specify this header to perform the operation only if the resource's ETag does not match the value specified. Specify the wildcard character (*) to perform the operation only if the resource does not exist, and fail the operation if it does exist.
+    summary: An ETag value, or the wildcard character (\*). Specify this header to perform the operation only if the resource's ETag does not match the value specified. Specify the wildcard character (\*) to perform the operation only if the resource does not exist, and fail the operation if it does exist.
     description: ''
   - name: --if-unmodified-since
     summary: Commence only if unmodified since supplied UTC datetime (Y-m-d'T'H:M'Z').
@@ -98,7 +101,17 @@ items:
     syntax:
       content: >-
         date=`date -d "10 days ago" '+%Y-%m-%dT%H:%MZ'`
-                                az storage blob delete-batch -s MyContainer --account-name MyStorageAccount --pattern *.py --if-unmodified-since $date
+
+        az storage blob delete-batch -s mycontainer --account-name mystorageaccount --pattern *.py --if-unmodified-since $date --auth-mode login
+  - summary: Delete all the blobs in a directory named "dir" in a container named "mycontainer".
+    syntax:
+      content: az storage blob delete-batch -s mycontainer --pattern dir/*
+  - summary: Delete the blobs with the format 'cli-2018-xx-xx.txt' or 'cli-2019-xx-xx.txt' in a container.
+    syntax:
+      content: az storage blob delete-batch -s mycontainer --pattern cli-201[89]-??-??.txt
+  - summary: Delete all blobs with the format 'cli-201x-xx-xx.txt' except cli-2018-xx-xx.txt' and 'cli-2019-xx-xx.txt' in a container.
+    syntax:
+      content: az storage blob delete-batch -s mycontainer --pattern cli-201[!89]-??-??.txt
   parameters:
   - isRequired: true
     name: --source -s
@@ -115,19 +128,19 @@ items:
     summary: The active lease id for the blob.
     description: ''
   - name: --pattern
-    summary: The pattern used for globbing files or blobs in the source. The supported patterns are '*', '?', '[seq]', and '[!seq]'.
-    description: ''
+    summary: The pattern used for globbing files or blobs in the source. The supported patterns are '\*', '?', '[seq]', and '[!seq]'. For more information, please refer to <a href="https://docs.python.org/3.7/library/fnmatch.html">https://docs.python.org/3.7/library/fnmatch.html</a>.
+    description: When you use '*' in --pattern, it will match any character including the the directory separator '/'. You can also try "az stroage remove" command with --include and --exclude with azure cli >= 2.0.70 to match multiple patterns.
   - name: --timeout
     summary: Request timeout in seconds. Applies to each call to the service.
     description: ''
   - name: --if-match
-    summary: An ETag value, or the wildcard character (*). Specify this header to perform the operation only if the resource's ETag matches the value specified.
+    summary: An ETag value, or the wildcard character (\*). Specify this header to perform the operation only if the resource's ETag matches the value specified.
     description: ''
   - name: --if-modified-since
     summary: Commence only if modified since supplied UTC datetime (Y-m-d'T'H:M'Z').
     description: ''
   - name: --if-none-match
-    summary: An ETag value, or the wildcard character (*).
+    summary: An ETag value, or the wildcard character (\*).
     description: Specify this header to perform the operation only if the resource's ETag does not match the value specified. Specify the wildcard character (*) to perform the operation only if the resource does not exist, and fail the operation if it does exist.
   - name: --if-unmodified-since
     summary: Commence only if unmodified since supplied UTC datetime (Y-m-d'T'H:M'Z').
@@ -213,13 +226,13 @@ items:
     summary: Request timeout in seconds. Applies to each call to the service.
     description: ''
   - name: --if-match
-    summary: An ETag value, or the wildcard character (*). Specify this header to perform the operation only if the resource's ETag matches the value specified.
+    summary: An ETag value, or the wildcard character (\*). Specify this header to perform the operation only if the resource's ETag matches the value specified.
     description: ''
   - name: --if-modified-since
     summary: Commence only if modified since supplied UTC datetime (Y-m-d'T'H:M'Z').
     description: ''
   - name: --if-none-match
-    summary: An ETag value, or the wildcard character (*). Specify this header to perform the operation only if the resource's ETag does not match the value specified. Specify the wildcard character (*) to perform the operation only if the resource does not exist, and fail the operation if it does exist.
+    summary: An ETag value, or the wildcard character (\*). Specify this header to perform the operation only if the resource's ETag does not match the value specified. Specify the wildcard character (\*) to perform the operation only if the resource does not exist, and fail the operation if it does exist.
     description: ''
   - name: --if-unmodified-since
     summary: Commence only if unmodified since supplied UTC datetime (Y-m-d'T'H:M'Z').
@@ -254,7 +267,16 @@ items:
   examples:
   - summary: Download all blobs that end with .py
     syntax:
-      content: az storage blob download-batch -d . --pattern *.py -s MyContainer --account-name MyStorageAccount
+      content: az storage blob download-batch -d . --pattern *.py -s mycontainer --account-name mystorageaccount --account-key 00000000
+  - summary: Download all blobs in a directory named "dir" from container named "mycontainer".
+    syntax:
+      content: az storage blob download-batch -d . -s mycontainer --pattern dir/*
+  - summary: Download all blobs with the format 'cli-2018-xx-xx.txt' or 'cli-2019-xx-xx.txt' in container to current path.
+    syntax:
+      content: az storage blob download-batch -d . -s mycontainer --pattern cli-201[89]-??-??.txt
+  - summary: Download all blobs with the format 'cli-201x-xx-xx.txt' except cli-2018-xx-xx.txt' and 'cli-2019-xx-xx.txt' in container to current path.
+    syntax:
+      content: az storage blob download-batch -d . -s mycontainer --pattern cli-201[!89]-??-??.txt
   parameters:
   - isRequired: true
     name: --destination -d
@@ -275,8 +297,8 @@ items:
     summary: Include this flag to disable progress reporting for the command.
     description: ''
   - name: --pattern
-    summary: The pattern used for globbing files or blobs in the source. The supported patterns are '*', '?', '[seq]', and '[!seq]'.
-    description: ''
+    summary: The pattern used for globbing files or blobs in the source. The supported patterns are '\*', '?', '[seq]', and '[!seq]'. For more information, please refer to <a href="https://docs.python.org/3.7/library/fnmatch.html">https://docs.python.org/3.7/library/fnmatch.html</a>.
+    description: When you use '*' in --pattern, it will match any character including the the directory separator '/'.
   - name: --socket-timeout
     summary: The socket timeout(secs), used by the service to regulate data flow.
     description: ''
@@ -349,7 +371,7 @@ items:
       repo: https://github.com/Azure/azure-cli.git
 - uid: az_storage_blob_generate_sas
   name: az storage blob generate-sas
-  summary: Generates a shared access signature for the blob.
+  summary: Generate a shared access signature for the blob.
   description: ''
   langs:
   - azurecli
@@ -358,8 +380,9 @@ items:
     syntax:
       content: >-
         end=`date -u -d "30 minutes" '+%Y-%m-%dT%H:%MZ'`
-                                az storage blob generate-sas --account-name MyStorageAccount -c MyContainer -n MyBlob --permissions r --expiry $end --https-only
-  - summary: Generates a shared access signature for the blob. (autogenerated)
+
+        az storage blob generate-sas -c myycontainer -n MyBlob --permissions r --expiry $end --https-only
+  - summary: Generate a shared access signature for the blob. (autogenerated)
     syntax:
       content: az storage blob generate-sas --account-key 00000000 --account-name MyStorageAccount --container-name MyContainer --expiry 2018-01-01T00:00:00Z --name MyBlob --permissions r
   parameters:
@@ -454,7 +477,7 @@ items:
     description: ''
   - name: --num-results
     defaultValue: "5000"
-    summary: Specifies the maximum number of results to return. Provide "*" to return all.
+    summary: Specifies the maximum number of results to return. Provide "\*" to return all.
     description: ''
   - name: --prefix
     summary: Filters the results to return only blobs whose names begin with the specified prefix.
@@ -547,7 +570,7 @@ items:
       content: az storage blob show -c MyContainer -n MyBlob
   - summary: Get the details of a blob (autogenerated)
     syntax:
-      content: az storage blob show --account-name MyAccount --container-name MyContainer --name MyBlob
+      content: az storage blob show --account-name mystorageccount --account-key 00000000 --container-name MyContainer --name MyBlob
   parameters:
   - isRequired: true
     name: --container-name -c
@@ -567,13 +590,13 @@ items:
     summary: Request timeout in seconds. Applies to each call to the service.
     description: ''
   - name: --if-match
-    summary: An ETag value, or the wildcard character (*). Specify this header to perform the operation only if the resource's ETag matches the value specified.
+    summary: An ETag value, or the wildcard character (\*). Specify this header to perform the operation only if the resource's ETag matches the value specified.
     description: ''
   - name: --if-modified-since
     summary: Commence only if modified since supplied UTC datetime (Y-m-d'T'H:M'Z').
     description: ''
   - name: --if-none-match
-    summary: An ETag value, or the wildcard character (*). Specify this header to perform the operation only if the resource's ETag does not match the value specified. Specify the wildcard character (*) to perform the operation only if the resource does not exist, and fail the operation if it does exist.
+    summary: An ETag value, or the wildcard character (\*). Specify this header to perform the operation only if the resource's ETag does not match the value specified. Specify the wildcard character (\*) to perform the operation only if the resource does not exist, and fail the operation if it does exist.
     description: ''
   - name: --if-unmodified-since
     summary: Commence only if unmodified since supplied UTC datetime (Y-m-d'T'H:M'Z').
@@ -624,13 +647,13 @@ items:
     summary: Request timeout in seconds. Applies to each call to the service.
     description: ''
   - name: --if-match
-    summary: An ETag value, or the wildcard character (*). Specify this header to perform the operation only if the resource's ETag matches the value specified.
+    summary: An ETag value, or the wildcard character (\*). Specify this header to perform the operation only if the resource's ETag matches the value specified.
     description: ''
   - name: --if-modified-since
     summary: Commence only if modified since supplied UTC datetime (Y-m-d'T'H:M'Z').
     description: ''
   - name: --if-none-match
-    summary: An ETag value, or the wildcard character (*). Specify this header to perform the operation only if the resource's ETag does not match the value specified. Specify the wildcard character (*) to perform the operation only if the resource does not exist, and fail the operation if it does exist.
+    summary: An ETag value, or the wildcard character (\*). Specify this header to perform the operation only if the resource's ETag does not match the value specified. Specify the wildcard character (\*) to perform the operation only if the resource does not exist, and fail the operation if it does exist.
     description: ''
   - name: --if-unmodified-since
     summary: Commence only if unmodified since supplied UTC datetime (Y-m-d'T'H:M'Z').
@@ -659,16 +682,16 @@ items:
 - uid: az_storage_blob_sync
   name: az storage blob sync
   summary: Sync blobs recursively to a storage blob container.
-  description: Sync command depends on Azcopy, which only works for 64-bit Operating System now. We will support 32-bit Operating System soon.
+  description: ''
   langs:
   - azurecli
   examples:
   - summary: Sync a single blob to a container.
     syntax:
-      content: az storage blob sync -c MyContainer --account-name MyStorageAccount -s "path/to/file" -d NewBlob
+      content: az storage blob sync -c mycontainer -s "path/to/file" -d NewBlob
   - summary: Sync a directory to a container.
     syntax:
-      content: az storage blob sync -c MyContainer --account-name MyStorageAccount -s "path/to/directory"
+      content: az storage blob sync -c mycontainer --account-name mystorageccount --account-key 00000000 -s "path/to/directory"
   parameters:
   - isRequired: true
     name: --container -c
@@ -680,6 +703,15 @@ items:
     description: ''
   - name: --destination -d
     summary: The destination path that will be appended to the blob name.
+    description: ''
+  - name: --exclude-path
+    summary: 'Exclude these paths. This option does not support wildcard characters (\*). Checks relative path prefix. For example: myFolder;myFolder/subDirName/file.pdf.'
+    description: ''
+  - name: --exclude-pattern
+    summary: 'Exclude these files where the name matches the pattern list. For example: \*.jpg;\*.pdf;exactName. This option supports wildcard characters (\*).'
+    description: ''
+  - name: --include-pattern
+    summary: 'Include only these files where the name matches the pattern list. For example: \*.jpg;\*.pdf;exactName. This option supports wildcard characters (\*).'
     description: ''
   - name: --account-key
     summary: 'Storage account key. Must be used in conjunction with storage account name. Environment variable: AZURE_STORAGE_KEY.'
@@ -746,13 +778,13 @@ items:
     summary: Request timeout in seconds. Applies to each call to the service.
     description: ''
   - name: --if-match
-    summary: An ETag value, or the wildcard character (*). Specify this header to perform the operation only if the resource's ETag matches the value specified.
+    summary: An ETag value, or the wildcard character (\*). Specify this header to perform the operation only if the resource's ETag matches the value specified.
     description: ''
   - name: --if-modified-since
     summary: Commence only if modified since supplied UTC datetime (Y-m-d'T'H:M'Z').
     description: ''
   - name: --if-none-match
-    summary: An ETag value, or the wildcard character (*). Specify this header to perform the operation only if the resource's ETag does not match the value specified. Specify the wildcard character (*) to perform the operation only if the resource does not exist, and fail the operation if it does exist.
+    summary: An ETag value, or the wildcard character (\*). Specify this header to perform the operation only if the resource's ETag does not match the value specified. Specify the wildcard character (\*) to perform the operation only if the resource does not exist, and fail the operation if it does exist.
     description: ''
   - name: --if-unmodified-since
     summary: Commence only if unmodified since supplied UTC datetime (Y-m-d'T'H:M'Z').
@@ -843,16 +875,16 @@ items:
     description: ''
   - name: --type -t
     parameterValueGroup: append, block, page
-    summary: Defaults to 'page' for *.vhd files, or 'block' otherwise.
+    summary: Defaults to 'page' for \*.vhd files, or 'block' otherwise.
     description: ''
   - name: --if-match
-    summary: An ETag value, or the wildcard character (*). Specify this header to perform the operation only if the resource's ETag matches the value specified.
+    summary: An ETag value, or the wildcard character (\*). Specify this header to perform the operation only if the resource's ETag matches the value specified.
     description: ''
   - name: --if-modified-since
     summary: Commence only if modified since supplied UTC datetime (Y-m-d'T'H:M'Z').
     description: ''
   - name: --if-none-match
-    summary: An ETag value, or the wildcard character (*). Specify this header to perform the operation only if the resource's ETag does not match the value specified. Specify the wildcard character (*) to perform the operation only if the resource does not exist, and fail the operation if it does exist.
+    summary: An ETag value, or the wildcard character (\*). Specify this header to perform the operation only if the resource's ETag does not match the value specified. Specify the wildcard character (\*) to perform the operation only if the resource does not exist, and fail the operation if it does exist.
     description: ''
   - name: --if-unmodified-since
     summary: Commence only if unmodified since supplied UTC datetime (Y-m-d'T'H:M'Z').
@@ -887,7 +919,16 @@ items:
   examples:
   - summary: Upload all files that end with .py unless blob exists and has been modified since given date.
     syntax:
-      content: az storage blob upload-batch -d MyContainer --account-name MyStorageAccount -s directory_path --pattern *.py --if-unmodified-since 2018-08-27T20:51Z
+      content: az storage blob upload-batch -d mycontainer --account-name mystorageaccount --account-key 00000000 -s <path-to-directory> --pattern *.py --if-unmodified-since 2018-08-27T20:51Z
+  - summary: Upload all files from local path directory to a container named "mycontainer".
+    syntax:
+      content: az storage blob upload-batch -d mycontainer -s <path-to-directory>
+  - summary: Upload all files with the format 'cli-2018-xx-xx.txt' or 'cli-2019-xx-xx.txt' in local path directory.
+    syntax:
+      content: az storage blob upload-batch -d mycontainer -s <path-to-directory> --pattern cli-201[89]-??-??.txt
+  - summary: Upload all files with the format 'cli-201x-xx-xx.txt' except cli-2018-xx-xx.txt' and 'cli-2019-xx-xx.txt' in a container.
+    syntax:
+      content: az storage blob upload-batch -d mycontainer -s <path-to-directory> --pattern cli-201[!89]-??-??.txt
   parameters:
   - isRequired: true
     name: --destination -d
@@ -917,8 +958,8 @@ items:
     summary: Include this flag to disable progress reporting for the command.
     description: ''
   - name: --pattern
-    summary: The pattern used for globbing files or blobs in the source. The supported patterns are '*', '?', '[seq]', and '[!seq]'.
-    description: ''
+    summary: The pattern used for globbing files or blobs in the source. The supported patterns are '\*', '?', '[seq]', and '[!seq]'. For more information, please refer to <a href="https://docs.python.org/3.7/library/fnmatch.html">https://docs.python.org/3.7/library/fnmatch.html</a>.
+    description: When you use '*' in --pattern, it will match any character including the the directory separator '/'.
   - name: --socket-timeout
     summary: The socket timeout(secs), used by the service to regulate data flow.
     description: ''
@@ -927,7 +968,7 @@ items:
     description: ''
   - name: --type -t
     parameterValueGroup: append, block, page
-    summary: Defaults to 'page' for *.vhd files, or 'block' otherwise. The setting will override blob types for every file.
+    summary: Defaults to 'page' for \*.vhd files, or 'block' otherwise. The setting will override blob types for every file.
     description: ''
   - name: --content-cache-control
     summary: The cache control string.
@@ -951,13 +992,13 @@ items:
     summary: The max length in bytes permitted for an append blob.
     description: ''
   - name: --if-match
-    summary: An ETag value, or the wildcard character (*). Specify this header to perform the operation only if the resource's ETag matches the value specified.
+    summary: An ETag value, or the wildcard character (\*). Specify this header to perform the operation only if the resource's ETag matches the value specified.
     description: ''
   - name: --if-modified-since
     summary: Commence only if modified since supplied UTC datetime (Y-m-d'T'H:M'Z').
     description: ''
   - name: --if-none-match
-    summary: An ETag value, or the wildcard character (*).
+    summary: An ETag value, or the wildcard character (\*).
     description: Specify this header to perform the operation only if the resource's ETag does not match the value specified. Specify the wildcard character (*) to perform the operation only if the resource does not exist, and fail the operation if it does exist.
   - name: --if-unmodified-since
     summary: Commence only if unmodified since supplied UTC datetime (Y-m-d'T'H:M'Z').
@@ -995,7 +1036,7 @@ items:
       content: az storage blob url --connection-string $connectionString --container-name container1 --name blob1
   - summary: Create the url to access a blob (autogenerated)
     syntax:
-      content: az storage blob url --account-name storageacct --container-name container1 --name blob1
+      content: az storage blob url --account-name storageacct --account-key 00000000 --container-name container1 --name blob1
   parameters:
   - isRequired: true
     name: --container-name -c
@@ -1046,7 +1087,7 @@ commands:
   summary: Copies a blob asynchronously. Use `az storage blob show` to check the status of the blobs.
 - uid: az_storage_blob_copy_start_batch
   name: az storage blob copy start-batch
-  summary: Copy multiple blobs or files to a blob container. Use `az storage blob show` to check the status of the blobs.
+  summary: Copy multiple blobs to a blob container. Use `az storage blob show` to check the status of the blobs.
 - uid: az_storage_blob_delete
   name: az storage blob delete
   summary: Mark a blob or snapshot for deletion.
@@ -1064,7 +1105,7 @@ commands:
   summary: Check for the existence of a blob in a container.
 - uid: az_storage_blob_generate_sas
   name: az storage blob generate-sas
-  summary: Generates a shared access signature for the blob.
+  summary: Generate a shared access signature for the blob.
 - uid: az_storage_blob_lease
   name: az storage blob lease
   summary: Manage storage blob leases.
@@ -1144,7 +1185,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/storage/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/eab51138bdaf7d9724cc532953b14257f13cf49f/src/azure-cli/azure/cli/command_modules/storage/_help.py
-updated_at: 8/8/2019 2:08:43 AM
-ms.date: 08/08/2019
-description: Manage object storage for unstructured data (blobs).
+gitcommit: https://github.com/Azure/azure-cli/blob/800e711239d60c81de6679d73779563b2cedcc62/src/azure-cli/azure/cli/command_modules/storage/_help.py
+updated_at: 2/13/2020 4:56:47 AM
+ms.date: 02/13/2020
+description: 'Please specify one of the following authentication parameters for your commands: --auth-mode, --account-key, --connection-string, --sas-token. You also can use corresponding environment variables to store your authentication credentials, e.g. AZURE_STORAGE_KEY, AZURE_STORAGE_CONNECTION_STRING and AZURE_STORAGE_SAS_TOKEN.'

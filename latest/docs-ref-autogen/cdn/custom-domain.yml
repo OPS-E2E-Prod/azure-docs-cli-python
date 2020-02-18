@@ -24,7 +24,7 @@ items:
     syntax:
       content: >-
         az cdn custom-domain create -g group --endpoint-name endpoint --profile-name profile \
-                                    -n domain-name --hostname www.example.com
+            -n domain-name --hostname www.example.com
   parameters:
   - isRequired: true
     name: --endpoint-name
@@ -50,7 +50,7 @@ items:
     summary: 'Location. Values from: `az account list-locations`. You can configure the default location using `az configure --defaults location=&lt;location&gt;`.'
     description: ''
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
@@ -72,7 +72,7 @@ items:
     syntax:
       content: >-
         az cdn custom-domain delete -g group --endpoint-name endpoint --profile-name profile \
-                                    -n domain-name
+            -n domain-name
   parameters:
   - isRequired: true
     name: --endpoint-name
@@ -205,7 +205,7 @@ items:
     syntax:
       content: >-
         az cdn custom-domain show -g group --endpoint-name endpoint --profile-name profile \
-                                    -n domain-name
+            -n domain-name
   parameters:
   - isRequired: true
     name: --endpoint-name
@@ -267,7 +267,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/cdn/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/cdn/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/a3ed6f76283c040bc38d24458f9bf79ecfb046da/src/azure-cli/azure/cli/command_modules/cdn/_help.py
-updated_at: 6/11/2019 5:59:10 PM
-ms.date: 06/11/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/2d2c9d6021f41fa7805b385cdbb487e0f65c370e/src/azure-cli/azure/cli/command_modules/cdn/_help.py
+updated_at: 1/30/2020 4:05:33 AM
+ms.date: 01/30/2020
 description: Manage Azure CDN Custom Domains to provide custom host names for endpoints.

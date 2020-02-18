@@ -30,7 +30,7 @@ items:
     summary: Name or resource ID of the SQL virtual machine group. If only name provided, SQL virtual machine group should be in the same resource group of the SQL virtual machine.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: Name of the SQL virtual machine.
@@ -66,6 +66,9 @@ items:
   - summary: Create a SQL virtual machine with AHUB billing tag.
     syntax:
       content: az sql vm create -n sqlvm -g myresourcegroup -l eastus --license-type AHUB
+  - summary: Create a SQL virtual machine with DR billing tag.
+    syntax:
+      content: az sql vm create -n sqlvm -g myresourcegroup -l eastus --license-type DR
   - summary: Create a SQL virtual machine with specific sku type and license type.
     syntax:
       content: az sql vm create -n sqlvm -g myresourcegroup -l eastus --image-sku Enterprise --license-type AHUB
@@ -102,7 +105,7 @@ items:
     summary: SQL Server management type. If NoAgent selected, please provide --image-sku and --offer-type.
     description: ''
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
   - name: --enable-r-services
     parameterValueGroup: false, true
@@ -194,7 +197,7 @@ items:
     description: ''
   - isRequired: true
     name: --license-type -i
-    parameterValueGroup: AHUB, PAYG
+    parameterValueGroup: AHUB, DR, PAYG
     summary: SQL Server license type.
     description: ''
   - name: --image-offer
@@ -228,7 +231,7 @@ items:
     summary: Do not prompt for confirmation.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: Name of the SQL virtual machine.
@@ -276,7 +279,7 @@ items:
       content: az sql vm remove-from-group -n sqlvm -g myresourcegroup
   parameters:
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: Name of the SQL virtual machine.
@@ -305,7 +308,7 @@ items:
     summary: Get the SQLIaaSExtension configuration settings.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: Name of the SQL virtual machine.
@@ -356,20 +359,23 @@ items:
   - summary: Update a SQL virtual machine billing tag to AHUB.
     syntax:
       content: az sql vm update -n sqlvm -g myresourcegroup --license-type AHUB
+  - summary: Update a SQL virtual machine billing tag to DR.
+    syntax:
+      content: az sql vm update -n sqlvm -g myresourcegroup --license-type DR
   parameters:
   - name: --sql-mgmt-type
     parameterValueGroup: Full
     summary: SQL Server management type. Updates from LightWeight to Full.
     description: ''
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
   - name: --yes -y
     defaultValue: "1"
     summary: Do not prompt for confirmation. Requires --sql-mgmt-type.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: Name of the SQL virtual machine.
@@ -467,7 +473,7 @@ items:
     summary: SQL image sku.
     description: ''
   - name: --license-type -i
-    parameterValueGroup: AHUB, PAYG
+    parameterValueGroup: AHUB, DR, PAYG
     summary: SQL Server license type.
     description: ''
   - name: --sql-workload-type
@@ -566,7 +572,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/sql/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/1b80e0dcfebb2e7f37293686d580baf62e64ce17/src/azure-cli/azure/cli/command_modules/sql/_help.py
-updated_at: 7/17/2019 4:36:02 PM
-ms.date: 07/17/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/64085510f767a8e2c62864c7992677cfcf170fd7/src/azure-cli/azure/cli/command_modules/sql/_help.py
+updated_at: 2/9/2020 1:22:19 PM
+ms.date: 02/09/2020
 description: Manage SQL virtual machines.

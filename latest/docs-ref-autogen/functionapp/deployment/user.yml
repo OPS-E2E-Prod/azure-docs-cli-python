@@ -39,7 +39,7 @@ items:
 - uid: az_functionapp_deployment_user_show
   name: az functionapp deployment user show
   summary: Gets publishing user.
-  description: Gets publishing user.
+  description: Description for Gets publishing user.
   langs:
   - azurecli
   parameters:
@@ -75,7 +75,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/appservice/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/appservice/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/621845684635297cdfbcba80a8bc4c437cb04684/src/azure-cli/azure/cli/command_modules/appservice/_help.py
-updated_at: 8/8/2019 12:06:04 AM
-ms.date: 08/08/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/46a142f2a6987ced98d5682721eec71626a9ea2b/src/azure-cli/azure/cli/command_modules/appservice/_help.py
+updated_at: 2/13/2020 3:04:44 PM
+ms.date: 02/13/2020
 description: Manage user credentials for deployment.

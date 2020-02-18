@@ -3,7 +3,7 @@ items:
 - uid: ext_express-route_az_network_express_route
   name: az network express-route
   summary: Manage dedicated private network fiber connections to Azure.
-  description: To learn more about ExpressRoute circuits visit <a href="https://docs.microsoft.com/en-us/azure/expressroute/howto-circuit-cli">https://docs.microsoft.com/en-us/azure/expressroute/howto-circuit-cli</a>.
+  description: To learn more about ExpressRoute circuits visit <a href="https://docs.microsoft.com/azure/expressroute/howto-circuit-cli">https://docs.microsoft.com/azure/expressroute/howto-circuit-cli</a>.
   langs:
   - azurecli
   children:
@@ -67,7 +67,7 @@ items:
     summary: SKU Tier of ExpressRoute circuit.
     description: ''
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
 - uid: ext_express-route_az_network_express_route_list
   name: az network express-route list
@@ -149,7 +149,7 @@ items:
     summary: SKU Tier of ExpressRoute circuit.
     description: ''
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
   - name: --add
     summary: 'Add an object to a list of objects by specifying a path and key value pairs.  Example: --add property.listProperty <key=value, string or JSON string>.'
@@ -261,4 +261,4 @@ globalParameters:
   summary: JMESPath query string. See <a href="http://jmespath.org/">http://jmespath.org/</a> for more information and examples.
 - name: --verbose
   summary: Increase logging verbosity. Use --debug for full debug logs.
-description: To learn more about ExpressRoute circuits visit <a href="https://docs.microsoft.com/en-us/azure/expressroute/howto-circuit-cli">https://docs.microsoft.com/en-us/azure/expressroute/howto-circuit-cli</a>.
+description: To learn more about ExpressRoute circuits visit <a href="https://docs.microsoft.com/azure/expressroute/howto-circuit-cli">https://docs.microsoft.com/azure/expressroute/howto-circuit-cli</a>.

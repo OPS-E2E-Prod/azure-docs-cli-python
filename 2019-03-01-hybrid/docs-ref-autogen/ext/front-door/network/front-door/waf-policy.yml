@@ -45,7 +45,7 @@ items:
     summary: URL used for redirect rule action.
     description: ''
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
 - uid: ext_front-door_az_network_front_door_waf_policy_delete
   name: az network front-door waf-policy delete
@@ -121,7 +121,7 @@ items:
     summary: URL used for redirect rule action.
     description: ''
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
   - name: --add
     summary: 'Add an object to a list of objects by specifying a path and key value pairs.  Example: --add property.listProperty <key=value, string or JSON string>.'
@@ -157,6 +157,18 @@ commands:
 - uid: ext_front-door_az_network_front_door_waf_policy_managed_rules_add
   name: az network front-door waf-policy managed-rules add
   summary: Add a managed rule set to a WAF policy.
+- uid: ext_front-door_az_network_front_door_waf_policy_managed_rules_exclusion
+  name: az network front-door waf-policy managed-rules exclusion
+  summary: View and alter exclusions on a managed rule set, rule group, or rule within a managed rule set.
+- uid: ext_front-door_az_network_front_door_waf_policy_managed_rules_exclusion_add
+  name: az network front-door waf-policy managed-rules exclusion add
+  summary: Add an exclusion on a managed rule set, rule group, or rule within a managed rule set.
+- uid: ext_front-door_az_network_front_door_waf_policy_managed_rules_exclusion_list
+  name: az network front-door waf-policy managed-rules exclusion list
+  summary: List the exclusions on managed rule set, rule group, or rule within a managed rule set.
+- uid: ext_front-door_az_network_front_door_waf_policy_managed_rules_exclusion_remove
+  name: az network front-door waf-policy managed-rules exclusion remove
+  summary: Remove an exclusion on a managed rule set, rule group, or rule within a managed rule set.
 - uid: ext_front-door_az_network_front_door_waf_policy_managed_rules_list
   name: az network front-door waf-policy managed-rules list
   summary: Show which managed rule sets are applied to a WAF policy.

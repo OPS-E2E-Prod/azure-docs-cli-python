@@ -15,9 +15,12 @@ items:
   langs:
   - azurecli
   examples:
-  - summary: List revision history of key "color" label "test" using App Configuration name.
+  - summary: List revision history of a key-value using App Configuration name.
     syntax:
       content: az appconfig revision list -n MyAppConfiguration --key color --label test
+  - summary: List revision history of a key-value with multiple labels.
+    syntax:
+      content: az appconfig revision list -n MyAppConfiguration --key color --label test,prod,\0
   - summary: List revision history for key "color" with any labels using connection string
     syntax:
       content: az appconfig revision list --connection-string Endpoint=https://contoso.azconfig.io;Id=xxx;Secret=xxx --key color --datetime "2019-05-01T11:24:12Z"
@@ -26,26 +29,26 @@ items:
     summary: List all items.
     description: ''
   - name: --connection-string
-    summary: Connections of access key and endpoint of App Configuration. Can be found using 'az appconfig credential list'. Users can preset it using `az configure --defaults appconfig_connection_string=&lt;connection_string&gt;` or environment variable with the name AZURE_APPCONFIG_CONNECTION_STRING.
+    summary: Combination of access key and endpoint of App Configuration. Can be found using 'az appconfig credential list'. Users can preset it using `az configure --defaults appconfig_connection_string=&lt;connection_string&gt;` or environment variable with the name AZURE_APPCONFIG_CONNECTION_STRING.
     description: ''
   - name: --datetime
     summary: 'Format: "YYYY-MM-DDThh:mm:ssZ". If no time zone specified, use UTC by default.'
     description: ''
   - name: --fields
-    parameterValueGroup: content_type, etag, key, label, last_modified, locked, value
+    parameterValueGroup: content_type, etag, key, label, last_modified, locked, tags, value
     summary: Customize output fields.
     description: ''
   - name: --key
-    summary: If no key specified, return all keys by default. Support star sign as filters, for instance abc* means keys with abc as prefix. Similarly, *abc and *abc* are also supported.
+    summary: If no key specified, return all keys by default. Support star sign as filters, for instance abc\* means keys with abc as prefix.
     description: ''
   - name: --label
-    summary: If no label specified, list all labels. Support star sign as filters, for instance abc* means labels with abc as prefix. Similarly, *abc and *abc* are also supported.
+    summary: If no label specified, list all labels. Support star sign as filters, for instance abc\* means labels with abc as prefix. Use '0' for null label.
     description: ''
   - name: --name -n
     summary: Name of the App Configuration. You can configure the default name using `az configure --defaults app_configuration_store=&lt;name&gt;`.
     description: ''
   - name: --top -t
-    summary: Maximum number of items to return. Default to 100.
+    summary: Maximum number of items to return. Must be a positive integer. Default to 100.
     description: ''
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
@@ -76,7 +79,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/appconfig/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/appconfig/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/a9c6948d12eee373517af64d7006c5513b619264/src/azure-cli/azure/cli/command_modules/appconfig/_help.py
-updated_at: 7/10/2019 8:07:09 PM
-ms.date: 07/10/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/3d9400161881e6b434ef0ba0fec6772e6fa7b090/src/azure-cli/azure/cli/command_modules/appconfig/_help.py
+updated_at: 2/13/2020 2:41:00 AM
+ms.date: 02/13/2020
 description: Manage revisions for key-values stored in an App Configuration.

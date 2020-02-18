@@ -3,7 +3,7 @@ items:
 - uid: az_network_watcher_packet_capture
   name: az network watcher packet-capture
   summary: Manage packet capture sessions on VMs.
-  description: These commands require that both Azure Network Watcher is enabled for the VMs region and that AzureNetworkWatcherExtension is enabled on the VM. For more information visit <a href="https://docs.microsoft.com/en-us/azure/network-watcher/network-watcher-packet-capture-manage-cli">https://docs.microsoft.com/en-us/azure/network-watcher/network-watcher-packet-capture-manage-cli</a>.
+  description: These commands require that both Azure Network Watcher is enabled for the VMs region and that AzureNetworkWatcherExtension is enabled on the VM. For more information visit <a href="https://docs.microsoft.com/azure/network-watcher/network-watcher-packet-capture-manage-cli">https://docs.microsoft.com/azure/network-watcher/network-watcher-packet-capture-manage-cli</a>.
   langs:
   - azurecli
   children:
@@ -27,28 +27,28 @@ items:
     syntax:
       content: >-
         az network watcher packet-capture create -g MyResourceGroup -n MyPacketCaptureName --vm MyVm \
-                                    --storage-account MyStorageAccount --filters '[ \
-                                        { \
-                                            "protocol":"TCP", \
-                                            "remoteIPAddress":"1.1.1.1-255.255.255", \
-                                            "localIPAddress":"10.0.0.3", \
-                                            "remotePort":"20" \
-                                        }, \
-                                        { \
-                                            "protocol":"TCP", \
-                                            "remoteIPAddress":"1.1.1.1-255.255.255", \
-                                            "localIPAddress":"10.0.0.3", \
-                                            "remotePort":"80" \
-                                        }, \
-                                        { \
-                                            "protocol":"TCP", \
-                                            "remoteIPAddress":"1.1.1.1-255.255.255", \
-                                            "localIPAddress":"10.0.0.3", \
-                                            "remotePort":"443" \
-                                        }, \
-                                        { \
-                                            "protocol":"UDP" \
-                                        }]'
+            --storage-account MyStorageAccount --filters '[ \
+                { \
+                    "protocol":"TCP", \
+                    "remoteIPAddress":"1.1.1.1-255.255.255", \
+                    "localIPAddress":"10.0.0.3", \
+                    "remotePort":"20" \
+                }, \
+                { \
+                    "protocol":"TCP", \
+                    "remoteIPAddress":"1.1.1.1-255.255.255", \
+                    "localIPAddress":"10.0.0.3", \
+                    "remotePort":"80" \
+                }, \
+                { \
+                    "protocol":"TCP", \
+                    "remoteIPAddress":"1.1.1.1-255.255.255", \
+                    "localIPAddress":"10.0.0.3", \
+                    "remotePort":"443" \
+                }, \
+                { \
+                    "protocol":"UDP" \
+                }]'
   parameters:
   - isRequired: true
     name: --name -n
@@ -263,7 +263,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/network/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/87fd8b9a6d204cabe1bf0511803dece064b63829/src/azure-cli/azure/cli/command_modules/network/_help.py
-updated_at: 7/26/2019 2:24:39 PM
-ms.date: 07/26/2019
-description: These commands require that both Azure Network Watcher is enabled for the VMs region and that AzureNetworkWatcherExtension is enabled on the VM. For more information visit <a href="https://docs.microsoft.com/en-us/azure/network-watcher/network-watcher-packet-capture-manage-cli">https://docs.microsoft.com/en-us/azure/network-watcher/network-watcher-packet-capture-manage-cli</a>.
+gitcommit: https://github.com/Azure/azure-cli/blob/800e711239d60c81de6679d73779563b2cedcc62/src/azure-cli/azure/cli/command_modules/network/_help.py
+updated_at: 2/13/2020 4:56:47 AM
+ms.date: 02/13/2020
+description: These commands require that both Azure Network Watcher is enabled for the VMs region and that AzureNetworkWatcherExtension is enabled on the VM. For more information visit <a href="https://docs.microsoft.com/azure/network-watcher/network-watcher-packet-capture-manage-cli">https://docs.microsoft.com/azure/network-watcher/network-watcher-packet-capture-manage-cli</a>.

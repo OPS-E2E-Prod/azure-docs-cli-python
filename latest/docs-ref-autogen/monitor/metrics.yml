@@ -23,34 +23,34 @@ items:
     syntax:
       content: >-
         az monitor metrics list --resource {ResourceName} --metric SuccessE2ELatency \
-                                                        --dimension ApiName
+                                --dimension ApiName
   - summary: List success E2E latency of a storage account and split the data series based on both API name and geo type
     syntax:
       content: >-
         az monitor metrics list --resource {ResourceName} --metric SuccessE2ELatency \
-                                                        --dimension ApiName GeoType
+                                --dimension ApiName GeoType
   - summary: List success E2E latency of a storage account and split the data series based on both API name and geo type using "--filter" parameter
     syntax:
       content: >-
         az monitor metrics list --resource {ResourceName} --metric SuccessE2ELatency \
-                                                        --filter "ApiName eq '*' and GeoType eq '*'"
+                                --filter "ApiName eq '*' and GeoType eq '*'"
   - summary: List success E2E latency of a storage account and split the data series based on both API name and geo type. Limits the api name to 'DeleteContainer'
     syntax:
       content: >-
         az monitor metrics list --resource {ResourceName} --metric SuccessE2ELatency \
-                                                        --filter "ApiName eq 'DeleteContainer' and GeoType eq '*'"
+                                --filter "ApiName eq 'DeleteContainer' and GeoType eq '*'"
   - summary: List transactions of a storage account per day since 2017-01-01
     syntax:
       content: >-
         az monitor metrics list --resource {ResourceName} --metric Transactions \
-                                                        --start-time 2017-01-01T00:00:00Z \
-                                                        --interval PT24H
+                                --start-time 2017-01-01T00:00:00Z \
+                                --interval PT24H
   - summary: List the metadata values for a storage account under transaction metric's api name dimension since 2017
     syntax:
       content: >-
         az monitor metrics list --resource {ResourceName} --metric Transactions \
-                                                        --filter "ApiName eq '*'" \
-                                                        --start-time 2017-01-01T00:00:00Z
+                                --filter "ApiName eq '*'" \
+                                --start-time 2017-01-01T00:00:00Z
   parameters:
   - name: --aggregation
     parameterValueGroup: Average, Count, Maximum, Minimum, Total
@@ -62,8 +62,8 @@ items:
     description: ''
     valueFrom: az monitor metrics list-definitions
   - name: --filter
-    summary: A string used to reduce the set of metric data returned. eg. "BlobType eq '*'".
-    description: For a full list of filters, see the filter string reference at <a href="https://docs.microsoft.com/en-us/rest/api/monitor/metrics/list">https://docs.microsoft.com/en-us/rest/api/monitor/metrics/list</a>.
+    summary: A string used to reduce the set of metric data returned. eg. "BlobType eq '\*'".
+    description: For a full list of filters, see the filter string reference at <a href="https://docs.microsoft.com/rest/api/monitor/metrics/list">https://docs.microsoft.com/rest/api/monitor/metrics/list</a>.
   - name: --metadata
     summary: Returns the metadata values instead of metric data.
     description: ''
@@ -201,7 +201,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/monitor/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/f7cb641abeb77511a20cb6c258cc3d94b9596021/src/azure-cli/azure/cli/command_modules/monitor/_help.py
-updated_at: 6/12/2019 9:52:39 PM
-ms.date: 06/12/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/800e711239d60c81de6679d73779563b2cedcc62/src/azure-cli/azure/cli/command_modules/monitor/_help.py
+updated_at: 2/13/2020 4:56:47 AM
+ms.date: 02/13/2020
 description: View Azure resource metrics.

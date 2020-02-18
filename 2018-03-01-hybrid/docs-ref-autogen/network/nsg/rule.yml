@@ -26,21 +26,21 @@ items:
     syntax:
       content: >-
         az network nsg rule create -g MyResourceGroup --nsg-name MyNsg -n MyNsgRule --priority 4096 \
-                                    --source-address-prefixes 208.130.28/24 --source-port-ranges 80 \
-                                    --destination-address-prefixes '*' --destination-port-ranges 80 8080 --access Deny \
-                                    --protocol Tcp --description "Deny from specific IP address ranges on 80 and 8080."
+            --source-address-prefixes 208.130.28/24 --source-port-ranges 80 \
+            --destination-address-prefixes '*' --destination-port-ranges 80 8080 --access Deny \
+            --protocol Tcp --description "Deny from specific IP address ranges on 80 and 8080."
   - summary: Create a security rule using service tags. For more details visit https://aka.ms/servicetags
     syntax:
       content: >-
         az network nsg rule create -g MyResourceGroup --nsg-name MyNsg -n MyNsgRuleWithTags \
-                                    --priority 400 --source-address-prefixes VirtualNetwork --destination-address-prefixes Storage \
-                                    --destination-port-ranges * --direction Outbound --access Allow --protocol Tcp --description "Allow VirtualNetwork to Storage."
+            --priority 400 --source-address-prefixes VirtualNetwork --destination-address-prefixes Storage \
+            --destination-port-ranges * --direction Outbound --access Allow --protocol Tcp --description "Allow VirtualNetwork to Storage."
   - summary: Create a security rule using application security groups. https://aka.ms/applicationsecuritygroups
     syntax:
       content: >-
         az network nsg rule create -g MyResourceGroup --nsg-name MyNsg -n MyNsgRuleWithAsg \
-                                    --priority 500 --source-address-prefixes Internet --destination-port-ranges 80 8080 \
-                                    --destination-asgs Web --access Allow --protocol Tcp --description "Allow Internet to Web ASG on ports 80,8080."
+            --priority 500 --source-address-prefixes Internet --destination-port-ranges 80 8080 \
+            --destination-asgs Web --access Allow --protocol Tcp --description "Allow Internet to Web ASG on ports 80,8080."
   parameters:
   - isRequired: true
     name: --name -n
@@ -78,25 +78,25 @@ items:
     description: ''
   - name: --destination-address-prefixes
     defaultValue: ''
-    summary: Space-separated list of CIDR prefixes or IP ranges. Alternatively, specify ONE of 'VirtualNetwork', 'AzureLoadBalancer', 'Internet' or '*' to match all IPs.
+    summary: Space-separated list of CIDR prefixes or IP ranges. Alternatively, specify ONE of 'VirtualNetwork', 'AzureLoadBalancer', 'Internet' or '\*' to match all IPs.
     description: ''
   - name: --destination-asgs
-    summary: Space-separated list of application security group names or IDs.
+    summary: Space-separated list of application security group names or IDs. Limited by backend server, temporarily this argument only supports one application security group name or ID.
     description: ''
   - name: --destination-port-ranges
     defaultValue: "80"
-    summary: Space-separated list of ports or port ranges between 0-65535. Use '*' to match all ports.
+    summary: Space-separated list of ports or port ranges between 0-65535. Use '\*' to match all ports.
     description: ''
   - name: --source-address-prefixes
     defaultValue: ''
-    summary: Space-separated list of CIDR prefixes or IP ranges. Alternatively, specify ONE of 'VirtualNetwork', 'AzureLoadBalancer', 'Internet' or '*' to match all IPs.
+    summary: Space-separated list of CIDR prefixes or IP ranges. Alternatively, specify ONE of 'VirtualNetwork', 'AzureLoadBalancer', 'Internet' or '\*' to match all IPs.
     description: ''
   - name: --source-asgs
-    summary: Space-separated list of application security group names or IDs.
+    summary: Space-separated list of application security group names or IDs. Limited by backend server, temporarily this argument only supports one application security group name or ID.
     description: ''
   - name: --source-port-ranges
     defaultValue: ''
-    summary: Space-separated list of ports or port ranges between 0-65535. Use '*' to match all ports.
+    summary: Space-separated list of ports or port ranges between 0-65535. Use '\*' to match all ports.
     description: ''
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
@@ -119,7 +119,7 @@ items:
       content: az network nsg rule delete -g MyResourceGroup --nsg-name MyNsg -n MyNsgRule
   parameters:
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: Name of the network security group rule.
@@ -182,7 +182,7 @@ items:
       content: az network nsg rule show -g MyResourceGroup --nsg-name MyNsg -n MyNsgRule
   parameters:
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: Name of the network security group rule.
@@ -235,7 +235,7 @@ items:
     summary: Network protocol this rule applies to.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: Name of the network security group rule.
@@ -250,22 +250,22 @@ items:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   - name: --destination-address-prefixes
-    summary: Space-separated list of CIDR prefixes or IP ranges. Alternatively, specify ONE of 'VirtualNetwork', 'AzureLoadBalancer', 'Internet' or '*' to match all IPs.
+    summary: Space-separated list of CIDR prefixes or IP ranges. Alternatively, specify ONE of 'VirtualNetwork', 'AzureLoadBalancer', 'Internet' or '\*' to match all IPs.
     description: ''
   - name: --destination-asgs
-    summary: Space-separated list of application security group names or IDs.
+    summary: Space-separated list of application security group names or IDs. Limited by backend server, temporarily this argument only supports one application security group name or ID.
     description: ''
   - name: --destination-port-ranges
-    summary: Space-separated list of ports or port ranges between 0-65535. Use '*' to match all ports.
+    summary: Space-separated list of ports or port ranges between 0-65535. Use '\*' to match all ports.
     description: ''
   - name: --source-address-prefixes
-    summary: Space-separated list of CIDR prefixes or IP ranges. Alternatively, specify ONE of 'VirtualNetwork', 'AzureLoadBalancer', 'Internet' or '*' to match all IPs.
+    summary: Space-separated list of CIDR prefixes or IP ranges. Alternatively, specify ONE of 'VirtualNetwork', 'AzureLoadBalancer', 'Internet' or '\*' to match all IPs.
     description: ''
   - name: --source-asgs
-    summary: Space-separated list of application security group names or IDs.
+    summary: Space-separated list of application security group names or IDs. Limited by backend server, temporarily this argument only supports one application security group name or ID.
     description: ''
   - name: --source-port-ranges
-    summary: Space-separated list of ports or port ranges between 0-65535. Use '*' to match all ports.
+    summary: Space-separated list of ports or port ranges between 0-65535. Use '\*' to match all ports.
     description: ''
   - name: --add
     summary: 'Add an object to a list of objects by specifying a path and key value pairs.  Example: --add property.listProperty <key=value, string or JSON string>.'
@@ -317,7 +317,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/network/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/87fd8b9a6d204cabe1bf0511803dece064b63829/src/azure-cli/azure/cli/command_modules/network/_help.py
-updated_at: 7/26/2019 2:24:39 PM
-ms.date: 07/26/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/800e711239d60c81de6679d73779563b2cedcc62/src/azure-cli/azure/cli/command_modules/network/_help.py
+updated_at: 2/13/2020 4:56:47 AM
+ms.date: 02/13/2020
 description: Manage network security group rules.

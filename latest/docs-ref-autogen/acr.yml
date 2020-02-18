@@ -38,9 +38,9 @@ items:
   - summary: Queue a local context as a Linux build without pushing it to the registry.
     syntax:
       content: az acr build -r MyRegistry .
-  - summary: Queue a remote GitHub context as a Windows build and x86 architecture, tag it, and push it to the registry.
+  - summary: Queue a remote GitHub context as a Windows build, tag it, and push it to the registry.
     syntax:
-      content: az acr build -r MyRegistry https://github.com/Azure/acr-builder.git -f Windows.Dockerfile --platform Windows/x86
+      content: az acr build -r MyRegistry https://github.com/Azure/acr-builder.git -f Windows.Dockerfile --platform windows
   - summary: Queue a local context as a Linux build on arm/v7 architecture, tag it, and push it to the registry.
     syntax:
       content: az acr build -t sample/hello-world:{{.Run.ID}} -r MyRegistry . --platform linux/arm/v7
@@ -167,9 +167,6 @@ items:
   - summary: Create a managed container registry with the Standard SKU.
     syntax:
       content: az acr create -n MyRegistry -g MyResourceGroup --sku Standard
-  - summary: Create an Azure Container Registry with a new storage account with the Classic SKU (Classic registries are being deprecated by March 2019).
-    syntax:
-      content: az acr create -n MyRegistry -g MyResourceGroup --sku Classic
   parameters:
   - isRequired: true
     name: --name -n
@@ -191,8 +188,11 @@ items:
   - name: --location -l
     summary: 'Location. Values from: `az account list-locations`. You can configure the default location using `az configure --defaults location=&lt;location&gt;`.'
     description: ''
-  - name: --storage-account-name
-    summary: Provide the name of an existing storage account if you're recreating a container registry over a previous registry created storage account. Only applicable to Classic SKU.
+  - name: --tags
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
+    description: ''
+  - name: --workspace
+    summary: Name or ID of the Log Analytics workspace to send registry diagnostic logs to. All events will be enabled. You can use "az monitor log-analytics workspace create" to create one. Extra billing may apply.
     description: ''
   - name: --default-action
     parameterValueGroup: Allow, Deny
@@ -225,6 +225,9 @@ items:
   - name: --resource-group -g
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=&lt;name&gt;`.
     description: ''
+  - name: --yes -y
+    summary: Do not prompt for confirmation.
+    description: ''
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
@@ -248,7 +251,7 @@ items:
     syntax:
       content: >-
         az acr import -n MyRegistry --source sourcerepository:sourcetag -t targetrepository:targettag \
-                                    -r /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/sourceResourceGroup/providers/Microsoft.ContainerRegistry/registries/sourceRegistry
+            -r /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/sourceResourceGroup/providers/Microsoft.ContainerRegistry/registries/sourceRegistry
   - summary: Import an image from a public repository in Docker Hub
     syntax:
       content: az acr import -n MyRegistry --source docker.io/library/hello-world:latest -t targetrepository:targettag
@@ -320,17 +323,23 @@ items:
 - uid: az_acr_login
   name: az acr login
   summary: Log in to an Azure Container Registry through the Docker CLI.
-  description: Docker must be installed on your machine.
+  description: Docker must be installed on your machine. Once done, use 'docker logout <registry url>' to log out. (If you only need an access token and do not want to install Docker, specify '--expose-token').
   langs:
   - azurecli
   examples:
   - summary: Log in to an Azure Container Registry
     syntax:
       content: az acr login -n MyRegistry
+  - summary: Get an Azure Container Registry access token
+    syntax:
+      content: az acr login -n MyRegistry --expose-token
   parameters:
   - isRequired: true
     name: --name -n
     summary: The name of the container registry. You can configure the default registry name using `az configure --defaults acr=&lt;registry name&gt;`.
+    description: ''
+  - name: --expose-token -t
+    summary: Expose access token instead of automatically logging in through Docker CLI.
     description: ''
   - name: --password -p
     summary: The password used to log into a container registry.
@@ -362,7 +371,7 @@ items:
   examples:
   - summary: Queue a run to execute a container command.
     syntax:
-      content: az acr run -r MyRegistry --cmd MyImage /dev/null
+      content: az acr run -r MyRegistry --cmd '$Registry/myimage' /dev/null
   - summary: Queue a run with the task definition from the standard input. Either 'Ctrl + Z'(Windows) or 'Ctrl + D'(Linux) terminates the input stream.
     syntax:
       content: az acr run -r MyRegistry -f - /dev/null
@@ -371,7 +380,7 @@ items:
       content: cat task.yaml | az acr run -r MyRegistry -f - /dev/null
   - summary: Queue a local context, pushed to ACR with streaming logs.
     syntax:
-      content: az acr run -r MyRegistry -f bash-echo.yaml .
+      content: az acr run -r MyRegistry -f bash-echo.yaml ./workspace
   - summary: Queue a remote git context with streaming logs.
     syntax:
       content: az acr run -r MyRegistry https://github.com/Azure-Samples/acr-tasks.git -f hello-world.yaml
@@ -499,9 +508,6 @@ items:
   - summary: Update tags for an Azure Container Registry.
     syntax:
       content: az acr update -n MyRegistry --tags key1=value1 key2=value2
-  - summary: Update the storage account for an Azure Container Registry (Classic Registries are being deprecated as of March 2019).
-    syntax:
-      content: az acr update -n MyRegistry --storage-account-name MyStorageAccount
   - summary: Enable the administrator user account for an Azure Container Registry.
     syntax:
       content: az acr update -n MyRegistry --admin-enabled true
@@ -521,11 +527,8 @@ items:
     parameterValueGroup: Basic, Classic, Premium, Standard
     summary: The SKU of the container registry.
     description: ''
-  - name: --storage-account-name
-    summary: Provide the name of an existing storage account if you're recreating a container registry over a previous registry created storage account. Only applicable to Classic SKU.
-    description: ''
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
   - name: --default-action
     parameterValueGroup: Allow, Deny
@@ -574,6 +577,15 @@ commands:
 - uid: az_acr_config_content_trust_update
   name: az acr config content-trust update
   summary: Update content-trust policy for an Azure Container Registry.
+- uid: az_acr_config_retention
+  name: az acr config retention
+  summary: Manage retention policy for Azure Container Registries.
+- uid: az_acr_config_retention_show
+  name: az acr config retention show
+  summary: Show the configured retention policy for an Azure Container Registry.
+- uid: az_acr_config_retention_update
+  name: az acr config retention update
+  summary: Update retention policy for an Azure Container Registry.
 - uid: az_acr_create
   name: az acr create
   summary: Creates an Azure Container Registry.
@@ -682,6 +694,24 @@ commands:
 - uid: az_acr_run
   name: az acr run
   summary: Queues a quick run providing streamed logs for an Azure Container Registry.
+- uid: az_acr_scope_map
+  name: az acr scope-map
+  summary: Manage scope access maps for Azure Container Registries.
+- uid: az_acr_scope_map_create
+  name: az acr scope-map create
+  summary: Create a scope map for an Azure Container Registry.
+- uid: az_acr_scope_map_delete
+  name: az acr scope-map delete
+  summary: Delete a scope map for an Azure Container Registry.
+- uid: az_acr_scope_map_list
+  name: az acr scope-map list
+  summary: List all scope maps for an Azure Container Registry.
+- uid: az_acr_scope_map_show
+  name: az acr scope-map show
+  summary: Show details and attributes of a scope map for an Azure Container Registry.
+- uid: az_acr_scope_map_update
+  name: az acr scope-map update
+  summary: Update a scope map for an Azure Container Registry.
 - uid: az_acr_show
   name: az acr show
   summary: Get the details of an Azure Container Registry.
@@ -699,7 +729,7 @@ commands:
   summary: Creates a series of steps for building, testing and OS & Framework patching containers. Tasks support triggers from git commits and base image updates.
 - uid: az_acr_task_credential
   name: az acr task credential
-  summary: Manage credentials for a task.
+  summary: Manage credentials for a task. Please see <a href="https://aka.ms/acr/tasks/cross-registry-authentication">https://aka.ms/acr/tasks/cross-registry-authentication</a> for more information.
 - uid: az_acr_task_credential_add
   name: az acr task credential add
   summary: Add a custom registry login credential to the task.
@@ -717,16 +747,16 @@ commands:
   summary: Delete a task from an Azure Container Registry.
 - uid: az_acr_task_identity
   name: az acr task identity
-  summary: Managed Service Identities for Task.
+  summary: Managed Identities for Task. Please see <a href="https://aka.ms/acr/tasks/task-create-managed-identity">https://aka.ms/acr/tasks/task-create-managed-identity</a> for more information.
 - uid: az_acr_task_identity_assign
   name: az acr task identity assign
-  summary: Update the managed service identity for a task.
+  summary: Update the managed identity for a task.
 - uid: az_acr_task_identity_remove
   name: az acr task identity remove
-  summary: Remove managed service identities for a task.
+  summary: Remove managed identities for a task.
 - uid: az_acr_task_identity_show
   name: az acr task identity show
-  summary: Display the managed service identities for task.
+  summary: Display the managed identities for task.
 - uid: az_acr_task_list
   name: az acr task list
   summary: List the tasks for an Azure Container Registry.
@@ -766,6 +796,48 @@ commands:
 - uid: az_acr_task_update_run
   name: az acr task update-run
   summary: Patch the run properties of an Azure Container Registry Task.
+- uid: az_acr_taskrun
+  name: az acr taskrun
+  summary: Manage taskruns using Azure Container Registries.
+- uid: az_acr_taskrun_delete
+  name: az acr taskrun delete
+  summary: Delete a taskrun from an Azure Container Registry.
+- uid: az_acr_taskrun_list
+  name: az acr taskrun list
+  summary: List the taskruns for an Azure Container Registry.
+- uid: az_acr_taskrun_logs
+  name: az acr taskrun logs
+  summary: Show run logs for a particular taskrun.
+- uid: az_acr_taskrun_show
+  name: az acr taskrun show
+  summary: Get the properties of a named taskrun for an Azure Container Registry.
+- uid: az_acr_token
+  name: az acr token
+  summary: Manage tokens for an Azure Container Registry.
+- uid: az_acr_token_create
+  name: az acr token create
+  summary: Create a token associated with a scope map for an Azure Container Registry.
+- uid: az_acr_token_credential
+  name: az acr token credential
+  summary: Manage credentials of a token for an Azure Container Registry.
+- uid: az_acr_token_credential_delete
+  name: az acr token credential delete
+  summary: Delete a token credential.
+- uid: az_acr_token_credential_generate
+  name: az acr token credential generate
+  summary: Generate or replace one or both passwords of a token for an Azure Container Registry. For using token and password to access a container registry, see <a href="https://aka.ms/acr/repo-permissions">https://aka.ms/acr/repo-permissions</a>.
+- uid: az_acr_token_delete
+  name: az acr token delete
+  summary: Delete a token for an Azure Container Registry.
+- uid: az_acr_token_list
+  name: az acr token list
+  summary: List all tokens for an Azure Container Registry.
+- uid: az_acr_token_show
+  name: az acr token show
+  summary: Show details and attributes of a token for an Azure Container Registry.
+- uid: az_acr_token_update
+  name: az acr token update
+  summary: Update a token (replace associated scope map) for an Azure Container Registry.
 - uid: az_acr_update
   name: az acr update
   summary: Update an Azure Container Registry.
@@ -812,7 +884,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/acr/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/56e589cb2c4c61b599c1ae0525e0378377c35061/src/azure-cli/azure/cli/command_modules/acr/_help.py
-updated_at: 7/23/2019 5:11:41 PM
-ms.date: 07/23/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/0a6bcd2ce4ddd88625672c8a43144e90ccc07c30/src/azure-cli/azure/cli/command_modules/acr/_help.py
+updated_at: 2/8/2020 2:12:05 AM
+ms.date: 02/08/2020
 description: Manage private registries with Azure Container Registries.

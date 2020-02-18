@@ -22,40 +22,48 @@ items:
     syntax:
       content: >-
         Valid scopes are management group, subscription, resource group, and resource, for example
-                                   management group:  /providers/Microsoft.Management/managementGroups/MyManagementGroup
-                                   subscription:      /subscriptions/0b1f6471-1bf0-4dda-aec3-111122223333
-                                   resource group:    /subscriptions/0b1f6471-1bf0-4dda-aec3-111122223333/resourceGroups/myGroup
-                                   resource:          /subscriptions/0b1f6471-1bf0-4dda-aec3-111122223333/resourceGroups/myGroup/providers/Microsoft.Compute/virtualMachines/myVM
-                                     az policy assignment create --scope '/providers/Microsoft.Management/managementGroups/MyManagementGroup' --policy {PolicyName} -p '{
-                                         "allowedLocations": {
-                                             "value": [
-                                                 "australiaeast",
-                                                 "eastus",
-                                                 "japaneast"
-                                             ]
-                                         }
-                                     }'
+           management group:  /providers/Microsoft.Management/managementGroups/MyManagementGroup
+           subscription:      /subscriptions/0b1f6471-1bf0-4dda-aec3-111122223333
+           resource group:    /subscriptions/0b1f6471-1bf0-4dda-aec3-111122223333/resourceGroups/myGroup
+           resource:          /subscriptions/0b1f6471-1bf0-4dda-aec3-111122223333/resourceGroups/myGroup/providers/Microsoft.Compute/virtualMachines/myVM
+             az policy assignment create --scope '/providers/Microsoft.Management/managementGroups/MyManagementGroup' --policy {PolicyName} -p '{
+                 "allowedLocations": {
+                     "value": [
+                         "australiaeast",
+                         "eastus",
+                         "japaneast"
+                     ]
+                 }
+             }'
   - summary: Create a resource policy assignment and provide rule parameter values.
     syntax:
       content: >-
         az policy assignment create --policy {PolicyName} -p '{
-                                    "allowedLocations": {
-                                        "value": [
-                                            "australiaeast",
-                                            "eastus",
-                                            "japaneast"
-                                        ]
-                                    }
-                                }'
+            "allowedLocations": {
+                "value": [
+                    "australiaeast",
+                    "eastus",
+                    "japaneast"
+                ]
+            }
+        }'
   - summary: Create a resource policy assignment with a system assigned identity.
     syntax:
       content: az policy assignment create --name myPolicy --policy {PolicyName} --assign-identity
   - summary: Create a resource policy assignment with a system assigned identity. The identity will have 'Contributor' role access to the subscription.
     syntax:
       content: az policy assignment create --name myPolicy --policy {PolicyName} --assign-identity --identity-scope /subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx --role Contributor
+  - summary: Create a resource policy assignment with an enforcement mode. It indicates whether a policy effect will be enforced or not during assignment creation and update. Please visit https://aka.ms/azure-policyAssignment-enforcement-mode for more information.
+    syntax:
+      content: az policy assignment create --name myPolicy --policy {PolicyName} --enforcement-mode 'DoNotEnforce'
   parameters:
   - name: --display-name
     summary: Display name of the policy assignment.
+    description: ''
+  - name: --enforcement-mode -e
+    defaultValue: Default
+    parameterValueGroup: Default, DoNotEnforce
+    summary: Enforcement mode of the policy assignment, e.g. Default, DoNotEnforce. Please visit <a href="https://aka.ms/azure-policyAssignment-enforcement-mode">https://aka.ms/azure-policyAssignment-enforcement-mode</a> for more information.
     description: ''
   - name: --location -l
     summary: 'Location. Values from: `az account list-locations`. You can configure the default location using `az configure --defaults location=&lt;location&gt;`.'
@@ -218,7 +226,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/resource/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/5c7ddcb1066236c3d6a634c50428fc0f2a94fce3/src/azure-cli/azure/cli/command_modules/resource/_help.py
-updated_at: 6/21/2019 10:50:06 PM
-ms.date: 06/21/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/800e711239d60c81de6679d73779563b2cedcc62/src/azure-cli/azure/cli/command_modules/resource/_help.py
+updated_at: 2/13/2020 4:56:47 AM
+ms.date: 02/13/2020
 description: Manage resource policy assignments.

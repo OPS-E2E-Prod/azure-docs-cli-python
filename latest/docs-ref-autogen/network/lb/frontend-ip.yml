@@ -26,7 +26,7 @@ items:
     syntax:
       content: >-
         az network lb frontend-ip create -g MyResourceGroup -n MyFrontendIp --lb-name MyLb \
-                                    --private-ip-address 10.10.10.100 --subnet MySubnet --vnet-name MyVnet
+            --private-ip-address 10.10.10.100 --subnet MySubnet --vnet-name MyVnet
   parameters:
   - isRequired: true
     name: --lb-name
@@ -42,6 +42,11 @@ items:
     description: ''
   - name: --private-ip-address
     summary: Static private IP address to associate with the configuration.
+    description: ''
+  - name: --private-ip-address-version
+    defaultValue: IPv4
+    parameterValueGroup: IPv4, IPv6
+    summary: The private IP address version to use.
     description: ''
   - name: --public-ip-address
     summary: Name or ID of the existing public IP to associate with the configuration.
@@ -196,7 +201,7 @@ items:
     summary: The virtual network (VNet) associated with the subnet (Omit if supplying a subnet id).
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --lb-name
     summary: The load balancer name.
@@ -260,7 +265,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/network/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/87fd8b9a6d204cabe1bf0511803dece064b63829/src/azure-cli/azure/cli/command_modules/network/_help.py
-updated_at: 7/26/2019 2:24:39 PM
-ms.date: 07/26/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/800e711239d60c81de6679d73779563b2cedcc62/src/azure-cli/azure/cli/command_modules/network/_help.py
+updated_at: 2/13/2020 4:56:47 AM
+ms.date: 02/13/2020
 description: Manage frontend IP addresses of a load balancer.

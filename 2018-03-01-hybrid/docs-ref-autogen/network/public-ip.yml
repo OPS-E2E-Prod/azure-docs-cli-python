@@ -3,7 +3,7 @@ items:
 - uid: az_network_public_ip
   name: az network public-ip
   summary: Manage public IP addresses.
-  description: To learn more about public IP addresses visit <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-public-ip-address">https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-public-ip-address</a>.
+  description: To learn more about public IP addresses visit <a href="https://docs.microsoft.com/azure/virtual-network/virtual-network-public-ip-address">https://docs.microsoft.com/azure/virtual-network/virtual-network-public-ip-address</a>.
   langs:
   - azurecli
   children:
@@ -59,7 +59,7 @@ items:
     summary: Public IP SKU.
     description: ''
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
   - name: --version
     defaultValue: IPv4
@@ -91,7 +91,7 @@ items:
       content: az network public-ip delete -g MyResourceGroup -n MyIp
   parameters:
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: The name of the public IP address.
@@ -155,7 +155,7 @@ items:
     summary: Expands referenced resources.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: The name of the public IP address.
@@ -201,7 +201,7 @@ items:
     summary: Public IP SKU.
     description: ''
   - name: --tags
-    summary: Space-separated tags in 'key[=value]' format. Use "" to clear existing tags.
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
   - name: --version
     defaultValue: IPv4
@@ -209,7 +209,7 @@ items:
     summary: IP address type.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: The name of the public IP address.
@@ -279,7 +279,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/network/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/87fd8b9a6d204cabe1bf0511803dece064b63829/src/azure-cli/azure/cli/command_modules/network/_help.py
-updated_at: 7/26/2019 2:24:39 PM
-ms.date: 07/26/2019
-description: To learn more about public IP addresses visit <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-public-ip-address">https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-public-ip-address</a>.
+gitcommit: https://github.com/Azure/azure-cli/blob/800e711239d60c81de6679d73779563b2cedcc62/src/azure-cli/azure/cli/command_modules/network/_help.py
+updated_at: 2/13/2020 4:56:47 AM
+ms.date: 02/13/2020
+description: To learn more about public IP addresses visit <a href="https://docs.microsoft.com/azure/virtual-network/virtual-network-public-ip-address">https://docs.microsoft.com/azure/virtual-network/virtual-network-public-ip-address</a>.

@@ -18,7 +18,7 @@ installation of the CLI update to date. The CLI package has been tested on macOS
 
 [!INCLUDE [current-version](includes/current-version.md)]
 
-## Install
+## Install with Homebrew
 
 Homebrew is the easiest way to manage your CLI install. It provides convenient ways to install, update, and uninstall.
 If you don't have homebrew available on your system, [install homebrew](https://docs.brew.sh/Installation.html) before continuing.
@@ -31,8 +31,8 @@ brew update && brew install azure-cli
 
 > [!IMPORTANT]
 >
-> The Azure CLI has a dependency on the `python3` package in Homebrew, and will install it on your system, even
-> if Python 2 is available. The Azure CLI is guaranteed to be compatible with the latest version of `python3`
+> The Azure CLI has a dependency on the Homebrew `python3` package, and will install it.
+> The Azure CLI is guaranteed to be compatible with the latest version of `python3`
 > published on Homebrew.
 
 You can then run the Azure CLI with the `az` command. To sign in, use [az login](/cli/azure/reference-index#az-login) command.
@@ -44,6 +44,10 @@ To learn more about different authentication methods, see [Sign in with Azure CL
 ## Troubleshooting
 
 If you encounter a problem when installing the CLI through Homebrew, here are some common errors. If you experience a problem not covered here, [file an issue on github](https://github.com/Azure/azure-cli/issues).
+
+### Completion is not working
+
+The Homebrew formula of Azure CLI installs a completion file named `az` in the Homebrew-managed completions directory (default location is `/usr/local/etc/bash_completion.d/`). To enable completion, please follow Homebrew's instructions [here](https://docs.brew.sh/Shell-Completion).
 
 ### Unable to find Python or installed packages
 
@@ -57,7 +61,7 @@ brew link --overwrite python3
 
 ### CLI version 1.x is installed
 
-If an out-of-date version was installed, it could be because of a stale homebrew cache. Follow the [update](#Update) instructions.
+If an out-of-date version was installed, it could be because of a stale homebrew cache. Follow the [update](#update) instructions.
 
 ### Proxy blocks connection
 

@@ -4,7 +4,7 @@ description: How to install the Azure CLI with yum
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 09/09/2018
+ms.date: 11/26/2019
 ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
@@ -13,8 +13,8 @@ ms.devlang: azurecli
 
 # Install Azure CLI with yum
 
-For Linux distributions with  `yum` such as RHEL, Fedora, or CentOS, there's a package
-for the Azure CLI. This package has been tested with RHEL 7, Fedora 19 and higher, and CentOS 7.
+For Linux distributions with `yum` such as RHEL, Fedora, or CentOS, there's a package
+for the Azure CLI. This package has been tested with RHEL 7.7, RHEL 8, Fedora 24 and higher, CentOS 7 and CentOS 8.
 
 [!INCLUDE [current-version](includes/current-version.md)]
 
@@ -31,7 +31,12 @@ for the Azure CLI. This package has been tested with RHEL 7, Fedora 19 and highe
 2. Create local `azure-cli` repository information.
 
    ```bash
-   sudo sh -c 'echo -e "[azure-cli]\nname=Azure CLI\nbaseurl=https://packages.microsoft.com/yumrepos/azure-cli\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/azure-cli.repo'
+   sudo sh -c 'echo -e "[azure-cli]
+   name=Azure CLI
+   baseurl=https://packages.microsoft.com/yumrepos/azure-cli
+   enabled=1
+   gpgcheck=1
+   gpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/azure-cli.repo'
    ```
 
 3. Install with the `yum install` command.
@@ -40,7 +45,7 @@ for the Azure CLI. This package has been tested with RHEL 7, Fedora 19 and highe
    sudo yum install azure-cli
    ```
 
-You can then run the Azure CLI with the `az` command. To sign in, use [az login](/cli/azure/reference-index#az-login) command.
+Run the Azure CLI with the `az` command. To sign in, use [az login](/cli/azure/reference-index#az-login) command.
 
 [!INCLUDE [interactive-login](includes/interactive-login.md)]
 
@@ -49,6 +54,15 @@ To learn more about different authentication methods, see [Sign in with Azure CL
 ## Troubleshooting
 
 Here are some common problems seen when installing with `yum`. If you experience a problem not covered here, [file an issue on github](https://github.com/Azure/azure-cli/issues).
+
+### Install on RHEL 7.6 or other systems without Python 3
+
+If you can, please upgrade your system to a verison with official support for `python3` package. Otherwise, you need to first install a `python3` package, either [build from source](https://github.com/linux-on-ibm-z/docs/wiki/Building-Python-3.6.x) or install through some [additional repo](https://developers.redhat.com/blog/2018/08/13/install-python3-rhel/). Then you can download the package and install it without dependency.
+```bash
+$ sudo yum install yum-utils
+$ sudo yumdownloader azure-cli
+$ sudo rpm -ivh --nodeps azure-cli-*.rpm
+```
 
 ### Proxy blocks connection
 
@@ -96,7 +110,7 @@ sudo yum update azure-cli
    sudo rm /etc/yum.repos.d/azure-cli.repo
    ```
 
-3. If you removed the repository information, also remove the Microsoft GPG signature key.
+3. If you don't use any other Microsoft packages, remove the signing key.
 
    ```bash
    MSFT_KEY=`rpm -qa gpg-pubkey /* --qf "%{version}-%{release} %{summary}\n" | grep Microsoft | awk '{print $1}'`

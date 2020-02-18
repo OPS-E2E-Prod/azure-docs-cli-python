@@ -23,7 +23,7 @@ items:
     syntax:
       content: >-
         az network application-gateway probe create -g MyResourceGroup --gateway-name MyAppGateway \
-                                    -n MyProbe --protocol https --host 127.0.0.1 --path /path/to/probe
+            -n MyProbe --protocol https --host 127.0.0.1 --path /path/to/probe
   parameters:
   - isRequired: true
     name: --gateway-name
@@ -69,6 +69,9 @@ items:
   - name: --no-wait
     summary: Do not wait for the long-running operation to finish.
     description: ''
+  - name: --port
+    summary: Custom port which will be used for probing the backend servers. The valid value ranges from 1 to 65535. In case not set, port from http settings will be used. This property is valid for Standard_v2 and WAF_v2 only.
+    description: ''
   - name: --threshold
     defaultValue: "8"
     summary: The number of failed probes after which the back end server is marked down.
@@ -104,7 +107,7 @@ items:
     summary: The name of the application gateway.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: The name of the probe.
@@ -164,7 +167,7 @@ items:
     summary: The name of the application gateway.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: The name of the probe.
@@ -192,7 +195,7 @@ items:
     syntax:
       content: >-
         az network application-gateway probe update -g MyResourceGroup --gateway-name MyAppGateway \
-                                    -n MyProbe --timeout 60
+            -n MyProbe --timeout 60
   parameters:
   - name: --host
     summary: The name of the host to send the probe.
@@ -219,6 +222,9 @@ items:
   - name: --path
     summary: The relative path of the probe. Valid paths start from "/".
     description: ''
+  - name: --port
+    summary: Custom port which will be used for probing the backend servers. The valid value ranges from 1 to 65535. In case not set, port from http settings will be used. This property is valid for Standard_v2 and WAF_v2 only.
+    description: ''
   - name: --protocol
     parameterValueGroup: Http, Https
     summary: The HTTP settings protocol.
@@ -233,7 +239,7 @@ items:
     summary: Name of the application gateway.
     description: ''
   - name: --ids
-    summary: One or more resource IDs (space-delimited). If provided, no other 'Resource Id' arguments should be specified.
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. If provided, no other 'Resource Id' arguments should be specified.
     description: ''
   - name: --name -n
     summary: The name of the probe.
@@ -294,7 +300,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/network/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/87fd8b9a6d204cabe1bf0511803dece064b63829/src/azure-cli/azure/cli/command_modules/network/_help.py
-updated_at: 7/26/2019 2:24:39 PM
-ms.date: 07/26/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/800e711239d60c81de6679d73779563b2cedcc62/src/azure-cli/azure/cli/command_modules/network/_help.py
+updated_at: 2/13/2020 4:56:47 AM
+ms.date: 02/13/2020
 description: Manage probes to gather and evaluate information on a gateway.

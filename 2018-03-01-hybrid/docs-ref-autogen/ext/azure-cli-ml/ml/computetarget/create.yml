@@ -33,6 +33,12 @@ items:
   - name: --docker-bridge-cidr
     summary: A CIDR notation IP for Docker bridge.
     description: ''
+  - name: --load-balancer-subnet
+    summary: You can specify subnet for the AKS cluster when Internal Load Balancer is used as load balancer type. Default is "aks-subnet".
+    description: ''
+  - name: --load-balancer-type
+    summary: You can create an AKS cluster with either Public IP or Internal Load Balancer. Accepted values are "PublicIp" and "InternalLoadBalancer". Default is "PublicIp".
+    description: ''
   - name: --location -l
     summary: Location to provision cluster in. If not specified, will default to workspace location.
     description: ''
@@ -56,6 +62,12 @@ items:
     description: ''
   - name: --ssl-key-file
     summary: Key pem file to use for SSL validation. If provided, must also provide cname and cert pem file.
+    description: ''
+  - name: --ssl-leaf-domain-label
+    summary: Leaf domain label to use for the auto generated certificate.
+    description: ''
+  - name: --ssl-overwrite-domain
+    summary: When set overwrites the existing leaf domain label.
     description: ''
   - name: --subnet-name
     summary: Name of the subnet inside the vnet.
@@ -117,6 +129,9 @@ items:
     description: ''
   - name: --path
     summary: 'Path to a project folder. Default: current directory.'
+    description: ''
+  - name: --remote-login-port-public-access
+    summary: 'State of the public SSH port. Possible values are: Enabled or Disabled.'
     description: ''
   - name: --resource-group -g
     summary: Resource group corresponding to the provided workspace.

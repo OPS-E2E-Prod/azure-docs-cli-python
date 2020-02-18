@@ -2,9 +2,9 @@
 title: Azure CLI Extensions
 description: Using extensions with the Azure CLI
 keywords: Azure CLI, Extensions
-author: sptramer
-ms.author: sttramer
-manager: carmonm
+author: dbradish-microsoft
+ms.author: dbradish
+manager: barbkess
 ms.date: 09/07/2018
 ms.topic: conceptual
 ms.prod: azure
@@ -96,3 +96,6 @@ No. Since the CLI doesn't guarantee a load order, dependencies might not be sati
 ### Are extensions updated along with the CLI?
 
 No. Extensions must be updated separately, as described in [Update extensions](#update-extensions).
+
+### How to develop our own extension?
+Please refer to the official repository for more help. [Azure/azure-cli-extensions](https://github.com/Azure/azure-cli/tree/master/doc/extensions)

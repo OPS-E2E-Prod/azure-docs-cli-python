@@ -100,6 +100,9 @@ items:
     name: --reservation-order-id
     summary: Order id of reservation to look up.
     description: ''
+  - name: --expand
+    summary: Supported value of this query is renewProperties.
+    description: ''
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
@@ -165,7 +168,7 @@ items:
     summary: Subscription that the benefit will be applied. Do not specify if AppliedScopeType is Shared.
     description: ''
   - name: --instance-flexibility -i
-    parameterValueGroup: NotSupported, Off, On
+    parameterValueGroup: Off, On
     summary: Type of the Instance Flexibility to update the reservation with.
     description: ''
   - name: --subscription
@@ -212,7 +215,7 @@ globalParameters:
 doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
 doc_source_url_path: src/azure-cli/azure/cli/command_modules/reservations/_help.py
 original_content_git_url: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/reservations/_help.py
-gitcommit: https://github.com/Azure/azure-cli/blob/c31c748e3d28d543301e07065e08389f941553c3/src/azure-cli/azure/cli/command_modules/reservations/_help.py
-updated_at: 6/12/2019 10:14:42 PM
-ms.date: 06/12/2019
+gitcommit: https://github.com/Azure/azure-cli/blob/ed1ac6f7cd47a50aff8e5dd88868d9c28b803051/src/azure-cli/azure/cli/command_modules/reservations/_help.py
+updated_at: 11/21/2019 9:22:32 AM
+ms.date: 11/21/2019
 description: Manage reservation entities.
