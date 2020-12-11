@@ -5,7 +5,7 @@ author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
 ms.prod: azure
-ms.date: 10/30/2020
+ms.date: 11/25/2020
 ms.topic: conceptual
 ms.devlang: azurecli
 ms.technology: azure-cli
@@ -51,7 +51,7 @@ If you don't have an Azure subscription, create a [free account](https://azure.m
      ```azurecli
      az login
      ```
-    - This tutorial requires version 2.12.0 or later of the Azure CLI.  Run [az version](/cli/azure/reference-index?#az_version) to find the version and dependent libraries that are installed. To upgrade to the latest version, run [az upgrade](/cli/azure/reference-index?#az_upgrade).
+    - This tutorial requires version 2.12.0 or later of the Azure CLI.  Run [az version](/cli/azure/reference-index#az_version) to find the version and dependent libraries that are installed. To upgrade to the latest version, run [az upgrade](/cli/azure/reference-index#az_upgrade).
 
 ## 1. Determine your local directory
 
@@ -260,7 +260,7 @@ Use the [az config param-persist delete](/cli/azure/param-persist#az-param-persi
 
 ```azurecli
 # Remove a single persisted parameters entry by specifying the name, not the value
-az config param-persist delete --name resource_group_name
+az config param-persist delete resource_group_name
 
 # Remove all persisted parameters entries and do not prompt for confirmation
 az config param-persist delete --all --yes

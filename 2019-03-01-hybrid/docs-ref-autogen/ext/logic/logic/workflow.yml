@@ -1,6 +1,10 @@
 ### YamlMime:AzureCLIGroup
 uid: ext_logic_az_logic_workflow
 name: az logic workflow
+extensionInformation: >-
+  > [!Note]
+
+  > This reference is part of the **logic** extension for Azure CLI and requires version 2.15.0 or higher.  The extension will automatically install the first time you run an **az logic workflow** command.  [Learn more](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview) about extensions.
 summary: Logic workflow.
 description: ''
 directCommands:
@@ -130,19 +134,15 @@ directCommands:
   summary: Updates a workflow.
   description: ''
   syntax: >-
-    az logic workflow update --definition
-                             --name
+    az logic workflow update --name
                              --resource-group
+                             [--definition]
                              [--state {Completed, Deleted, Disabled, Enabled, NotSpecified, Suspended}]
                              [--tags]
   examples:
   - summary: Patch a workflow
     syntax: az logic workflow update --resource-group "test_resource_group" --definition workflow.json --name "test_workflow"
   requiredParameters:
-  - isRequired: true
-    name: --definition
-    summary: Path to a workflow defintion JSON file (see README.md for more info on this). This JSON format should match what the logic app design tool exports.
-    description: ''
   - isRequired: true
     name: --name -n
     summary: The workflow name.
@@ -152,6 +152,9 @@ directCommands:
     summary: The resource group name.
     description: ''
   optionalParameters:
+  - name: --definition
+    summary: Path to a workflow defintion JSON file (see README.md for more info on this). This JSON format should match what the logic app design tool exports.
+    description: ''
   - name: --state
     parameterValueGroup: Completed, Deleted, Disabled, Enabled, NotSpecified, Suspended
     summary: The state.

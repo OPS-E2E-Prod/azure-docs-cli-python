@@ -497,6 +497,9 @@
         - name: list
           uid: az_functionapp_config_ssl_list
           displayName: az functionapp config ssl list
+        - name: show
+          uid: az_functionapp_config_ssl_show
+          displayName: az functionapp config ssl show
         - name: unbind
           uid: az_functionapp_config_ssl_unbind
           displayName: az functionapp config ssl unbind
@@ -2231,6 +2234,9 @@
         - name: create
           uid: az_network_express_route_port_create
           displayName: az network express-route port create
+        - name: generate-loa
+          uid: az_network_express_route_port_generate_loa
+          displayName: az network express-route port generate-loa
         - name: list
           uid: az_network_express_route_port_list
           displayName: az network express-route port list
@@ -2279,6 +2285,9 @@
       - name: update
         uid: az_network_lb_update
         displayName: az network lb update
+      - name: wait
+        uid: az_network_lb_wait
+        displayName: az network lb wait
       - name: Back-end address pools
         displayName: az network lb address-pool
         items:
@@ -2891,6 +2900,117 @@
       - name: list
         uid: az_network_bastion_list
         displayName: az network bastion list
+    - name: cross-region-lb
+      displayName: az network cross-region-lb
+      items:
+      - name: Overview
+        uid: az_network_cross_region_lb
+        displayName: az network cross-region-lb
+      - name: create
+        uid: az_network_cross_region_lb_create
+        displayName: az network cross-region-lb create
+      - name: delete
+        uid: az_network_cross_region_lb_delete
+        displayName: az network cross-region-lb delete
+      - name: list
+        uid: az_network_cross_region_lb_list
+        displayName: az network cross-region-lb list
+      - name: show
+        uid: az_network_cross_region_lb_show
+        displayName: az network cross-region-lb show
+      - name: update
+        uid: az_network_cross_region_lb_update
+        displayName: az network cross-region-lb update
+      - name: wait
+        uid: az_network_cross_region_lb_wait
+        displayName: az network cross-region-lb wait
+      - name: address-pool
+        displayName: az network cross-region-lb address-pool
+        items:
+        - name: Overview
+          uid: az_network_cross_region_lb_address_pool
+          displayName: az network cross-region-lb address-pool
+        - name: create
+          uid: az_network_cross_region_lb_address_pool_create
+          displayName: az network cross-region-lb address-pool create
+        - name: address
+          displayName: az network cross-region-lb address-pool address
+          items:
+          - name: Overview
+            uid: az_network_cross_region_lb_address_pool_address
+            displayName: az network cross-region-lb address-pool address
+          - name: add
+            uid: az_network_cross_region_lb_address_pool_address_add
+            displayName: az network cross-region-lb address-pool address add
+          - name: list
+            uid: az_network_cross_region_lb_address_pool_address_list
+            displayName: az network cross-region-lb address-pool address list
+          - name: remove
+            uid: az_network_cross_region_lb_address_pool_address_remove
+            displayName: az network cross-region-lb address-pool address remove
+      - name: frontend-ip
+        displayName: az network cross-region-lb frontend-ip
+        items:
+        - name: Overview
+          uid: az_network_cross_region_lb_frontend_ip
+          displayName: az network cross-region-lb frontend-ip
+        - name: create
+          uid: az_network_cross_region_lb_frontend_ip_create
+          displayName: az network cross-region-lb frontend-ip create
+        - name: delete
+          uid: az_network_cross_region_lb_frontend_ip_delete
+          displayName: az network cross-region-lb frontend-ip delete
+        - name: list
+          uid: az_network_cross_region_lb_frontend_ip_list
+          displayName: az network cross-region-lb frontend-ip list
+        - name: show
+          uid: az_network_cross_region_lb_frontend_ip_show
+          displayName: az network cross-region-lb frontend-ip show
+        - name: update
+          uid: az_network_cross_region_lb_frontend_ip_update
+          displayName: az network cross-region-lb frontend-ip update
+      - name: probe
+        displayName: az network cross-region-lb probe
+        items:
+        - name: Overview
+          uid: az_network_cross_region_lb_probe
+          displayName: az network cross-region-lb probe
+        - name: create
+          uid: az_network_cross_region_lb_probe_create
+          displayName: az network cross-region-lb probe create
+        - name: delete
+          uid: az_network_cross_region_lb_probe_delete
+          displayName: az network cross-region-lb probe delete
+        - name: list
+          uid: az_network_cross_region_lb_probe_list
+          displayName: az network cross-region-lb probe list
+        - name: show
+          uid: az_network_cross_region_lb_probe_show
+          displayName: az network cross-region-lb probe show
+        - name: update
+          uid: az_network_cross_region_lb_probe_update
+          displayName: az network cross-region-lb probe update
+      - name: rule
+        displayName: az network cross-region-lb rule
+        items:
+        - name: Overview
+          uid: az_network_cross_region_lb_rule
+          displayName: az network cross-region-lb rule
+        - name: create
+          uid: az_network_cross_region_lb_rule_create
+          displayName: az network cross-region-lb rule create
+        - name: delete
+          uid: az_network_cross_region_lb_rule_delete
+          displayName: az network cross-region-lb rule delete
+        - name: list
+          uid: az_network_cross_region_lb_rule_list
+          displayName: az network cross-region-lb rule list
+        - name: show
+          uid: az_network_cross_region_lb_rule_show
+          displayName: az network cross-region-lb rule show
+        - name: update
+          uid: az_network_cross_region_lb_rule_update
+          displayName: az network cross-region-lb rule update
     - name: private-dns
       displayName: az network private-dns
       items:
@@ -5360,6 +5480,9 @@
         - name: list
           uid: az_webapp_config_ssl_list
           displayName: az webapp config ssl list
+        - name: show
+          uid: az_webapp_config_ssl_show
+          displayName: az webapp config ssl show
         - name: unbind
           uid: az_webapp_config_ssl_unbind
           displayName: az webapp config ssl unbind
@@ -7919,21 +8042,102 @@
         - name: list
           uid: az_synapse_sql_pool_list
           displayName: az synapse sql pool list
+        - name: list-deleted
+          uid: az_synapse_sql_pool_list_deleted
+          displayName: az synapse sql pool list-deleted
         - name: pause
           uid: az_synapse_sql_pool_pause
           displayName: az synapse sql pool pause
+        - name: restore
+          uid: az_synapse_sql_pool_restore
+          displayName: az synapse sql pool restore
         - name: resume
           uid: az_synapse_sql_pool_resume
           displayName: az synapse sql pool resume
         - name: show
           uid: az_synapse_sql_pool_show
           displayName: az synapse sql pool show
+        - name: show-connection-string
+          uid: az_synapse_sql_pool_show_connection_string
+          displayName: az synapse sql pool show-connection-string
         - name: update
           uid: az_synapse_sql_pool_update
           displayName: az synapse sql pool update
         - name: wait
           uid: az_synapse_sql_pool_wait
           displayName: az synapse sql pool wait
+        - name: audit-policy
+          displayName: az synapse sql pool audit-policy
+          items:
+          - name: Overview
+            uid: az_synapse_sql_pool_audit_policy
+            displayName: az synapse sql pool audit-policy
+          - name: show
+            uid: az_synapse_sql_pool_audit_policy_show
+            displayName: az synapse sql pool audit-policy show
+          - name: update
+            uid: az_synapse_sql_pool_audit_policy_update
+            displayName: az synapse sql pool audit-policy update
+        - name: classification
+          displayName: az synapse sql pool classification
+          items:
+          - name: Overview
+            uid: az_synapse_sql_pool_classification
+            displayName: az synapse sql pool classification
+          - name: create
+            uid: az_synapse_sql_pool_classification_create
+            displayName: az synapse sql pool classification create
+          - name: delete
+            uid: az_synapse_sql_pool_classification_delete
+            displayName: az synapse sql pool classification delete
+          - name: list
+            uid: az_synapse_sql_pool_classification_list
+            displayName: az synapse sql pool classification list
+          - name: show
+            uid: az_synapse_sql_pool_classification_show
+            displayName: az synapse sql pool classification show
+          - name: update
+            uid: az_synapse_sql_pool_classification_update
+            displayName: az synapse sql pool classification update
+          - name: recommendation
+            displayName: az synapse sql pool classification recommendation
+            items:
+            - name: Overview
+              uid: az_synapse_sql_pool_classification_recommendation
+              displayName: az synapse sql pool classification recommendation
+            - name: disable
+              uid: az_synapse_sql_pool_classification_recommendation_disable
+              displayName: az synapse sql pool classification recommendation disable
+            - name: enable
+              uid: az_synapse_sql_pool_classification_recommendation_enable
+              displayName: az synapse sql pool classification recommendation enable
+            - name: list
+              uid: az_synapse_sql_pool_classification_recommendation_list
+              displayName: az synapse sql pool classification recommendation list
+        - name: tde
+          displayName: az synapse sql pool tde
+          items:
+          - name: Overview
+            uid: az_synapse_sql_pool_tde
+            displayName: az synapse sql pool tde
+          - name: set
+            uid: az_synapse_sql_pool_tde_set
+            displayName: az synapse sql pool tde set
+          - name: show
+            uid: az_synapse_sql_pool_tde_show
+            displayName: az synapse sql pool tde show
+        - name: threat-policy
+          displayName: az synapse sql pool threat-policy
+          items:
+          - name: Overview
+            uid: az_synapse_sql_pool_threat_policy
+            displayName: az synapse sql pool threat-policy
+          - name: show
+            uid: az_synapse_sql_pool_threat_policy_show
+            displayName: az synapse sql pool threat-policy show
+          - name: update
+            uid: az_synapse_sql_pool_threat_policy_update
+            displayName: az synapse sql pool threat-policy update
     - name: trigger
       displayName: az synapse trigger
       items:
@@ -8225,6 +8429,39 @@
         - name: upgrade
           uid: ext_aks-preview_az_aks_nodepool_upgrade
           displayName: az aks nodepool upgrade
+      - name: pod-identity
+        displayName: az aks pod-identity
+        items:
+        - name: Overview
+          uid: ext_aks-preview_az_aks_pod_identity
+          displayName: az aks pod-identity
+        - name: add
+          uid: ext_aks-preview_az_aks_pod_identity_add
+          displayName: az aks pod-identity add
+        - name: delete
+          uid: ext_aks-preview_az_aks_pod_identity_delete
+          displayName: az aks pod-identity delete
+        - name: list
+          uid: ext_aks-preview_az_aks_pod_identity_list
+          displayName: az aks pod-identity list
+        - name: exception
+          displayName: az aks pod-identity exception
+          items:
+          - name: Overview
+            uid: ext_aks-preview_az_aks_pod_identity_exception
+            displayName: az aks pod-identity exception
+          - name: add
+            uid: ext_aks-preview_az_aks_pod_identity_exception_add
+            displayName: az aks pod-identity exception add
+          - name: delete
+            uid: ext_aks-preview_az_aks_pod_identity_exception_delete
+            displayName: az aks pod-identity exception delete
+          - name: list
+            uid: ext_aks-preview_az_aks_pod_identity_exception_list
+            displayName: az aks pod-identity exception list
+          - name: update
+            uid: ext_aks-preview_az_aks_pod_identity_exception_update
+            displayName: az aks pod-identity exception update
   - name: alertsmanagement
     items:
     - name: Overview
@@ -8430,12 +8667,21 @@
       - name: delete
         uid: ext_attestation_az_attestation_delete
         displayName: az attestation delete
+      - name: get-default-by-location
+        uid: ext_attestation_az_attestation_get_default_by_location
+        displayName: az attestation get-default-by-location
       - name: list
         uid: ext_attestation_az_attestation_list
         displayName: az attestation list
+      - name: list-default
+        uid: ext_attestation_az_attestation_list_default
+        displayName: az attestation list-default
       - name: show
         uid: ext_attestation_az_attestation_show
         displayName: az attestation show
+      - name: update
+        uid: ext_attestation_az_attestation_update
+        displayName: az attestation update
       - name: policy
         displayName: az attestation policy
         items:
@@ -14152,6 +14398,42 @@
         - name: show
           uid: ext_healthcareapis_az_healthcareapis_operation_result_show
           displayName: az healthcareapis operation-result show
+      - name: private-endpoint-connection
+        displayName: az healthcareapis private-endpoint-connection
+        items:
+        - name: Overview
+          uid: ext_healthcareapis_az_healthcareapis_private_endpoint_connection
+          displayName: az healthcareapis private-endpoint-connection
+        - name: create
+          uid: ext_healthcareapis_az_healthcareapis_private_endpoint_connection_create
+          displayName: az healthcareapis private-endpoint-connection create
+        - name: delete
+          uid: ext_healthcareapis_az_healthcareapis_private_endpoint_connection_delete
+          displayName: az healthcareapis private-endpoint-connection delete
+        - name: list
+          uid: ext_healthcareapis_az_healthcareapis_private_endpoint_connection_list
+          displayName: az healthcareapis private-endpoint-connection list
+        - name: show
+          uid: ext_healthcareapis_az_healthcareapis_private_endpoint_connection_show
+          displayName: az healthcareapis private-endpoint-connection show
+        - name: update
+          uid: ext_healthcareapis_az_healthcareapis_private_endpoint_connection_update
+          displayName: az healthcareapis private-endpoint-connection update
+        - name: wait
+          uid: ext_healthcareapis_az_healthcareapis_private_endpoint_connection_wait
+          displayName: az healthcareapis private-endpoint-connection wait
+      - name: private-link-resource
+        displayName: az healthcareapis private-link-resource
+        items:
+        - name: Overview
+          uid: ext_healthcareapis_az_healthcareapis_private_link_resource
+          displayName: az healthcareapis private-link-resource
+        - name: list
+          uid: ext_healthcareapis_az_healthcareapis_private_link_resource_list
+          displayName: az healthcareapis private-link-resource list
+        - name: show
+          uid: ext_healthcareapis_az_healthcareapis_private_link_resource_show
+          displayName: az healthcareapis private-link-resource show
       - name: service
         displayName: az healthcareapis service
         items:
@@ -14173,6 +14455,9 @@
         - name: update
           uid: ext_healthcareapis_az_healthcareapis_service_update
           displayName: az healthcareapis service update
+        - name: wait
+          uid: ext_healthcareapis_az_healthcareapis_service_wait
+          displayName: az healthcareapis service wait
   - name: hpc-cache
     items:
     - name: Overview
@@ -16368,6 +16653,139 @@
         - name: update
           uid: ext_scheduled-query_az_monitor_scheduled_query_update
           displayName: az monitor scheduled-query update
+  - name: sentinel
+    items:
+    - name: Overview
+      uid: ext_sentinel_az
+    - name: sentinel
+      displayName: az sentinel
+      items:
+      - name: Overview
+        uid: ext_sentinel_az_sentinel
+        displayName: az sentinel
+      - name: action
+        displayName: az sentinel action
+        items:
+        - name: Overview
+          uid: ext_sentinel_az_sentinel_action
+          displayName: az sentinel action
+        - name: list
+          uid: ext_sentinel_az_sentinel_action_list
+          displayName: az sentinel action list
+      - name: alert-rule
+        displayName: az sentinel alert-rule
+        items:
+        - name: Overview
+          uid: ext_sentinel_az_sentinel_alert_rule
+          displayName: az sentinel alert-rule
+        - name: create
+          uid: ext_sentinel_az_sentinel_alert_rule_create
+          displayName: az sentinel alert-rule create
+        - name: delete
+          uid: ext_sentinel_az_sentinel_alert_rule_delete
+          displayName: az sentinel alert-rule delete
+        - name: get-action
+          uid: ext_sentinel_az_sentinel_alert_rule_get_action
+          displayName: az sentinel alert-rule get-action
+        - name: list
+          uid: ext_sentinel_az_sentinel_alert_rule_list
+          displayName: az sentinel alert-rule list
+        - name: show
+          uid: ext_sentinel_az_sentinel_alert_rule_show
+          displayName: az sentinel alert-rule show
+        - name: update
+          uid: ext_sentinel_az_sentinel_alert_rule_update
+          displayName: az sentinel alert-rule update
+      - name: alert-rule-template
+        displayName: az sentinel alert-rule-template
+        items:
+        - name: Overview
+          uid: ext_sentinel_az_sentinel_alert_rule_template
+          displayName: az sentinel alert-rule-template
+        - name: list
+          uid: ext_sentinel_az_sentinel_alert_rule_template_list
+          displayName: az sentinel alert-rule-template list
+        - name: show
+          uid: ext_sentinel_az_sentinel_alert_rule_template_show
+          displayName: az sentinel alert-rule-template show
+      - name: bookmark
+        displayName: az sentinel bookmark
+        items:
+        - name: Overview
+          uid: ext_sentinel_az_sentinel_bookmark
+          displayName: az sentinel bookmark
+        - name: create
+          uid: ext_sentinel_az_sentinel_bookmark_create
+          displayName: az sentinel bookmark create
+        - name: delete
+          uid: ext_sentinel_az_sentinel_bookmark_delete
+          displayName: az sentinel bookmark delete
+        - name: list
+          uid: ext_sentinel_az_sentinel_bookmark_list
+          displayName: az sentinel bookmark list
+        - name: show
+          uid: ext_sentinel_az_sentinel_bookmark_show
+          displayName: az sentinel bookmark show
+        - name: update
+          uid: ext_sentinel_az_sentinel_bookmark_update
+          displayName: az sentinel bookmark update
+      - name: data-connector
+        displayName: az sentinel data-connector
+        items:
+        - name: Overview
+          uid: ext_sentinel_az_sentinel_data_connector
+          displayName: az sentinel data-connector
+        - name: create
+          uid: ext_sentinel_az_sentinel_data_connector_create
+          displayName: az sentinel data-connector create
+        - name: delete
+          uid: ext_sentinel_az_sentinel_data_connector_delete
+          displayName: az sentinel data-connector delete
+        - name: list
+          uid: ext_sentinel_az_sentinel_data_connector_list
+          displayName: az sentinel data-connector list
+        - name: show
+          uid: ext_sentinel_az_sentinel_data_connector_show
+          displayName: az sentinel data-connector show
+        - name: update
+          uid: ext_sentinel_az_sentinel_data_connector_update
+          displayName: az sentinel data-connector update
+      - name: incident
+        displayName: az sentinel incident
+        items:
+        - name: Overview
+          uid: ext_sentinel_az_sentinel_incident
+          displayName: az sentinel incident
+        - name: create
+          uid: ext_sentinel_az_sentinel_incident_create
+          displayName: az sentinel incident create
+        - name: delete
+          uid: ext_sentinel_az_sentinel_incident_delete
+          displayName: az sentinel incident delete
+        - name: list
+          uid: ext_sentinel_az_sentinel_incident_list
+          displayName: az sentinel incident list
+        - name: show
+          uid: ext_sentinel_az_sentinel_incident_show
+          displayName: az sentinel incident show
+        - name: update
+          uid: ext_sentinel_az_sentinel_incident_update
+          displayName: az sentinel incident update
+      - name: incident-comment
+        displayName: az sentinel incident-comment
+        items:
+        - name: Overview
+          uid: ext_sentinel_az_sentinel_incident_comment
+          displayName: az sentinel incident-comment
+        - name: create
+          uid: ext_sentinel_az_sentinel_incident_comment_create
+          displayName: az sentinel incident-comment create
+        - name: list
+          uid: ext_sentinel_az_sentinel_incident_comment_list
+          displayName: az sentinel incident-comment list
+        - name: show
+          uid: ext_sentinel_az_sentinel_incident_comment_show
+          displayName: az sentinel incident-comment show
   - name: spring-cloud
     items:
     - name: Overview
@@ -16905,6 +17323,24 @@
         - name: Overview
           uid: ext_storage-preview_az_storage_account
           displayName: az storage account
+        - name: blob-inventory-policy
+          displayName: az storage account blob-inventory-policy
+          items:
+          - name: Overview
+            uid: ext_storage-preview_az_storage_account_blob_inventory_policy
+            displayName: az storage account blob-inventory-policy
+          - name: create
+            uid: ext_storage-preview_az_storage_account_blob_inventory_policy_create
+            displayName: az storage account blob-inventory-policy create
+          - name: delete
+            uid: ext_storage-preview_az_storage_account_blob_inventory_policy_delete
+            displayName: az storage account blob-inventory-policy delete
+          - name: show
+            uid: ext_storage-preview_az_storage_account_blob_inventory_policy_show
+            displayName: az storage account blob-inventory-policy show
+          - name: update
+            uid: ext_storage-preview_az_storage_account_blob_inventory_policy_update
+            displayName: az storage account blob-inventory-policy update
         - name: network-rule
           displayName: az storage account network-rule
           items:
@@ -17771,6 +18207,15 @@
           - name: show
             uid: ext_virtual-wan_az_network_p2s_vpn_gateway_connection_show
             displayName: az network p2s-vpn-gateway connection show
+        - name: vpn-client
+          displayName: az network p2s-vpn-gateway vpn-client
+          items:
+          - name: Overview
+            uid: ext_virtual-wan_az_network_p2s_vpn_gateway_vpn_client
+            displayName: az network p2s-vpn-gateway vpn-client
+          - name: generate
+            uid: ext_virtual-wan_az_network_p2s_vpn_gateway_vpn_client_generate
+            displayName: az network p2s-vpn-gateway vpn-client generate
       - name: vhub
         displayName: az network vhub
         items:

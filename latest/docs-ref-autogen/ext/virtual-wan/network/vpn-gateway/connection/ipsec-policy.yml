@@ -1,12 +1,16 @@
 ### YamlMime:AzureCLIGroup
 uid: ext_virtual-wan_az_network_vpn_gateway_connection_ipsec_policy
 name: az network vpn-gateway connection ipsec-policy
-summary: Manage VPN gateway connection IPSec policies.
+extensionInformation: >-
+  > [!Note]
+
+  > This reference is part of the **virtual-wan** extension for Azure CLI and requires version 2.0.67 or higher.  The extension will automatically install the first time you run an **az network vpn-gateway connection ipsec-policy** command.  [Learn more](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview) about extensions.
+summary: Manage site-to-site VPN gateway connection IPSec policies.
 description: ''
 directCommands:
 - uid: ext_virtual-wan_az_network_vpn_gateway_connection_ipsec_policy_add
   name: az network vpn-gateway connection ipsec-policy add
-  summary: Add an IPSec policy to a VPN gateway connection.
+  summary: Add an IPSec policy to a site-to-site VPN gateway connection.
   description: ''
   syntax: >-
     az network vpn-gateway connection ipsec-policy add --connection-name
@@ -78,7 +82,7 @@ directCommands:
     description: ''
 - uid: ext_virtual-wan_az_network_vpn_gateway_connection_ipsec_policy_list
   name: az network vpn-gateway connection ipsec-policy list
-  summary: List VPN gateway connection IPSec policies.
+  summary: List site-to-site VPN gateway connection IPSec policies.
   description: ''
   syntax: >-
     az network vpn-gateway connection ipsec-policy list --connection-name
@@ -99,7 +103,7 @@ directCommands:
     description: ''
 - uid: ext_virtual-wan_az_network_vpn_gateway_connection_ipsec_policy_remove
   name: az network vpn-gateway connection ipsec-policy remove
-  summary: Remove an IPSec policy from a VPN gateway connection.
+  summary: Remove an IPSec policy from a site-to-site VPN gateway connection.
   description: ''
   syntax: >-
     az network vpn-gateway connection ipsec-policy remove --connection-name
@@ -148,4 +152,4 @@ globalParameters:
 - name: --verbose
   summary: Increase logging verbosity. Use --debug for full debug logs.
 metadata:
-  description: Manage VPN gateway connection IPSec policies.
+  description: Manage site-to-site VPN gateway connection IPSec policies.
